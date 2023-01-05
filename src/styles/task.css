@@ -1,0 +1,21 @@
+.todo-task {
+  display: flex;
+  background-color: white;
+  border-radius: 6px;
+  flex-direction: column;
+  padding: 1.25rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.todo-task > input {
+  border: none;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.todo-task > input:nth-child(1) {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+}

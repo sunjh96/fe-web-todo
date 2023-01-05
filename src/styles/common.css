@@ -1,0 +1,29 @@
+/* ####### Button Section #######*/
+.button {
+  display: flex;
+}
+
+.button > button {
+  border-radius: 6px;
+  width: 45%;
+  height: 40px;
+  margin: 0 3.3%;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: var(--cancel-btn-color);
+  color: var(--cancel-btn-text-color);
+}
+
+.btn-ok {
+  background-color: var(--ok-btn-color);
+  color: var(--ok-btn-text-color);
+}
+
+.btn-ok:disabled {
+  background-color: var(--ok-btn-disabled-color);
+  color: var(--ok-btn-text-color);
+  cursor: not-allowed;
+}

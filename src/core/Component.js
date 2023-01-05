@@ -1,25 +1,34 @@
 export default class Component {
   $target;
-  $props;
+  props;
   state;
+  innerType;
 
-  constructor($target, $props) {
+  constructor($target, props, innerType) {
     this.$target = $target;
-    this.$props = $props;
+    this.props = props;
+    this.innerType = innerType;
     this.setup();
-    this.setEvent();
     this.render();
+    this.mounted();
+    this.setEvent();
   }
 
   setup() {}
-  mounted() {}
 
   template() {
     return '';
   }
 
+  appendComponent() {}
+
+  mounted() {}
+
   render() {
-    this.$target.innerHTML = this.template();
+    this.innerType === 'insertAdjacentHTML'
+      ? this.$target.insertAdjacentHTML('beforeend', this.template())
+      : (this.$target.innerHTML = this.template());
+    this.appendComponent();
     this.mounted();
   }
 

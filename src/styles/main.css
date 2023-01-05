@@ -1,6 +1,8 @@
 @import './color.css';
+@import './common.css';
 @import './header.css';
 @import './todo.css';
+@import './task.css';
 
 body {
   padding: 30px 80px 30px 80px;
