@@ -9,9 +9,8 @@ export default class Component {
     this.props = props;
     this.innerType = innerType;
     this.setup();
-    this.render();
-    this.mounted();
     this.setEvent();
+    this.render();
   }
 
   setup() {}
@@ -20,15 +19,13 @@ export default class Component {
     return '';
   }
 
-  appendComponent() {}
-
   mounted() {}
 
   render() {
     this.innerType === 'insertAdjacentHTML'
       ? this.$target.insertAdjacentHTML('beforeend', this.template())
       : (this.$target.innerHTML = this.template());
-    this.appendComponent();
+
     this.mounted();
   }
 

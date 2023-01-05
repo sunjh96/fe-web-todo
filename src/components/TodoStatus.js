@@ -1,5 +1,6 @@
 import Component from '../core/Component.js';
 import Task from './Task.js';
+import { getTasks } from '../store.js';
 
 export default class TodoStatus extends Component {
   setup() {
@@ -7,8 +8,16 @@ export default class TodoStatus extends Component {
       title: this.props.status,
       taskCount: 0,
       tasks: [],
-      taskId: 0,
     };
+  }
+
+  mounted() {
+    const taskData = getTasks(this.props.status);
+    const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
+
+    taskData.forEach((el) => {
+      new Task($taskTarget, { taskId: el.taskId }, 'insertAdjacentHTML');
+    });
   }
 
   template() {
@@ -17,7 +26,7 @@ export default class TodoStatus extends Component {
         <section class="todo-header">
           <div class="todo-title">
             <h3>${this.state.title}</h3>
-            <div>${this.state.taskCount}</div>
+            <div>${getTasks('count')}</div>
           </div>
           <div class="todo-svg">
             <span id="add-todo">
@@ -41,11 +50,5 @@ export default class TodoStatus extends Component {
         <section data-status=task-${this.props.status} class="todo-task-list"></section>
       </article>
     `;
-  }
-
-  appendComponent() {
-    const { taskId } = this.state;
-    const $task = this.$target.querySelector('.todo-task-list');
-    new Task($task, { taskId }, 'insertAdjacentHTML');
   }
 }

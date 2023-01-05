@@ -15,14 +15,14 @@ export default class Task extends Component {
   template() {
     return `
     <section class="todo-task">
-      ${this.active ? `<p>${this.taskTitle}</p>` : `<input placeholder="제목을 입력하세요"></input>`}
-      ${this.active ? `<p>${this.taskBody}</p>` : `<input placeholder="내용을 입력하세요"></input>`}
-      ${this.active ? `<p>${this.taskAuthor}</p>` : `<div data-seq="${this.props.taskId}" class="button"></div>`}
+      <input placeholder="제목을 입력하세요"></input>
+      <input placeholder="내용을 입력하세요"></input>
+      <div data-seq=${this.props.taskId} class="button"></div>
     </section>
     `;
   }
 
-  appendComponent() {
+  mounted() {
     let $button = this.$target.querySelectorAll('.button');
     $button = Array.prototype.filter.call($button, (el) => parseInt(el.dataset.seq) === parseInt(this.props.taskId));
 
