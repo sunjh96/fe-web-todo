@@ -9,7 +9,7 @@ export default class Todo extends Component {
   }
 
   setup() {
-    this.$state = {
+    this.state = {
       title: this.title,
       taskCount: 0,
       tasks: [],
@@ -21,8 +21,8 @@ export default class Todo extends Component {
       <article class="todo-article">
         <section class="todo-header">
           <div class="todo-title">
-            <h3>${this.$state.title}</h3>
-            <div>${this.$state.taskCount}</div>
+            <h3>${this.state.title}</h3>
+            <div>${this.state.taskCount}</div>
           </div>
           <div class="todo-svg">
             <span>

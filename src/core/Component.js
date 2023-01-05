@@ -1,7 +1,7 @@
 export default class Component {
   $target;
   $props;
-  $state;
+  state;
 
   constructor($target, $props) {
     this.$target = $target;
@@ -26,7 +26,7 @@ export default class Component {
   setEvent() {}
 
   setState(newState) {
-    this.$state = { ...this.$state, ...newState };
+    this.state = { ...this.state, ...newState };
     this.render();
   }
 
