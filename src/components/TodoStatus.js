@@ -6,8 +6,7 @@ export default class TodoStatus extends Component {
   setup() {
     this.state = {
       title: this.props.status,
-      taskCount: 0,
-      tasks: [],
+      taskCount: getTasks(`${this.props.status}`).lenght,
     };
   }
 
@@ -26,7 +25,7 @@ export default class TodoStatus extends Component {
         <section class="todo-header">
           <div class="todo-title">
             <h3>${this.state.title}</h3>
-            <div>${getTasks('count')}</div>
+            <div>${this.state.taskCount ?? 0}</div>
           </div>
           <div class="todo-svg">
             <span id="add-todo">

@@ -15,9 +15,11 @@ export default class Task extends Component {
   template() {
     return `
     <section class="todo-task">
-      <input placeholder="제목을 입력하세요"></input>
-      <input placeholder="내용을 입력하세요"></input>
-      <div data-seq=${this.props.taskId} class="button"></div>
+      <form>
+        <input placeholder="제목을 입력하세요" required autofocus></input>
+        <input placeholder="내용을 입력하세요" required></input>
+        <div data-seq=${this.props.taskId} class="button"></div>
+      </form>
     </section>
     `;
   }
@@ -26,7 +28,7 @@ export default class Task extends Component {
     let $button = this.$target.querySelectorAll('.button');
     $button = Array.prototype.filter.call($button, (el) => parseInt(el.dataset.seq) === parseInt(this.props.taskId));
 
-    new Button($button[0], { content: '취소', className: 'btn-cancel', disabled: false }, 'insertAdjacentHTML');
-    new Button($button[0], { content: '등록', className: 'btn-ok', disabled: true }, 'insertAdjacentHTML');
+    new Button($button[0], { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
+    new Button($button[0], { content: '등록', className: 'btn-ok', disabled: true, type: 'submit' }, 'insertAdjacentHTML');
   }
 }

@@ -1,6 +1,7 @@
 /* ####### Button Section #######*/
 .button {
   display: flex;
+  width: 100%;
 }
 
 .button > button {
@@ -26,4 +27,53 @@
   background-color: var(--ok-btn-disabled-color);
   color: var(--ok-btn-text-color);
   cursor: not-allowed;
+}
+
+.add-status-btn {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
+/* ####### Modal Section #######*/
+.modal-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.5px);
+}
+
+.modal-window {
+  width: 15%;
+  padding: 1.5rem;
+  border-radius: 6px;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-window > p {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.modal-window > form > input {
+  width: 80%;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  margin-bottom: 2rem;
 }
