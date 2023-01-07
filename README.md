@@ -1,5 +1,11 @@
 # FE-WEB-TODO
 
+## 프로젝트 실행
+
+- 프로젝트 git clone
+- `npm install` (node, npm 설치가 되어 있다고 가정합니다.)
+- `npm start`
+
 ## 폴더 구조
 
 ```bash
