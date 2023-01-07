@@ -13,7 +13,7 @@ export default class Modal extends Component {
 
   mounted() {
     let $button = this.$target.querySelector('[data-component=modal]');
-    // $button = Array.prototype.filter.call($button, (el) => el.dataset.seq === parseInt(this.props.taskId));
+
     new Button($button, { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
     new Button($button, { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' }, 'insertAdjacentHTML');
   }
@@ -26,7 +26,7 @@ export default class Modal extends Component {
       const titleInput = e.target['title'].value;
 
       document.querySelector('.modal-overlay').style.display = 'none';
-      new TodoStatus($target, { status: titleInput, taskId: 0 }, 'insertAdjacentHTML');
+      new TodoStatus($target, { status: titleInput }, 'insertAdjacentHTML');
       setData('statusList', titleInput);
       e.target.reset();
     });

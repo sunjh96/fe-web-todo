@@ -1,6 +1,9 @@
 export function getData(key) {
   let data = JSON.parse(localStorage.getItem(`${key}`));
-  if (!data) {
+
+  if (key === 'countTask' && !data) {
+    data = 0;
+  } else if (!data) {
     data = [];
     localStorage.setItem(`${key}`, JSON.stringify(data));
   }
@@ -8,9 +11,13 @@ export function getData(key) {
   return data;
 }
 
-export function setData(key, name) {
-  let data = JSON.parse(localStorage.getItem(`${key}`));
-  if (!data) data = [];
+export function setData(key, name = '') {
+  let data = getData(key);
+
+  if (key === 'countTask') {
+    data += 1;
+    return localStorage.setItem(`${key}`, JSON.stringify(data));
+  }
 
   data.push(name);
   localStorage.setItem(`${key}`, JSON.stringify(data));

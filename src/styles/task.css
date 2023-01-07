@@ -7,14 +7,19 @@
   margin-bottom: 1rem;
 }
 
-.todo-task > input {
+.todo-task > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-task > form > input {
   border: none;
   margin-bottom: 1rem;
   font-size: 0.875rem;
   outline: none;
 }
 
-.todo-task > input:nth-child(1) {
+.todo-task > form > input:nth-child(1) {
   font-weight: bold;
   font-size: 1.125rem;
   margin-bottom: 0.75rem;

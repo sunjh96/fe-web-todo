@@ -14,8 +14,8 @@ export default class TodoStatus extends Component {
     const taskData = getData(this.props.status);
     const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
 
-    taskData.forEach((el) => {
-      new Task($taskTarget, { taskId: el.taskId }, 'insertAdjacentHTML');
+    taskData.forEach((el, idx) => {
+      new Task($taskTarget, { taskId: idx }, 'insertAdjacentHTML');
     });
   }
 
