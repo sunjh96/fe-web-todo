@@ -1,4 +1,4 @@
-import Component from '../../core/Component.js';
+import Component from '@/core/Component';
 
 export default class Button extends Component {
   setup() {

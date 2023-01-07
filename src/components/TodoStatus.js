@@ -1,17 +1,17 @@
-import Component from '../core/Component.js';
-import Task from './Task.js';
-import { getTasks } from '../store.js';
+import Component from '@/core/Component';
+import { Task } from '@/components';
+import { getData } from '@/store/store';
 
 export default class TodoStatus extends Component {
   setup() {
     this.state = {
       title: this.props.status,
-      taskCount: getTasks(`${this.props.status}`).lenght,
+      taskCount: getData(`${this.props.status}`).lenght,
     };
   }
 
   mounted() {
-    const taskData = getTasks(this.props.status);
+    const taskData = getData(this.props.status);
     const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
 
     taskData.forEach((el) => {

@@ -1,5 +1,5 @@
-import Component from '../core/Component.js';
-import Button from './common/Button.js';
+import Component from '@/core/Component';
+import { Button } from '@/components/common';
 
 export default class Task extends Component {
   setup() {

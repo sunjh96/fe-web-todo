@@ -1,7 +1,7 @@
-import Component from '../../core/Component.js';
-import { Button } from './index.js';
-import { TodoStatus } from '../index.js';
-import { setStatus } from '../../store.js';
+import Component from '@/core/Component';
+import { Button } from '@/components/common';
+import { TodoStatus } from '@/components';
+import { setData } from '@/store/store';
 
 export default class Modal extends Component {
   setup() {
@@ -27,8 +27,8 @@ export default class Modal extends Component {
 
       document.querySelector('.modal-overlay').style.display = 'none';
       new TodoStatus($target, { status: titleInput, taskId: 0 }, 'insertAdjacentHTML');
-      setStatus(titleInput);
-      e.target['title'].value = '';
+      setData('statusList', titleInput);
+      e.target.reset();
     });
   }
 

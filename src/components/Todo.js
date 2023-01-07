@@ -1,12 +1,11 @@
-import Component from './core/Component.js';
-import { TodoStatus } from './components/index.js';
-import { Button, Modal } from './components/common/index.js';
-import { getTasks, setTasks, getStatus, setStatus } from './store.js';
+import Component from '@/core/Component';
+import { Button } from '@/components/common';
+import { getData, setData } from '@/store/store';
 
 export default class Todo extends Component {
   setup() {
     this.state = {
-      status: getStatus(),
+      status: getData('statusList'),
       taskId: 0,
     };
   }
@@ -21,7 +20,7 @@ export default class Todo extends Component {
     new Button($btnTarget, { className: 'new', disabled: false, content: '상태 추가', type: 'button' });
     // new TodoStatus(this.$target, { status: node.dataset.status, taskId: this.state.taskId }, 'insertAdjacentHTML');
 
-    //prettier-ignore
+    //  prettier-ignore
     Array.prototype
     .filter.call($statusList, (node) => !this.state.status.includes(node.dataset.status))
         .forEach((res) => console.log(res));
@@ -43,17 +42,11 @@ export default class Todo extends Component {
   }
 
   addTask(status) {
-    const taskId = getTasks('count');
-
-    const data = { taskTitle: '', taskBody: '', taskAuthor: '', taskDate: new Date(), taskId: taskId };
-    setTasks(status, data);
+    const data = { taskTitle: '', taskBody: '', taskAuthor: '', taskDate: new Date(), taskId: 0 };
+    setData(status, data);
   }
 
   deleteTask() {}
+
   filterTask() {}
 }
-
-const $target = document.querySelector('.todo-main');
-
-new Todo($target);
-new Modal(document.body, { content: '추가 컬럼', type: 'input' }, 'insertAdjacentHTML');
