@@ -1,7 +1,7 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus } from '@/components';
-import { setData } from '@/store/store';
+import { addStatus } from '@/api/user';
 
 export default class Modal extends Component {
   setup() {
@@ -27,8 +27,15 @@ export default class Modal extends Component {
 
       document.querySelector('.modal-overlay').style.display = 'none';
       new TodoStatus($target, { status: titleInput }, 'insertAdjacentHTML');
-      setData('statusList', titleInput);
+      addStatus('jangoh', titleInput);
       e.target.reset();
+    });
+
+    this.addEvent('click', '.btn-cancel', (e) => {
+      const $input = document.querySelector('input[name="title"]');
+
+      $input.value = $input.defaultValue;
+      document.querySelector('.modal-overlay').style.display = 'none';
     });
   }
 

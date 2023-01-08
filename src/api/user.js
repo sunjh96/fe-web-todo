@@ -2,6 +2,7 @@ import client from './client';
 
 export async function getUser(userName) {
   const response = await client.get(`/api/users/${userName}`);
+
   return response.data;
 }
 
@@ -12,8 +13,8 @@ export async function createUser(userName) {
   return response.data;
 }
 
-export async function addStatus(statusName) {
-  const response = await client.patch('/api', { statusName });
+export async function addStatus(loginedUser, statusName) {
+  const response = await client.patch('/api', { loginedUser, statusName });
   return response.data;
 }
 

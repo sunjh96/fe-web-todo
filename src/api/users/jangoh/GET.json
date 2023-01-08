@@ -2,10 +2,9 @@
   "id": 0,
   "userName": "jangoh",
   "status": [
-    { "해야할 일": [{ "title": "", "content": "", "author": "", "date": "" }] },
-    { "하는 중": [{ "title": "", "content": "", "author": "", "date": "" }] },
+    { "해야할일": [{ "title": "", "content": "", "author": "", "date": "" }] },
+    { "하는중": [{ "title": "", "content": "", "author": "", "date": "" }] },
     { "완료": [{ "title": "", "content": "", "author": "", "date": "" }] },
-    { "test": [] },
-    { "test2": [] }
+    { "안녕하세요": [] }
   ]
 }

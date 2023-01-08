@@ -6,12 +6,8 @@ export default class TodoStatus extends Component {
   setup() {
     this.state = {
       title: this.props.status,
-      taskCount: getData(`${this.props.status}`).lenght,
+      taskCount: 0,
     };
-  }
-
-  update() {
-    
   }
 
   mounted() {
@@ -21,7 +17,6 @@ export default class TodoStatus extends Component {
     taskData.forEach((el, idx) => {
       new Task($taskTarget, { taskId: idx }, 'insertAdjacentHTML');
     });
-    this.update();
   }
 
   template() {

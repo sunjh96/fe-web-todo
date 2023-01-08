@@ -2,8 +2,8 @@ const fs = require('fs');
 
 module.exports = async (req, res) => {
   const { loginedUser, statusName } = req.body;
-  const userData = require(`./users/${loginedUser}/GET.json`);
-  const { status } = userData[0];
+  let userData = await require(`./users/${loginedUser}/GET.json`);
+  const { status } = userData;
 
   if (statusName) {
     let checkDup = false;
@@ -16,9 +16,9 @@ module.exports = async (req, res) => {
 
     !checkDup && status.push({ [`${statusName}`]: [] });
 
-    userData[0] = { ...userData[0], status };
+    userData = { ...userData, status };
 
-    fs.writeFile(`./src/api/users/${loginedUser}/GET.json`, JSON.stringify(userData[0]), function (err) {
+    fs.writeFile(`./src/api/users/${loginedUser}/GET.json`, JSON.stringify(userData), function (err) {
       if (err) throw err;
     });
   }

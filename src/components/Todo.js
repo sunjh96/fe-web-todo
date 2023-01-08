@@ -1,14 +1,14 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
+import { TodoStatus } from '@/components';
 import { getData, setData } from '@/store/store';
-import TodoStatus from './TodoStatus';
 import { getUser, createUser } from '@/api/user';
 import client from '../api/client';
 
 export default class Todo extends Component {
   setup() {
     this.state = {
-      status: getData('statusList'),
+      userInfo: 0,
     };
   }
 
@@ -17,16 +17,13 @@ export default class Todo extends Component {
   }
 
   async mounted() {
-    // const data = await getUser('jangoh');
-    // console.log(data);
-    // client.patch('/api', { loginedUser: 'jangoh', statusName: 'test2' });
-    // createUser('jangoh');
+    let userData;
     const $btnTarget = this.$target.querySelector('.add-status-btn');
-    new Button($btnTarget, { className: 'new', disabled: false, content: '상태 추가', type: 'button' });
+    await getUser('jangoh').then((res) => (userData = res));
+    const { status } = userData;
 
-    //  prettier-ignore
-    this.state.status
-        .forEach((status) => new TodoStatus(this.$target, { status }, 'insertAdjacentHTML'));
+    status.forEach((obj) => new TodoStatus(this.$target, { status: Object.keys(obj)[0] }, 'insertAdjacentHTML'));
+    new Button($btnTarget, { className: 'add-status', disabled: false, content: '', type: 'button' });
   }
 
   setEvent() {
