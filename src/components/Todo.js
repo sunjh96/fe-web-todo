@@ -2,6 +2,8 @@ import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { getData, setData } from '@/store/store';
 import TodoStatus from './TodoStatus';
+import { getUser, createUser } from '@/api/user';
+import client from '../api/client';
 
 export default class Todo extends Component {
   setup() {
@@ -14,7 +16,11 @@ export default class Todo extends Component {
     return `<div class="add-status-btn"></div>`;
   }
 
-  mounted() {
+  async mounted() {
+    // const data = await getUser('jangoh');
+    // console.log(data);
+    // client.patch('/api', { loginedUser: 'jangoh', statusName: 'test2' });
+    // createUser('jangoh');
     const $btnTarget = this.$target.querySelector('.add-status-btn');
     new Button($btnTarget, { className: 'new', disabled: false, content: '상태 추가', type: 'button' });
 
@@ -26,7 +32,7 @@ export default class Todo extends Component {
   setEvent() {
     const { addTask } = this;
 
-    this.addEvent('click', '#add-todo', ({ target }) => {
+    this.addEvent('click', '#add-task', ({ target }) => {
       addTask(target.closest('[data-status]').dataset.status);
     });
 

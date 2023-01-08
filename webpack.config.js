@@ -1,4 +1,5 @@
 const path = require('path');
+const apiMocker = require('connect-api-mocker');
 
 module.exports = {
   entry: './src/main.js',
@@ -20,8 +21,15 @@ module.exports = {
     client: {
       overlay: true,
     },
+    onBeforeSetupMiddleware: (devServer) => {
+      devServer.app.use(apiMocker('/api', 'src/api'));
+    },
+    proxy: {
+      '/api/': { target: 'http://127.0.0.1:3000', changeOrigin: true },
+    },
     compress: true,
     port: 3000,
-    host: 'localhost',
+    host: '127.0.0.1',
+    historyApiFallback: true,
   },
 };

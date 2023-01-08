@@ -10,6 +10,10 @@ export default class TodoStatus extends Component {
     };
   }
 
+  update() {
+    
+  }
+
   mounted() {
     const taskData = getData(this.props.status);
     const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
@@ -17,6 +21,7 @@ export default class TodoStatus extends Component {
     taskData.forEach((el, idx) => {
       new Task($taskTarget, { taskId: idx }, 'insertAdjacentHTML');
     });
+    this.update();
   }
 
   template() {
@@ -28,7 +33,7 @@ export default class TodoStatus extends Component {
             <div>${this.state.taskCount ?? 0}</div>
           </div>
           <div class="todo-svg">
-            <span id="add-todo">
+            <span id="add-task">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
                 <path
                   d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"

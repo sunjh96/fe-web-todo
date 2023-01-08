@@ -21,6 +21,7 @@ export function setData(key, name = '') {
 
   data.push(name);
   localStorage.setItem(`${key}`, JSON.stringify(data));
+  location.reload();
 }
 
 export function clear() {

@@ -1,6 +1,5 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
-import { getData } from '@/store/store';
 
 export default class Task extends Component {
   setup() {
