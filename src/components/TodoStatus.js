@@ -1,6 +1,6 @@
 import Component from '@/core/Component';
 import { Task } from '@/components';
-import { getData } from '@/store/store';
+import { getStatusTasks } from '@/api/user';
 
 export default class TodoStatus extends Component {
   setup() {
@@ -10,8 +10,8 @@ export default class TodoStatus extends Component {
     };
   }
 
-  mounted() {
-    const taskData = getData(this.props.status);
+  async mounted() {
+    const taskData = await getStatusTasks('jangoh', this.props.status);
     const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
 
     taskData.forEach((el, idx) => {

@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+// TODO Status 추가 메서드
 module.exports = async (req, res) => {
   const { loginedUser, statusName } = req.body;
   let userData = await require(`./users/${loginedUser}/GET.json`);
@@ -8,15 +9,19 @@ module.exports = async (req, res) => {
   if (statusName) {
     let checkDup = false;
 
-    status.forEach((obj) => {
-      if (Object.keys(obj)[0] === statusName) {
+    Object.keys(status).forEach((key) => {
+      if (key === statusName) {
         checkDup = true;
+        return false;
       }
     });
+    if (checkDup) return res.status(201).write(`${statusName}은 이미 존재합니다.`);
 
-    !checkDup && status.push({ [`${statusName}`]: [] });
+    const newStatus = {};
+    newStatus[`${statusName}`] = [];
 
-    userData = { ...userData, status };
+    const merge = Object.assign(status, newStatus);
+    userData = { ...userData, status: merge };
 
     fs.writeFile(`./src/api/users/${loginedUser}/GET.json`, JSON.stringify(userData), function (err) {
       if (err) throw err;

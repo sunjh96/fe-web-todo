@@ -2,7 +2,7 @@ import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus } from '@/components';
 import { getData, setData } from '@/store/store';
-import { getUser, createUser, addTask } from '@/api/user';
+import { getUser, createUser, addTask, getStatusTasks } from '@/api/user';
 
 export default class Todo extends Component {
   setup() {
@@ -16,13 +16,10 @@ export default class Todo extends Component {
   }
 
   async mounted() {
-    await addTask({ title: 'test', content: 'test', loginedUser: 'jangoh', statusName: '해야할일' });
-    let userData;
     const $btnTarget = this.$target.querySelector('.add-status-btn');
-    await getUser('jangoh').then((res) => (userData = res));
-    const { status } = userData;
+    const { status } = await getUser('jangoh');
 
-    status.forEach((obj) => new TodoStatus(this.$target, { status: Object.keys(obj)[0] }, 'insertAdjacentHTML'));
+    Object.keys(status).forEach((key) => new TodoStatus(this.$target, { status: key }, 'insertAdjacentHTML'));
     new Button($btnTarget, { className: 'add-status', disabled: false, content: '', type: 'button' });
   }
 
@@ -30,6 +27,7 @@ export default class Todo extends Component {
     const { addTask } = this;
 
     this.addEvent('click', '#add-task', ({ target }) => {
+      console.log(target.closest('[data-status]').dataset.status);
       addTask(target.closest('[data-status]').dataset.status);
     });
 
@@ -38,9 +36,11 @@ export default class Todo extends Component {
     });
   }
 
-  addTask(status) {
-    const data = { taskTitle: '', taskBody: '', taskAuthor: '', taskDate: new Date(), taskId: getData('countTask') };
+  async addTask(statusName) {
+    const data = { title: '', content: '', loginedUser: 'jangoh', statusName };
+    await addTask(data);
+
     setData('countTask');
-    setData(status, data);
+    // setData(statusName, data);
   }
 }

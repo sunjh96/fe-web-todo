@@ -1,10 +1,9 @@
 {
   "id": 0,
   "userName": "jangoh",
-  "status": [
-    { "해야할일": [{ "title": "test", "content": "test", "author": "jangoh", "date": 1673225633596 }] },
-    { "하는중": [{ "title": "", "content": "", "author": "", "date": "", "taskId": 0 }] },
-    { "완료": [{ "title": "", "content": "", "author": "", "date": "", "taskId": 0 }] },
-    { "안녕하세요": [] }
-  ]
+  "status": {
+    "해야할일": [],
+    "하는중": [],
+    "완료": []
+  }
 }
