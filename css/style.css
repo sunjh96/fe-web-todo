@@ -20,7 +20,8 @@ body {
   height: 40px;
   padding: 5px;
 }
-.countBox {
+
+.count-box {
   background: #bdbdbd;
   border-radius: 20px;
   width: 26px;
@@ -28,7 +29,7 @@ body {
   margin-left: 8px;
   display: flex;
 }
-.countNum {
+.count-num {
   width: fit-content;
   margin: auto;
   height: fit-content;

@@ -6,6 +6,6 @@ const open = () => {
 const close = () => {
   document.querySelector(".menuWrapper").classList.remove("sidebarshow");
 };
-
+//item등록
 document.getElementById("menuCloseBtn").addEventListener("click", close);
 document.getElementById("hamburgerBtn").addEventListener("click", open);

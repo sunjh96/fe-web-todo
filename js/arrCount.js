@@ -1,5 +1,5 @@
 import { todos } from "./data.js";
-const todoNum = document.querySelectorAll(".countNum");
+const todoNum = document.querySelectorAll(".count-num");
 
 //  리스트 개수 카운트
 function arrCount(str) {
