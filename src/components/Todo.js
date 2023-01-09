@@ -1,8 +1,7 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus } from '@/components';
-import { getData, setData } from '@/store/store';
-import { getUser, createUser, addTask, getStatusTasks } from '@/api/user';
+import { getUser, putTask } from '@/api/user';
 
 export default class Todo extends Component {
   setup() {
@@ -27,7 +26,6 @@ export default class Todo extends Component {
     const { addTask } = this;
 
     this.addEvent('click', '#add-task', ({ target }) => {
-      console.log(target.closest('[data-status]').dataset.status);
       addTask(target.closest('[data-status]').dataset.status);
     });
 
@@ -38,9 +36,6 @@ export default class Todo extends Component {
 
   async addTask(statusName) {
     const data = { title: '', content: '', loginedUser: 'jangoh', statusName };
-    await addTask(data);
-
-    setData('countTask');
-    // setData(statusName, data);
+    await putTask(data);
   }
 }

@@ -23,12 +23,12 @@ export async function createUser(userName) {
   return response.data;
 }
 
-export async function addStatus(loginedUser, statusName) {
+export async function patchStatus(loginedUser, statusName) {
   const response = await client.patch('/api', { loginedUser, statusName });
   return response.data;
 }
 
-export async function addTask(data) {
+export async function putTask(data) {
   const response = await client.put('/api', data);
   return response.data;
 }

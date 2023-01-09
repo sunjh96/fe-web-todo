@@ -1,7 +1,7 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus } from '@/components';
-import { addStatus } from '@/api/user';
+import { patchStatus } from '@/api/user';
 
 export default class Modal extends Component {
   setup() {
@@ -27,7 +27,7 @@ export default class Modal extends Component {
 
       document.querySelector('.modal-overlay').style.display = 'none';
       new TodoStatus($target, { status: titleInput }, 'insertAdjacentHTML');
-      addStatus('jangoh', titleInput);
+      patchStatus('jangoh', titleInput);
       e.target.reset();
     });
 
