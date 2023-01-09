@@ -1,6 +1,6 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
-import { TodoStatus } from '@/components';
+import { TodoStatus, Task } from '@/components';
 import { getUser, putTask } from '@/api/user';
 
 export default class Todo extends Component {
@@ -25,17 +25,18 @@ export default class Todo extends Component {
   setEvent() {
     const { addTask } = this;
 
-    this.addEvent('click', '#add-task', ({ target }) => {
-      addTask(target.closest('[data-status]').dataset.status);
-    });
+    this.addEvent('click', '[data-status]', (e) => addTask(e));
 
     this.addEvent('click', '.add-status-btn', () => {
       document.querySelector('.modal-overlay').style.display = 'flex';
     });
   }
 
-  async addTask(statusName) {
-    const data = { title: '', content: '', loginedUser: 'jangoh', statusName };
+  async addTask(e) {
+    const $statusTarget = e.target.closest('[data-status]');
+    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status };
+
+    new Task($statusTarget, { taskId: 1, taskTitle: 'hi', taskContent: '', taskAuthor: '', taskData: '' }, 'insertAdjacentHTML');
     await putTask(data);
   }
 }

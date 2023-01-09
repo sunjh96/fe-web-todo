@@ -15,16 +15,15 @@ export default class TodoStatus extends Component {
   }
 
   async mounted() {
-    const taskData = await this.state.taskList;
-    const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
-
-    taskData.forEach((obj, idx) => {
-      new Task(
-        $taskTarget,
-        { taskId: idx, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskData: obj.date },
-        'insertAdjacentHTML',
-      );
-    });
+    // const taskData = await this.state.taskList;
+    // const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
+    // taskData.forEach((obj, idx) => {
+    //   new Task(
+    //     $taskTarget,
+    //     { taskId: idx, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskData: obj.date },
+    //     'insertAdjacentHTML',
+    //   );
+    // });
   }
 
   setEvent() {
