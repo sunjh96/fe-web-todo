@@ -102,10 +102,23 @@
       </div>
       <!-- id = inputField에 할일이 입력되고 + 버튼이 눌리면 할일이 나타날 공간 만들기-->
     </div>
-      </body>
-  <script type="module" src="js/main.js"></script>
-  <script type="module" src="js/menu.js"></script>
-  <script type="module" src="js/script.js"></script>
-  <script type="module" src="js/arrCount.js"></script>
-  <script type="module" src="js/makeCard.js"></script>
+    <div class="modal hidden" id="modal">
+      <div class="modal-background"></div>
+      <div class="modal-wrapper">
+        <div class="modal-text-wrapper">
+        <span class="modal-text">선택한 카드를 삭제할까요?</span>
+      </div>
+      <div class="modal-btn-wrapper">
+        <button class="modal-cancel-btn" id="modal-cancel-btn">취소</button>
+        <button class="modal-delete-btn" id="modal-delete-btn">삭제</button>
+      </div>
+      </div>
+    </div>
+      <script type="module" src="js/main.js"></script>
+      <script type="module" src="js/menu.js"></script>
+      <script type="module" src="js/script.js"></script>
+      <script type="module" src="js/arrCount.js"></script>
+      <script type="module" src="js/makeCard.js"></script>
+    </body>
+
 </html>

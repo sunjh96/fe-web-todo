@@ -6,5 +6,6 @@ const open = () => {
 const close = () => {
   document.querySelector(".menuWrapper").classList.remove("sidebarshow");
 };
+
 document.getElementById("menuCloseBtn").addEventListener("click", close);
 document.getElementById("hamburgerBtn").addEventListener("click", open);

@@ -27,8 +27,7 @@ registerBtn.addEventListener("click", function () {
   newDetailBox.className = "itemDetailBox";
 
   newTodoDeleteBtn.className = "material-symbols-outlined";
-  newTodoDeleteBtn.className = "material-symbols-outlined";
-  newTodoDeleteBtn.setAttribute("id", "itemDeleteBtn");
+  newTodoDeleteBtn.setAttribute("id", "item-delete-btn");
   newTodoAuthorBox.className = "authorBox";
   newTodoAuthor.className = "author";
 
@@ -36,6 +35,7 @@ registerBtn.addEventListener("click", function () {
     // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
     alert("내용을 입력해 주세요!");
   else {
+    document.querySelector(".registerBtn").classList.add("activeBtn");
     newTitle.innerText = titleInputBox.value; // <li>입력된 할 일</li>
     newDetail.innerText = detailInputBox.value;
     newTodoAuthor.innerText = "author by web";
@@ -52,10 +52,49 @@ registerBtn.addEventListener("click", function () {
 
     titleInputBox.value = ""; // 할 일 입력창 초기화
     detailInputBox.value = "";
+    document.querySelector(".registerBtn").classList.remove("activeBtn");
   }
 
-  newItemBox.addEventListener("click", function () {
+  newTodoDeleteBtn.addEventListener(
+    "mouseover",
+    function (event) {
+      console.log("hover");
+      event.target.classList.add("mouseover");
+    },
+    false
+  );
+  newItemBox.addEventListener("click", function (e) {
     // list에 더블클릭 이벤트가 발생하면 할 일 리스트창에서 지우기
-    toDoList.removeChild(newItemBox);
+    modalOpen(e);
+    //toDoList.removeChild(newItemBox);
   });
 });
+
+const modalOpen = (e) => {
+  const removeTarget = e.target.parentNode.parentNode;
+  console.log(removeTarget);
+  document.getElementById("modal").classList.remove("hidden");
+
+  const deleteItemBtn = document.getElementById("modal-delete-btn");
+  deleteItemBtn.addEventListener("click", function () {
+    modalClose();
+    toDoList.removeChild(removeTarget);
+  });
+
+  const modalCancelBtn = document.getElementById("modal-cancel-btn");
+  modalCancelBtn.addEventListener("click", modalClose);
+};
+
+const modalClose = () => {
+  document.getElementById("modal").classList.add("hidden");
+};
+
+const changeBoxColor = (e) => {
+  console.log("hover");
+};
+
+const deleteBtn = document.getElementById("item-delete-btn");
+deleteBtn.addEventListener("mouseover", (event) => {
+  deleteBtn.innerHTML += "<div>mouseenter</div>";
+});
+//deleteBtn.addEventListener("click", modalOpen);
