@@ -3,14 +3,14 @@
   flex-direction: row;
 }
 
-.todo-main > .todo-article {
+.todo-article {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
-  margin-left: 20px;
+  min-width: 18.75rem;
+  margin-right: 2rem;
 }
 
-.todo-main > .todo-article:nth-child(1) {
+.todo-article:last-child {
   margin: 0;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .todo-header > .todo-title > div {
-  padding: 5px;
+  padding: 0.313rem;
   background: #bdbdbd;
   border-radius: 50%;
   width: 1rem;
@@ -62,7 +62,7 @@
 }
 
 .todo-header > .todo-svg > span:hover > svg {
-  width: 1.125em;
+  width: 1.125rem;
   height: 1.125rem;
 }
 

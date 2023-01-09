@@ -19,6 +19,6 @@ export async function addStatus(loginedUser, statusName) {
 }
 
 export async function addTask(data) {
-  const response = await client.patch('/api', data);
+  const response = await client.put('/api', data);
   return response.data;
 }

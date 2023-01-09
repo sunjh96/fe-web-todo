@@ -23,5 +23,5 @@ module.exports = async (req, res) => {
     });
   }
 
-  return res.status(201);
+  return res.status(201).send('업데이트 완료');
 };

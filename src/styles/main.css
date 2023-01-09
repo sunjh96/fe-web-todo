@@ -5,8 +5,8 @@
 @import './task.css';
 
 body {
-  height: calc(100vh - 60px);
-  padding: 30px 80px 30px 80px;
+  height: calc(100vh - 3.75rem);
+  padding: 1.875rem 5rem 1.875rem 5rem;
   background-color: var(--main-bg-color);
   margin: 0;
 }

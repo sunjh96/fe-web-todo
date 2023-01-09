@@ -2,8 +2,7 @@ import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus } from '@/components';
 import { getData, setData } from '@/store/store';
-import { getUser, createUser } from '@/api/user';
-import client from '../api/client';
+import { getUser, createUser, addTask } from '@/api/user';
 
 export default class Todo extends Component {
   setup() {
@@ -17,6 +16,7 @@ export default class Todo extends Component {
   }
 
   async mounted() {
+    await addTask({ title: 'test', content: 'test', loginedUser: 'jangoh', statusName: '해야할일' });
     let userData;
     const $btnTarget = this.$target.querySelector('.add-status-btn');
     await getUser('jangoh').then((res) => (userData = res));

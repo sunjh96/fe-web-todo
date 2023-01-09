@@ -14,9 +14,9 @@
 .trigger {
   display: block;
   flex-direction: column;
-  width: 24px;
-  height: 14px;
-  top: 13px;
+  width: 1.5rem;
+  height: 0.875rem;
+  top: calc(0.875rem - 1px);
   right: 0;
   position: absolute;
 }

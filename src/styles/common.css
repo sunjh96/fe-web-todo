@@ -2,13 +2,13 @@
 .button {
   display: flex;
   width: 100%;
+  justify-content: space-between;
 }
 
 .button > button {
-  border-radius: 6px;
-  width: 45%;
-  height: 40px;
-  margin: 0 3.3%;
+  border-radius: 0.375rem;
+  width: 48%;
+  height: 2.5rem;
   border: none;
   cursor: pointer;
 }
@@ -31,8 +31,8 @@
 
 .add-status-btn {
   position: fixed;
-  right: 30px;
-  bottom: 30px;
+  right: 1.875rem;
+  bottom: 1.875rem;
   width: 3rem;
   height: 3rem;
   background-color: var(--ok-btn-color);
@@ -41,11 +41,11 @@
 }
 
 .add-status-btn:hover > button {
-  padding: 1.22px;
+  padding: 0.076rem;
   height: 1.255rem;
 }
 .add-status-btn:hover > button:after {
-  padding: 1.22px;
+  padding: 0.076rem;
   width: 1.255rem;
 }
 .add-status-btn:hover {
@@ -89,13 +89,13 @@
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.313rem);
 }
 
 .modal-window {
   width: 15%;
   padding: 1.5rem;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   position: absolute;
   background-color: white;
   display: flex;

@@ -1,7 +1,7 @@
 .todo-task {
   display: flex;
   background-color: white;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   flex-direction: column;
   padding: 1.25rem 1rem;
   margin-bottom: 1rem;
