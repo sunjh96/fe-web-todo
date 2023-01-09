@@ -7,6 +7,7 @@ const toDoList = document.querySelector(".itemWrapper"); // 할 일 리스트창
 const deleteItem = document.getElementById("item-delete-btn");
 const modalCancelBtn = document.getElementById("modal-cancel-btn");
 const deleteItemBtn = document.getElementById("modal-delete-btn");
+const item = document.getElementsByClassName("item-wrapper");
 
 const registerItem = () => {
   event.preventDefault();
@@ -46,3 +47,9 @@ const modalOpen = (e) => {
   //document.getElementById("modal").classList.remove("hidden");
 };
 document.addEventListener("click", modalOpen);
+
+const edit = () => {
+  console.log("z;lkdfj;as");
+};
+
+item.addEventListener("dbclick", edit);

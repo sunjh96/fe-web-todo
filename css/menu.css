@@ -2,16 +2,16 @@
   float: right;
   cursor: pointer;
 }
-.menuWrapper {
+.menu-wrapper {
   background: #fff;
-  width: 235px;
+  width: 26%;
   position: fixed;
   top: 0;
-  right: -235px;
+  right: -26%;
   height: 100%;
   transition: all 0.5s ease-out;
 }
-.menuBox {
+.menu-box {
   display: flex;
   flex-direction: column;
 }

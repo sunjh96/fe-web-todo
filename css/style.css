@@ -60,6 +60,10 @@ body {
 .hidden {
   display: none;
 }
+.list-wrapper {
+  height: 68vh;
+  overflow-y: scroll;
+}
 ul {
   padding: 0;
 }

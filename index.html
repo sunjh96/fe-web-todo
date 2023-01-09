@@ -20,8 +20,8 @@
   </head>
   <body>
     <!--메뉴 -->
-    <div class="menuWrapper">
-        <div class="menuBox">
+    <div class="menu-wrapper">
+        <div class="menu-box">
           <span class="material-symbols-outlined" id="menuCloseBtn">close</span>
           <div class="logBox">
           <div class="profile">
@@ -50,8 +50,8 @@
           <span class="material-symbols-outlined addBtn" id="addTodoBtn">add</span>
           <span class="material-symbols-outlined closeBtn" id="closeTodoBtn">close</span>
           </div>
-        <!--text 입력창(할일 입력창) 만들기-->
-        <form class="itemAddBox hidden">
+        <div class="list-wrapper">
+          <form class="itemAddBox hidden">
             <input type="text" id="titleInput" placeholder="제목을 입력하세요">
             <input type="text" id="detailInput" placeholder="내용을 입력하세요">
             <div class="BtnWrapper">
@@ -59,7 +59,8 @@
               <button type='submit' class="registerBtn registerTodoBtn">등록</button>
             </div>
         </form>
-      <ul class="itemWrapper"></ul>
+        <ul class="item-list" id="item-todo-list"></ul>
+        </div>
       </div>
       <div class="doingBox">
         <div class="listTitleBox">
@@ -70,17 +71,19 @@
           <span class="material-symbols-outlined addBtn" id="addDoingBtn">add</span>
           <span class="material-symbols-outlined closeBtn" id="closeDoingBtn">close</span>
           </div>
-        <!--text 입력창(할일 입력창) 만들기-->
-        <form class="itemAddBox hidden">
-            <input type="text" id="titleInput" placeholder="제목을 입력하세요">
-            <input type="text" id="detailInput" placeholder="내용을 입력하세요">
-            <div class="BtnWrapper">
-              <input type='button' value='취소'  class="cancelBtn"></input>
-              <button type='submit' class="registerBtn registerTodoBtn">등록</button>
-            </div>
-        </form>
-      <ul class="itemWrapper"></ul>
-      </div><div class="doneBox">
+          <div class="list-wrapper">
+            <form class="itemAddBox hidden">
+              <input type="text" id="titleInput" placeholder="제목을 입력하세요">
+              <input type="text" id="detailInput" placeholder="내용을 입력하세요">
+              <div class="BtnWrapper">
+                <input type='button' value='취소'  class="cancelBtn"></input>
+                <button type='submit' class="registerBtn registerTodoBtn">등록</button>
+              </div>
+            </form>
+            <ul class="item-list" id="item-doing-list"></ul>
+          </div>
+      </div>
+      <div class="doneBox">
         <div class="listTitleBox">
           <h3>완료한 일</h3>
           <div class="count-box">
@@ -88,19 +91,19 @@
           </div>
           <span class="material-symbols-outlined addBtn" id="addDoneBtn">add</span>
           <span class="material-symbols-outlined closeBtn" id="closeDoneBtn">close</span>
-          </div>
-        <!--text 입력창(할일 입력창) 만들기-->
-        <form class="itemAddBox hidden">
-            <input type="text" id="titleInput" placeholder="제목을 입력하세요">
-            <input type="text" id="detailInput" placeholder="내용을 입력하세요">
-            <div class="BtnWrapper">
-              <input type='button' value='취소'  class="cancelBtn"></input>
-              <button type='submit' class="registerBtn registerTodoBtn">등록</button>
-            </div>
-        </form>
-      <ul class="itemWrapper"></ul>
+        </div>
+          <div class="list-wrapper">
+            <form class="itemAddBox hidden">
+              <input type="text" id="titleInput" placeholder="제목을 입력하세요">
+              <input type="text" id="detailInput" placeholder="내용을 입력하세요">
+              <div class="BtnWrapper">
+                <input type='button' value='취소'  class="cancelBtn"></input>
+                <button type='submit' class="registerBtn registerTodoBtn">등록</button>
+              </div>
+            </form>
+            <ul class="item-list" id="item-done-list"></ul>
+          </div>        
       </div>
-      <!-- id = inputField에 할일이 입력되고 + 버튼이 눌리면 할일이 나타날 공간 만들기-->
     </div>
     <div class="modal hidden" id="modal">
       <div class="modal-background"></div>
@@ -114,11 +117,14 @@
       </div>
       </div>
     </div>
+
+
       <script type="module" src="js/main.js"></script>
       <script type="module" src="js/menu.js"></script>
       <script type="module" src="js/script.js"></script>
       <script type="module" src="js/arrCount.js"></script>
       <script type="module" src="js/makeCard.js"></script>
+      <script type="module" src="js/show.js"></script>
     </body>
 
 </html>

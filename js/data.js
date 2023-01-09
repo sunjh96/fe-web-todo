@@ -25,4 +25,13 @@ const todos = [
   },
 ];
 
-export { todos };
+const logs = [
+  {
+    title: "자바스크립트 공부하기",
+    to: "programming",
+    from: "todo",
+    time: 12123123,
+  },
+];
+
+export { todos, logs };
