@@ -1,0 +1,53 @@
+.itemBox {
+  background: #ffffff;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+  list-style-type: none;
+  padding: 16px;
+  margin-top: 13px;
+}
+
+.deleteHover {
+  background: #ffeeec;
+  border: 1px solid #ff4343;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+  list-style-type: none;
+  padding: 16px;
+  margin-top: 13px;
+}
+.itemTitleBox {
+  display: flex;
+  height: 23px;
+  margin-bottom: 8px;
+}
+.itemTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  height: fit-content;
+  margin-top: auto;
+}
+#itemDeleteBtn {
+  color: #828282;
+  margin-left: auto;
+  cursor: pointer;
+}
+.author {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  color: #bdbdbd;
+}
+.itemDetailBox {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+.itemDetail {
+  height: 20px;
+  line-height: 20px;
+  list-style-type: circle;
+}
