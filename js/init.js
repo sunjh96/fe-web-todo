@@ -1,5 +1,6 @@
 import { todos } from "./data.js";
 import { makeCard } from "./makeTemplate.js";
+import { arrCount } from "./arrCount.js";
 
 const toDoList = document.getElementById("item-todo-list"); // 할 일 리스트창
 const doingList = document.getElementById("item-doing-list"); // 할 일 리스트창
@@ -26,6 +27,9 @@ const showItems = () => {
 
 const init = () => {
   showItems();
+  arrCount(0, "todo");
+  arrCount(1, "doing");
+  arrCount(2, "done");
 };
 
 init();

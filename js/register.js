@@ -1,5 +1,5 @@
 import { makeCard } from "./makeTemplate.js";
-import { showItems } from "./init.js";
+import { arrCount } from "./arrCount.js";
 import { todos } from "./data.js";
 const titleInputBox = document.getElementsByClassName("title-input"); // 할 일 제목 입력창
 const detailInputBox = document.getElementsByClassName("detail-input"); // 할 일 내용 입력창
@@ -13,7 +13,6 @@ const registerItem = (index) => {
   if (!titleInputBox[index].value || !detailInputBox[index].value)
     alert("내용을 입력해 주세요!");
   else {
-    console.log(index);
     const putHere = document.querySelectorAll(".list-wrapper")[index];
 
     const newItemBox = makeCard({
@@ -28,8 +27,8 @@ const registerItem = (index) => {
     });
     titleInputBox.value = ""; // 할 일 입력창 초기화
     detailInputBox.value = "";
-    console.log(todos);
   }
+  arrCount(index, condition[index]);
 };
 
 registerBtn.forEach((el, index) => {
