@@ -1,12 +1,14 @@
 const fs = require('fs');
 
+// 유저 생성 메서드
 module.exports = (req, res) => {
   const userName = req.body.userName;
   const data = [
     {
       id: 0,
       userName: userName,
-      status: [],
+      status: {},
+      taskCount: 0,
     },
   ];
 

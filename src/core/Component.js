@@ -9,8 +9,8 @@ export default class Component {
     this.props = props;
     this.innerType = innerType;
     this.setup();
-    this.setEvent();
     this.render();
+    this.setEvent();
   }
 
   setup() {}

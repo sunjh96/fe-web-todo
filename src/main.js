@@ -1,3 +1,5 @@
+import './styles/main.scss';
+
 import { Todo } from '@/components';
 import { Modal } from '@/components/common/index';
 
