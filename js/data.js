@@ -30,6 +30,7 @@ const logs = [
     title: "자바스크립트 공부하기",
     to: "programming",
     from: "todo",
+    action: "move",
     time: 12123123,
   },
 ];

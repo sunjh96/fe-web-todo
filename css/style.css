@@ -34,25 +34,25 @@ body {
   margin: auto;
   height: fit-content;
 }
-.addBtn {
+.add-card-btn {
   float: right;
   color: #bdbdbd;
   margin-left: auto;
   font-size: 27px;
   cursor: pointer;
 }
-.addBtn:hover {
+.add-card-btn:hover {
   float: right;
   color: #0075de;
   margin-left: auto;
   font-size: 27px;
 }
-.closeBtn:hover {
+.close-card-btn:hover {
   color: #ff4343;
   margin-left: 10px;
   cursor: pointer;
 }
-.closeBtn {
+.close-card-btn {
   color: #bdbdbd;
   margin-left: 10px;
   cursor: pointer;
@@ -63,6 +63,9 @@ body {
 .list-wrapper {
   height: 68vh;
   overflow-y: scroll;
+}
+.list-wrapper::-webkit-scrollbar {
+  visibility: hidden;
 }
 ul {
   padding: 0;

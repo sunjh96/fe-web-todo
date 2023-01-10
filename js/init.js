@@ -29,3 +29,5 @@ const init = () => {
 };
 
 init();
+
+export { showItems };

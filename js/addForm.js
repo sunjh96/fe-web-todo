@@ -1,6 +1,7 @@
-const addCardBtn = document.querySelectorAll(".addBtn");
-const addCard = document.querySelectorAll(".itemAddBox");
-const CancelBtn = document.querySelectorAll(".cancelBtn");
+const addCardBtn = document.querySelectorAll(".add-card-btn");
+const addCard = document.querySelectorAll(".item-add-box");
+const CancelBtn = document.querySelectorAll(".cancel-btn");
+const toDoList = document.querySelector(".list-wrapper"); // 할 일 리스트창
 
 const fold = (num) => {
   addCard[num].classList.add("hidden");

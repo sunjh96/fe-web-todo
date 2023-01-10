@@ -1,11 +1,11 @@
 //menu 열기
 const open = () => {
-  document.querySelector(".menu-wrapper").classList.add("sidebarshow");
+  document.querySelector(".menu-wrapper").classList.add("sidebar-show");
 };
 //menu닫기
 const close = () => {
-  document.querySelector(".menu-wrapper").classList.remove("sidebarshow");
+  document.querySelector(".menu-wrapper").classList.remove("sidebar-show");
 };
 //item등록
-document.getElementById("menuCloseBtn").addEventListener("click", close);
-document.getElementById("hamburgerBtn").addEventListener("click", open);
+document.getElementById("menu-close-btn").addEventListener("click", close);
+document.getElementById("hamburger-btn").addEventListener("click", open);

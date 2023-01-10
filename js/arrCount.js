@@ -11,4 +11,4 @@ todoNum[0].innerText = arrCount("todo");
 todoNum[1].innerText = arrCount("doing");
 todoNum[2].innerText = arrCount("done");
 
-export default { arrCount };
+export { arrCount };

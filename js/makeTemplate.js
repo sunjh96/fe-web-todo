@@ -1,6 +1,6 @@
 const makeCard = ({ title, detail }) => {
   return `
-  <div class="item-wrapper" draggable="true" ondrag="drag_handler(event)">
+  <li class="item-wrapper" draggable="true" ondrag="drag_handler(event)">
       <div class="item-title-box">
         <h3 class="item-title">${title}</h3>
         <span class="material-symbols-outlined item-delete-btn" id="item-delete-btn">close</span>
@@ -11,17 +11,17 @@ const makeCard = ({ title, detail }) => {
       <div class="item-author-box">
         <p class="item-author">Author by web</p>
       </div>
-  </div>`;
+  </li>`;
 };
 
 const makeInput = () => {
   return `
-  <form class="itemAddBox hidden">
-    <input type="text" id="titleInput" placeholder="제목을 입력하세요">
-    <inputarea type="text" id="detailInput" placeholder="내용을 입력하세요"></inputarea>
-    <div class="BtnWrapper">
-      <input type='button' value='취소'  class="cancelBtn"></input>
-      <button type='submit' class="registerBtn registerTodoBtn">등록</button>
+  <form class="item-add-xox hidden">
+    <input type="text" id="title-input" placeholder="제목을 입력하세요">
+    <inputarea type="text" id="detail-input" placeholder="내용을 입력하세요"></inputarea>
+    <div class="btn-wrapper">
+      <input type='button' value='취소'  class="cancel-btn"></input>
+      <button type='submit' class="register-btn registerTodoBtn">등록</button>
     </div>
   </form>
   `;
