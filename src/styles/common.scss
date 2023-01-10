@@ -14,18 +14,18 @@
 }
 
 .btn-cancel {
-  background-color: var(--cancel-btn-color);
-  color: var(--cancel-btn-text-color);
+  background-color: $cancel-btn-color;
+  color: $cancel-btn-text-color;
 }
 
 .btn-ok {
-  background-color: var(--ok-btn-color);
-  color: var(--ok-btn-text-color);
+  background-color: $ok-btn-color;
+  color: $ok-btn-text-color;
 }
 
 .btn-ok:disabled {
-  background-color: var(--ok-btn-disabled-color);
-  color: var(--ok-btn-text-color);
+  background-color: $ok-btn-disabled-color;
+  color: $ok-btn-text-color;
   cursor: not-allowed;
 }
 
@@ -35,7 +35,7 @@
   bottom: 1.875rem;
   width: 3rem;
   height: 3rem;
-  background-color: var(--ok-btn-color);
+  background-color: $ok-btn-color;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -51,11 +51,11 @@
 .add-status-btn:hover {
   width: 3.02rem;
   height: 3.02rem;
-  box-shadow: 1px 1px 10px var(--cancel-btn-text-color);
+  box-shadow: 1px 1px 10px $cancel-btn-text-color;
 }
 
 .add-status-btn > button {
-  background: var(--ok-btn-text-color);
+  background: $ok-btn-text-color;
   padding: 1px;
   height: 1.25rem;
   position: relative;
@@ -66,7 +66,7 @@
   transition: 0.1s;
 }
 .add-status-btn > button:after {
-  background: var(--ok-btn-text-color);
+  background: $ok-btn-text-color;
   content: '';
   padding: 1px;
   width: 1.25rem;

@@ -4,13 +4,13 @@ import { Button } from '@/components/common';
 export default class Task extends Component {
   setup() {
     this.state = {
-      active: false,
+      active: this.props.active,
     };
   }
 
   template() {
     return `
-    <section class="todo-task" data-taskId=${this.props.taskId}>
+    <section class="todo-task" data-task=${this.props.taskId}>
     ${
       this.state.active
         ? `
@@ -27,7 +27,7 @@ export default class Task extends Component {
               </span>
             </div>
             <p class="task-content">${this.props.taskContent}</p>
-            <p class="task-author">${this.props.taskAuthor}</p>
+            <p class="task-author">author by ${this.props.taskAuthor}</p>
           </div>
           `
         : `
@@ -44,10 +44,12 @@ export default class Task extends Component {
   }
 
   mounted() {
-    let $button = this.$target.querySelectorAll('.button');
-    $button = Array.prototype.filter.call($button, (el) => parseInt(el.dataset.seq) === parseInt(this.props.taskId));
+    if (!this.state.active) {
+      let $buttonTarget = this.$target.querySelectorAll('.button');
+      $buttonTarget = Array.prototype.filter.call($buttonTarget, (el) => parseInt(el.dataset.seq) === parseInt(this.props.taskId));
 
-    new Button($button[0], { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
-    new Button($button[0], { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' }, 'insertAdjacentHTML');
+      new Button($buttonTarget[0], { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
+      new Button($buttonTarget[0], { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' }, 'insertAdjacentHTML');
+    }
   }
 }

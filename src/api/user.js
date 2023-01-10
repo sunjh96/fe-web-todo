@@ -16,6 +16,12 @@ export async function getStatusTasks(userName, statusName) {
   return 0;
 }
 
+export async function getTaskCount(userName) {
+  const taskCount = await getUser(userName).then((res) => res.taskCount);
+
+  return taskCount;
+}
+
 export async function createUser(userName) {
   const response = await client.post('/api', { userName });
   response.status === (201 || 409) && localStorage.setItem('loginedUser', JSON.stringify(userName));

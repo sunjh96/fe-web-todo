@@ -8,6 +8,7 @@ module.exports = (req, res) => {
       id: 0,
       userName: userName,
       status: {},
+      taskCount: 0,
     },
   ];
 

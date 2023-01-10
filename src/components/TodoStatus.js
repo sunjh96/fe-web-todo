@@ -15,27 +15,17 @@ export default class TodoStatus extends Component {
   }
 
   async mounted() {
-    // const taskData = await this.state.taskList;
-    // const $taskTarget = this.$target.querySelector(`[data-status=task-${this.props.status}]`);
-    // taskData.forEach((obj, idx) => {
-    //   new Task(
-    //     $taskTarget,
-    //     { taskId: idx, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskData: obj.date },
-    //     'insertAdjacentHTML',
-    //   );
-    // });
-  }
+    const taskData = await this.state.taskList;
+    const $taskTarget = this.$target.querySelector(`[data-status=${this.props.status}]`);
 
-  setEvent() {
-    this.addEvent('submit', '[data-type=input-task]', async (e) => {
-      e.preventDefault();
-      const titleInput = e.target['title'].value;
-      const contentInput = e.target['content'].value;
-      const data = { title: titleInput, content: contentInput, loginedUser: 'jangoh', statusName: this.state.title };
-
-      if (e.target && ParseInt(e.target.parentNode.dataset.taskid) === 10) {
-        await putTask(data);
-      }
+    taskData.forEach((obj) => {
+      let active = false;
+      if (obj.title !== '') active = true;
+      new Task(
+        $taskTarget,
+        { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskData: obj.date, active },
+        'insertAdjacentHTML',
+      );
     });
   }
 
@@ -68,7 +58,7 @@ export default class TodoStatus extends Component {
             </span>
           </div>
         </section>
-        <section data-status=task-${this.props.status} class="todo-task-list"></section>
+        <section data-status=${this.props.status} class="todo-task-list"></section>
       </article>
     `;
   }

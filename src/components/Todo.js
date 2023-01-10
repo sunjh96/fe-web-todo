@@ -1,13 +1,11 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
-import { getUser, putTask } from '@/api/user';
+import { getUser, getTaskCount, putTask } from '@/api/user';
 
 export default class Todo extends Component {
   setup() {
-    this.state = {
-      userInfo: 0,
-    };
+    this.state = {};
   }
 
   template() {
@@ -23,9 +21,10 @@ export default class Todo extends Component {
   }
 
   setEvent() {
-    const { addTask } = this;
+    const { addTask, setTaskContent } = this;
 
     this.addEvent('click', '[data-status]', (e) => addTask(e));
+    this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
 
     this.addEvent('click', '.add-status-btn', () => {
       document.querySelector('.modal-overlay').style.display = 'flex';
@@ -33,10 +32,38 @@ export default class Todo extends Component {
   }
 
   async addTask(e) {
+    const taskCount = await getTaskCount('jangoh').then((res) => res);
+    console.log(typeof taskCount);
     const $statusTarget = e.target.closest('[data-status]');
-    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status };
+    const $buttonTarget = e.target.closest('#add-task');
+    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1 };
 
-    new Task($statusTarget, { taskId: 1, taskTitle: 'hi', taskContent: '', taskAuthor: '', taskData: '' }, 'insertAdjacentHTML');
+    if ($buttonTarget) {
+      new Task(
+        $statusTarget,
+        { taskTitle: '', taskContent: '', taskAuthor: '', taskData: '', active: false, taskId: taskCount + 1 },
+        'insertAdjacentHTML',
+      );
+      await putTask(data);
+    }
+  }
+
+  async setTaskContent(e) {
+    e.preventDefault();
+
+    const titleInput = e.target['title'].value;
+    const contentInput = e.target['content'].value;
+    const $statusTarget = e.target.closest('[data-status]');
+    const $taskTarget = e.target.closest('[data-task]');
+    console.log($taskTarget);
+    const data = {
+      title: titleInput,
+      content: contentInput,
+      loginedUser: 'jangoh',
+      statusName: $statusTarget.dataset.status,
+      taskId: $taskTarget.dataset.task,
+    };
+
     await putTask(data);
   }
 }
