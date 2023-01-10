@@ -21,9 +21,10 @@ export default class Todo extends Component {
   }
 
   setEvent() {
-    const { addTask, setTaskContent } = this;
+    const { addTask, setTaskContent, updateTaskContent } = this;
 
     this.addEvent('click', '[data-status]', (e) => addTask(e));
+    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
 
     this.addEvent('click', '.add-status-btn', () => {
@@ -33,7 +34,6 @@ export default class Todo extends Component {
 
   async addTask(e) {
     const taskCount = await getTaskCount('jangoh').then((res) => res);
-    console.log(typeof taskCount);
     const $statusTarget = e.target.closest('[data-status]');
     const $buttonTarget = e.target.closest('#add-task');
     const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1 };
@@ -55,7 +55,7 @@ export default class Todo extends Component {
     const contentInput = e.target['content'].value;
     const $statusTarget = e.target.closest('[data-status]');
     const $taskTarget = e.target.closest('[data-task]');
-    console.log($taskTarget);
+
     const data = {
       title: titleInput,
       content: contentInput,
@@ -65,5 +65,15 @@ export default class Todo extends Component {
     };
 
     await putTask(data);
+  }
+
+  async updateTaskContent(e) {
+    e.preventDefault();
+
+    const $statusTarget = e.target.closest('[data-status]');
+    const $taskTarget = e.target.closest('[data-task]');
+
+    console.log($statusTarget.dataset.status);
+    await putTask({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
   }
 }
