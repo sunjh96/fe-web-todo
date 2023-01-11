@@ -15,6 +15,32 @@
   display: flex;
   flex-direction: column;
 }
+.menu-log-wrapper {
+  margin-top: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.log-content-text {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+.log-profile-name {
+  font-size: 14px;
+}
+.menu-log-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+.log-content-text {
+  font-size: 14px;
+}
+.log-content-time {
+  color: #828282;
+  font-size: 12px;
+}
+.log-profile {
+  margin-right: 10px;
+}
 #menu-close-btn {
   margin-top: 50px;
   margin-right: 20%;

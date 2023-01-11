@@ -38,4 +38,19 @@ const makeColumn = ({ title = "제목" }) => {
   `;
 };
 
-export { makeCard, makeColumn };
+const makeLogList = () => {
+  return `
+  <li class="menu-log-box">
+    <div class="log-profile">
+      <div class="log-profile-img">🥳</div>
+    </div>
+    <div class="log-content-box">
+      <div class="log-profile-name">@sam</div>
+      <div class="log-content-text">해야할 일에 블로그에 포스팅 할 것을 등록하였습니다. </div>
+      <div class="log-content-time">1분 전</div>
+    </div>
+  </li>
+  `;
+};
+
+export { makeCard, makeColumn, makeLogList };
