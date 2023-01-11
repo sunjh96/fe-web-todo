@@ -1,10 +1,1 @@
-{
-  "id": 0,
-  "userName": "jangoh",
-  "status": {
-    "해야할일": [],
-    "하는중": [],
-    "완료": []
-  },
-  "taskCount": 0
-}
+{"id":0,"userName":"jangoh","status":{"해야할일":[],"하는중":[],"완료":[{"title":"","content":"","author":"jangoh","date":1673400064275,"taskId":1}]},"taskCount":1}

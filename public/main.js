@@ -128,16 +128,16 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const $titleTarget = $taskTarget.querySelector('.task-title-input');
     const $contentTarget = $taskTarget.querySelector('.task-content-input');
 
-    if (!$titleTarget.classList.contains('active')) {
-      $titleTarget.classList.toggle('active');
-      $contentTarget.classList.toggle('active');
-      $taskTarget.querySelector('#delete-todo').classList.toggle('active');
-      $taskTarget.querySelector('.task-author').classList.toggle('active');
-      $taskTarget.querySelector('.button').classList.toggle('active');
+    // if (!$titleTarget.classList.contains('active')) {
+    $titleTarget.classList.toggle('active');
+    $contentTarget.classList.toggle('active');
+    $taskTarget.querySelector('#delete-todo').classList.toggle('active');
+    $taskTarget.querySelector('.task-author').classList.toggle('active');
+    $taskTarget.querySelector('.button').classList.toggle('active');
 
-      !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
-      !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
-    }
+    !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
+    !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
+    // }
 
     // await putTask({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
   }
@@ -153,6 +153,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Component)
 /* harmony export */ });
+/**
+ * Class Component
+ *
+ * Class Todo와 Class Status와 Class Task에게 상속 해주는 클래스
+ *
+ * state를 통한 데이터관리
+ * 하위 컴포넌트에게 state를 전달해주는 props
+ * 화면을 렌더링해주는 render()
+ * event를 핸들링하는 setEvent()
+ * state 상태를 변경한 후 재렌더링하는 setState()
+ * render 후 추가 동작을 위한 mounted()
+ */
 class Component {
   $target;
   props;
@@ -4281,6 +4293,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Class Task
+ * Class Component 와 상속연결
+ *
+ * Task의 기본정보를 props로 전달받아 화면에 보여주는 View Component
+ */
 class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setup() {
     this.state = {
@@ -4339,6 +4357,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Class TodoStatus
+ * Class Component 와 상속연결
+ * Class Task 와 의존연결
+ *
+ * TodoStatus에 필요한 기본정보를 props로 전달받아 화면에 보여주는 View Component
+ */
 class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setup() {
     this.state = {

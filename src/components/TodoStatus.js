@@ -1,6 +1,13 @@
 import Component from '@/core/Component';
 import { Task } from '@/components';
 
+/**
+ * Class TodoStatus
+ * Class Component 와 상속연결
+ * Class Task 와 의존연결
+ *
+ * TodoStatus에 필요한 기본정보를 props로 전달받아 화면에 보여주는 View Component
+ */
 export default class TodoStatus extends Component {
   setup() {
     this.state = {

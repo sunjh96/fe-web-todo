@@ -1,6 +1,12 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 
+/**
+ * Class Task
+ * Class Component 와 상속연결
+ *
+ * Task의 기본정보를 props로 전달받아 화면에 보여주는 View Component
+ */
 export default class Task extends Component {
   setup() {
     this.state = {

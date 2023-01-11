@@ -1,7 +1,7 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
-import { getUser, getTaskCount, putTask } from '@/api/user';
+import { getUser, putTask } from '@/api/user';
 
 /**
  * Class Todo
@@ -82,16 +82,16 @@ export default class Todo extends Component {
     const $titleTarget = $taskTarget.querySelector('.task-title-input');
     const $contentTarget = $taskTarget.querySelector('.task-content-input');
 
-    if (!$titleTarget.classList.contains('active')) {
-      $titleTarget.classList.toggle('active');
-      $contentTarget.classList.toggle('active');
-      $taskTarget.querySelector('#delete-todo').classList.toggle('active');
-      $taskTarget.querySelector('.task-author').classList.toggle('active');
-      $taskTarget.querySelector('.button').classList.toggle('active');
+    // if (!$titleTarget.classList.contains('active')) {
+    $titleTarget.classList.toggle('active');
+    $contentTarget.classList.toggle('active');
+    $taskTarget.querySelector('#delete-todo').classList.toggle('active');
+    $taskTarget.querySelector('.task-author').classList.toggle('active');
+    $taskTarget.querySelector('.button').classList.toggle('active');
 
-      !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
-      !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
-    }
+    !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
+    !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
+    // }
 
     // await putTask({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
   }
