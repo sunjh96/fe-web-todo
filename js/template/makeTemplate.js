@@ -1,6 +1,6 @@
-const makeCard = ({ title, detail }) => {
+const makeCard = ({ title, detail, id }) => {
   return `
-  <li class="item-wrapper" draggable="true" ondrag="drag_handler(event)">
+  <li class="item-wrapper" id="${id}" draggable="true" ondrag="drag_handler(event)">
       <div class="item-title-box">
         <h3 class="item-title">${title}</h3>
         <span class="material-symbols-outlined item-delete-btn" id="item-delete-btn">close</span>
@@ -14,24 +14,11 @@ const makeCard = ({ title, detail }) => {
   </li>`;
 };
 
-const makeInput = () => {
-  return `
-  <form class="item-add-xox hidden">
-    <input type="text" id="title-input" placeholder="제목을 입력하세요">
-    <inputarea type="text" id="detail-input" placeholder="내용을 입력하세요"></inputarea>
-    <div class="btn-wrapper">
-      <input type='button' value='취소'  class="cancel-btn"></input>
-      <button type='submit' class="register-btn registerTodoBtn">등록</button>
-    </div>
-  </form>
-  `;
-};
-
-const makeColumn = () => {
+const makeColumn = ({ title = "제목" }) => {
   return `
   <div class="doingBox">
     <div class="listTitleBox">
-      <h3>하고 있는 일</h3>
+      <h3>${title}</h3>
       <div class="count-box">
         <div class="count-num">1</div>
       </div>
