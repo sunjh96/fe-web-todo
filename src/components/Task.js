@@ -26,9 +26,9 @@ export default class Task extends Component {
         <div class="task-title">
           <textarea class="task-title-input ${
             this.state.taskActive ? 'active' : ''
-          }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'}>${
+          }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'} value="${
       this.state.taskTitle
-    }</textarea>
+    }">${this.state.taskTitle}</textarea>
           <span id="delete-todo" class=${this.state.taskActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
               <path
@@ -40,9 +40,9 @@ export default class Task extends Component {
         </div>
         <textarea class="task-content-input ${
           this.state.taskActive ? 'active' : ''
-        }" placeholder="내용을 입력하세요" name="content" rows="1" required ${this.state.taskActive ? '' : 'disabled'}>${
+        }" placeholder="내용을 입력하세요" name="content" rows="1" required ${this.state.taskActive ? '' : 'disabled'} value="${
       this.state.taskContent
-    }</textarea>
+    }">${this.state.taskContent}</textarea>
         <span class="task-author ${this.state.taskActive ? 'active' : ''}">author by ${this.state.taskAuthor}</span>
         <div data-seq=${this.state.taskId} class="button ${this.state.taskActive ? '' : 'active'}"></div>
       </form>

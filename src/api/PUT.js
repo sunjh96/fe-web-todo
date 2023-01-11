@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
       if (parseInt(task['taskId']) === parseInt(taskId)) {
         taskList.splice(idx, 1, {
           title: task.title,
-          content: task.title,
+          content: task.content,
           author: loginedUser,
           date: Date.now(),
           taskId: task.taskId,

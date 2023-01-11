@@ -82,13 +82,17 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   setEvent() {
-    const { addTask, setTaskContent, updateTaskContent } = this;
+    const { addTask, setTaskContent, openModal } = this;
     const _this = this;
 
     this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e, _this));
+    this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
-    this.addEvent('click', '.add-status-btn', () => (document.querySelector('.modal-overlay').style.display = 'flex'));
+    this.addEvent('click', '.add-status-btn', openModal);
+  }
+
+  openModal() {
+    document.querySelector('.modal-overlay').style.display = 'flex';
   }
 
   async addTask(e, _this) {
@@ -112,38 +116,20 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   async setTaskContent(e) {
     e.preventDefault();
 
-    const titleInput = e.target['title'].value;
-    const contentInput = e.target['content'].value;
-    const $statusTarget = e.target.closest('[data-status]');
-    const $taskTarget = e.target.closest('[data-task]');
-    const $titleTarget = $taskTarget.querySelector('.task-title-input');
-
-    const data = {
-      title: titleInput,
-      content: contentInput,
-      loginedUser: 'jangoh',
-      statusName: $statusTarget.dataset.status,
-      taskId: $taskTarget.dataset.task,
-      taskActive: false,
-    };
-
-    $titleTarget.classList.toggle('active');
-    $taskTarget.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
-    $titleTarget.classList.toggle('active');
-
-    await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
-  }
-
-  async updateTaskContent(e, _this) {
-    e.preventDefault();
-
     const statusName = e.target.closest('[data-status]').dataset.status;
     const $taskTarget = e.target.closest('[data-task]');
     const taskId = $taskTarget.dataset.task;
-    const taskTitle = $taskTarget.querySelector('.task-title-input').getInnerHTML();
-    const taskContent = $taskTarget.querySelector('.task-content-input').getInnerHTML();
 
-    const data = { title: taskTitle, content: taskContent, loginedUser: 'jangoh', statusName, taskId: parseInt(taskId), taskActive: true };
+    let data = { loginedUser: 'jangoh', statusName, taskId: parseInt(taskId) };
+
+    if (e.type === 'dblclick') {
+      data = { ...data, taskActive: true };
+    } else {
+      const taskTitleInput = e.target['title'].value;
+      const taskcontentInput = e.target['content'].value;
+
+      data = { ...data, title: taskTitleInput, content: taskcontentInput, taskActive: false };
+    }
 
     await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
   }
@@ -4324,9 +4310,9 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
         <div class="task-title">
           <textarea class="task-title-input ${
             this.state.taskActive ? 'active' : ''
-          }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'}>${
+          }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'} value="${
       this.state.taskTitle
-    }</textarea>
+    }">${this.state.taskTitle}</textarea>
           <span id="delete-todo" class=${this.state.taskActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
               <path
@@ -4338,9 +4324,9 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
         </div>
         <textarea class="task-content-input ${
           this.state.taskActive ? 'active' : ''
-        }" placeholder="내용을 입력하세요" name="content" rows="1" required ${this.state.taskActive ? '' : 'disabled'}>${
+        }" placeholder="내용을 입력하세요" name="content" rows="1" required ${this.state.taskActive ? '' : 'disabled'} value="${
       this.state.taskContent
-    }</textarea>
+    }">${this.state.taskContent}</textarea>
         <span class="task-author ${this.state.taskActive ? 'active' : ''}">author by ${this.state.taskAuthor}</span>
         <div data-seq=${this.state.taskId} class="button ${this.state.taskActive ? '' : 'active'}"></div>
       </form>

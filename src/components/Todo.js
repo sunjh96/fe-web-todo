@@ -36,13 +36,17 @@ export default class Todo extends Component {
   }
 
   setEvent() {
-    const { addTask, setTaskContent, updateTaskContent } = this;
+    const { addTask, setTaskContent, openModal } = this;
     const _this = this;
 
     this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e, _this));
+    this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
-    this.addEvent('click', '.add-status-btn', () => (document.querySelector('.modal-overlay').style.display = 'flex'));
+    this.addEvent('click', '.add-status-btn', openModal);
+  }
+
+  openModal() {
+    document.querySelector('.modal-overlay').style.display = 'flex';
   }
 
   async addTask(e, _this) {
@@ -66,38 +70,20 @@ export default class Todo extends Component {
   async setTaskContent(e) {
     e.preventDefault();
 
-    const titleInput = e.target['title'].value;
-    const contentInput = e.target['content'].value;
-    const $statusTarget = e.target.closest('[data-status]');
-    const $taskTarget = e.target.closest('[data-task]');
-    const $titleTarget = $taskTarget.querySelector('.task-title-input');
-
-    const data = {
-      title: titleInput,
-      content: contentInput,
-      loginedUser: 'jangoh',
-      statusName: $statusTarget.dataset.status,
-      taskId: $taskTarget.dataset.task,
-      taskActive: false,
-    };
-
-    $titleTarget.classList.toggle('active');
-    $taskTarget.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
-    $titleTarget.classList.toggle('active');
-
-    await putTask(data);
-  }
-
-  async updateTaskContent(e, _this) {
-    e.preventDefault();
-
     const statusName = e.target.closest('[data-status]').dataset.status;
     const $taskTarget = e.target.closest('[data-task]');
     const taskId = $taskTarget.dataset.task;
-    const taskTitle = $taskTarget.querySelector('.task-title-input').getInnerHTML();
-    const taskContent = $taskTarget.querySelector('.task-content-input').getInnerHTML();
 
-    const data = { title: taskTitle, content: taskContent, loginedUser: 'jangoh', statusName, taskId: parseInt(taskId), taskActive: true };
+    let data = { loginedUser: 'jangoh', statusName, taskId: parseInt(taskId) };
+
+    if (e.type === 'dblclick') {
+      data = { ...data, taskActive: true };
+    } else {
+      const taskTitleInput = e.target['title'].value;
+      const taskcontentInput = e.target['content'].value;
+
+      data = { ...data, title: taskTitleInput, content: taskcontentInput, taskActive: false };
+    }
 
     await putTask(data);
   }
