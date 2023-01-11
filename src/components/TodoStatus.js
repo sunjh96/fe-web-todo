@@ -1,31 +1,21 @@
 import Component from '@/core/Component';
 import { Task } from '@/components';
-import { getStatusTasks, putTask } from '@/api/user';
 
 export default class TodoStatus extends Component {
   setup() {
     this.state = {
-      title: this.props.status,
-      taskList: (() => {
-        return getStatusTasks('jangoh', this.props.status).then((res) => {
-          return res;
-        });
-      })(),
+      title: this.props.statusTitle,
+      taskList: this.props.taskList,
     };
   }
 
   async mounted() {
     const taskData = await this.state.taskList;
-    const $taskTarget = this.$target.querySelector(`[data-status=${this.props.status}]`);
+    const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}]`);
 
     taskData.forEach((obj) => {
-      let active = false;
-      if (obj.title !== '') active = true;
-      new Task(
-        $taskTarget,
-        { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskData: obj.date, active },
-        'insertAdjacentHTML',
-      );
+      const props = { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskDate: obj.date };
+      new Task($taskTarget, props);
     });
   }
 
@@ -33,7 +23,7 @@ export default class TodoStatus extends Component {
     const countTasks = await this.state.taskList;
 
     return `
-      <article class="todo-article" data-status=${this.props.status}>
+      <article class="todo-article" data-status=${this.state.title}>
         <section class="todo-header">
           <div class="todo-title">
             <h3>${this.state.title}</h3>
@@ -58,16 +48,13 @@ export default class TodoStatus extends Component {
             </span>
           </div>
         </section>
-        <section data-status=${this.props.status} class="todo-task-list"></section>
+        <section data-status=${this.state.title} class="todo-task-list"></section>
       </article>
     `;
   }
 
   async render() {
-    this.innerType === 'insertAdjacentHTML'
-      ? this.$target.insertAdjacentHTML('beforeend', await this.template())
-      : (this.$target.innerHTML = await this.template());
-
+    this.$target.insertAdjacentHTML('beforeend', await this.template());
     this.mounted();
   }
 }

@@ -22,10 +22,7 @@ export default class Component {
   mounted() {}
 
   render() {
-    this.innerType === 'insertAdjacentHTML'
-      ? this.$target.insertAdjacentHTML('beforeend', this.template())
-      : (this.$target.innerHTML = this.template());
-
+    this.$target.insertAdjacentHTML('beforeend', this.template());
     this.mounted();
   }
 

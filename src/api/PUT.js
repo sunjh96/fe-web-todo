@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
     return key === statusName;
   });
 
-  if (!title && !content) {
+  if (!title && !content && title !== '' && content !== '') {
     taskList.some((task, idx) => {
       if (parseInt(task['taskId']) === parseInt(taskId)) {
         taskList.splice(idx, 1, {
@@ -30,7 +30,6 @@ module.exports = async (req, res) => {
           author: loginedUser,
           date: Date.now(),
           taskId: task.taskId,
-          active: false,
         });
       }
 
@@ -46,14 +45,14 @@ module.exports = async (req, res) => {
   } else if (statusName) {
     taskList.some((task, idx) => {
       if (parseInt(task['taskId']) === parseInt(taskId)) {
-        taskList.splice(idx, 1, { title, content, author: loginedUser, date: Date.now(), taskId, active: true });
+        taskList.splice(idx, 1, { title, content, author: loginedUser, date: Date.now(), taskId });
         taskIndex = idx;
       }
 
       return task['taskId'] === parseInt(taskId);
     });
 
-    taskIndex === -1 && (taskList = [...taskList, { title, content, author: loginedUser, date: Date.now(), taskId: taskCount + 1, active: false }]);
+    taskIndex === -1 && (taskList = [...taskList, { title, content, author: loginedUser, date: Date.now(), taskId: taskCount + 1 }]);
 
     const newStatus = { ...status, [`${statusName}`]: taskList };
     const newUserData = { ...userData, status: newStatus, taskCount: taskCount + 1 };

@@ -14,8 +14,8 @@ export default class Modal extends Component {
   mounted() {
     let $button = this.$target.querySelector('[data-component=modal]');
 
-    new Button($button, { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
-    new Button($button, { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' }, 'insertAdjacentHTML');
+    new Button($button, { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' });
+    new Button($button, { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' });
   }
 
   setEvent() {
@@ -26,7 +26,7 @@ export default class Modal extends Component {
       const titleInput = e.target['title'].value;
 
       document.querySelector('.modal-overlay').style.display = 'none';
-      new TodoStatus($target, { status: titleInput }, 'insertAdjacentHTML');
+      new TodoStatus($target, { status: titleInput });
       patchStatus('jangoh', titleInput);
       e.target.reset();
     });

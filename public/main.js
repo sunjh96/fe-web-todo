@@ -49,9 +49,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Class Todo
+ * Class Component 와 상속연결
+ * Class TodoStatus 와 의존연결
+ *
+ * Status와 Task를 생성, 삭제, 수정 가능하게 이벤트를 위임받았으며 전체 페이지 뷰를 담당하는 클래스
+ */
 class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setup() {
-    this.state = {};
+    this.state = {
+      userInfo: (() => {
+        return (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.getUser)('jangoh').then((res) => {
+          return res;
+        });
+      })(),
+    };
   }
 
   template() {
@@ -60,36 +73,32 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   async mounted() {
     const $btnTarget = this.$target.querySelector('.add-status-btn');
-    const { status } = await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.getUser)('jangoh');
+    const { status } = await this.state.userInfo;
 
-    Object.keys(status).forEach((key) => new _components__WEBPACK_IMPORTED_MODULE_2__.TodoStatus(this.$target, { status: key }, 'insertAdjacentHTML'));
+    Object.entries(status).forEach(([key, val]) => {
+      new _components__WEBPACK_IMPORTED_MODULE_2__.TodoStatus(this.$target, { statusTitle: key, taskList: val });
+    });
     new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($btnTarget, { className: 'add-status', disabled: false, content: '', type: 'button' });
   }
 
   setEvent() {
     const { addTask, setTaskContent, updateTaskContent } = this;
+    const _this = this;
 
-    this.addEvent('click', '[data-status]', (e) => addTask(e));
+    this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
     this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
-
-    this.addEvent('click', '.add-status-btn', () => {
-      document.querySelector('.modal-overlay').style.display = 'flex';
-    });
+    this.addEvent('click', '.add-status-btn', () => (document.querySelector('.modal-overlay').style.display = 'flex'));
   }
 
-  async addTask(e) {
-    const taskCount = await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.getTaskCount)('jangoh').then((res) => res);
+  async addTask(e, _this) {
+    const taskCount = await _this.state.userInfo.then((res) => res.taskCount);
     const $statusTarget = e.target.closest('[data-status]');
     const $buttonTarget = e.target.closest('#add-task');
     const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1 };
 
     if ($buttonTarget) {
-      new _components__WEBPACK_IMPORTED_MODULE_2__.Task(
-        $statusTarget,
-        { taskTitle: '', taskContent: '', taskAuthor: '', taskData: '', active: false, taskId: taskCount + 1 },
-        'insertAdjacentHTML',
-      );
+      new _components__WEBPACK_IMPORTED_MODULE_2__.Task($statusTarget, { taskTitle: '', taskContent: '', taskAuthor: '', taskData: '', taskId: taskCount + 1 });
       await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
     }
   }
@@ -109,18 +118,28 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
       statusName: $statusTarget.dataset.status,
       taskId: $taskTarget.dataset.task,
     };
-
     await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
+    $taskTarget.dispatchEvent(new Event('dblclick'));
   }
 
   async updateTaskContent(e) {
     e.preventDefault();
-
-    const $statusTarget = e.target.closest('[data-status]');
     const $taskTarget = e.target.closest('[data-task]');
+    const $titleTarget = $taskTarget.querySelector('.task-title-input');
+    const $contentTarget = $taskTarget.querySelector('.task-content-input');
 
-    console.log($statusTarget.dataset.status);
-    await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
+    if (!$titleTarget.classList.contains('active')) {
+      $titleTarget.classList.toggle('active');
+      $contentTarget.classList.toggle('active');
+      $taskTarget.querySelector('#delete-todo').classList.toggle('active');
+      $taskTarget.querySelector('.task-author').classList.toggle('active');
+      $taskTarget.querySelector('.button').classList.toggle('active');
+
+      !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
+      !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
+    }
+
+    // await putTask({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
   }
 }
 
@@ -158,10 +177,7 @@ class Component {
   mounted() {}
 
   render() {
-    this.innerType === 'insertAdjacentHTML'
-      ? this.$target.insertAdjacentHTML('beforeend', this.template())
-      : (this.$target.innerHTML = this.template());
-
+    this.$target.insertAdjacentHTML('beforeend', this.template());
     this.mounted();
   }
 
@@ -255,8 +271,8 @@ class Modal extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   mounted() {
     let $button = this.$target.querySelector('[data-component=modal]');
 
-    new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($button, { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
-    new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($button, { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' }, 'insertAdjacentHTML');
+    new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($button, { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' });
+    new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($button, { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' });
   }
 
   setEvent() {
@@ -267,7 +283,7 @@ class Modal extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
       const titleInput = e.target['title'].value;
 
       document.querySelector('.modal-overlay').style.display = 'none';
-      new _components__WEBPACK_IMPORTED_MODULE_2__.TodoStatus($target, { status: titleInput }, 'insertAdjacentHTML');
+      new _components__WEBPACK_IMPORTED_MODULE_2__.TodoStatus($target, { status: titleInput });
       (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.patchStatus)('jangoh', titleInput);
       e.target.reset();
     });
@@ -4268,53 +4284,43 @@ __webpack_require__.r(__webpack_exports__);
 class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setup() {
     this.state = {
-      active: this.props.active,
+      taskId: this.props.taskId,
+      taskTitle: this.props.taskTitle,
+      taskContent: this.props.taskContent,
+      taskAuthor: this.props.taskAuthor,
+      taskDate: this.props.taskDate,
     };
   }
 
   template() {
     return `
-    <section class="todo-task" data-task=${this.props.taskId}>
-    ${
-      this.state.active
-        ? `
-          <div class="task-active">
-            <div class="task-title">
-              <p>${this.props.taskTitle}</p>
-              <span id="delete-todo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                  <path
-                    d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                    fill="#BDBDBD"
-                  />
-                </svg>
-              </span>
-            </div>
-            <p class="task-content">${this.props.taskContent}</p>
-            <p class="task-author">author by ${this.props.taskAuthor}</p>
-          </div>
-          `
-        : `
-          <form data-type="input-task">
-            <input placeholder="제목을 입력하세요" name="title" required autofocus></input>
-            <input placeholder="내용을 입력하세요" name="content" required></input>
-            <div data-seq=${this.props.taskId} class="button"></div>
-          </form>
-          `
-    }
-
+    <section class="todo-task" data-task=${this.state.taskId}>
+      <form data-type="input-task">
+        <div class="task-title">
+          <textarea class="task-title-input active" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus>${this.state.taskTitle}</textarea>
+          <span id="delete-todo" class="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+              <path
+                d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                fill="#BDBDBD"
+              />
+            </svg>
+          </span>
+        </div>
+        <textarea class="task-content-input active" placeholder="내용을 입력하세요" name="content" rows="1" required>${this.state.taskContent}</textarea>
+        <span class="task-author active">author by ${this.state.taskAuthor}</span>
+        <div data-seq=${this.state.taskId} class="button"></div>
+      </form>
     </section>
     `;
   }
 
   mounted() {
-    if (!this.state.active) {
-      let $buttonTarget = this.$target.querySelectorAll('.button');
-      $buttonTarget = Array.prototype.filter.call($buttonTarget, (el) => parseInt(el.dataset.seq) === parseInt(this.props.taskId));
+    let $buttonTarget = this.$target.querySelectorAll('.button');
+    $buttonTarget = Array.prototype.filter.call($buttonTarget, (el) => parseInt(el.dataset.seq) === parseInt(this.state.taskId));
 
-      new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($buttonTarget[0], { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' }, 'insertAdjacentHTML');
-      new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($buttonTarget[0], { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' }, 'insertAdjacentHTML');
-    }
+    new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($buttonTarget[0], { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' });
+    new _components_common__WEBPACK_IMPORTED_MODULE_1__.Button($buttonTarget[0], { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' });
   }
 }
 
@@ -4330,35 +4336,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _core_Component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _api_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-
 
 
 
 class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setup() {
     this.state = {
-      title: this.props.status,
-      taskList: (() => {
-        return (0,_api_user__WEBPACK_IMPORTED_MODULE_2__.getStatusTasks)('jangoh', this.props.status).then((res) => {
-          return res;
-        });
-      })(),
+      title: this.props.statusTitle,
+      taskList: this.props.taskList,
     };
   }
 
   async mounted() {
     const taskData = await this.state.taskList;
-    const $taskTarget = this.$target.querySelector(`[data-status=${this.props.status}]`);
+    const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}]`);
 
     taskData.forEach((obj) => {
-      let active = false;
-      if (obj.title !== '') active = true;
-      new _components__WEBPACK_IMPORTED_MODULE_1__.Task(
-        $taskTarget,
-        { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskData: obj.date, active },
-        'insertAdjacentHTML',
-      );
+      const props = { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskDate: obj.date };
+      new _components__WEBPACK_IMPORTED_MODULE_1__.Task($taskTarget, props);
     });
   }
 
@@ -4366,7 +4361,7 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
     const countTasks = await this.state.taskList;
 
     return `
-      <article class="todo-article" data-status=${this.props.status}>
+      <article class="todo-article" data-status=${this.state.title}>
         <section class="todo-header">
           <div class="todo-title">
             <h3>${this.state.title}</h3>
@@ -4391,16 +4386,13 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
             </span>
           </div>
         </section>
-        <section data-status=${this.props.status} class="todo-task-list"></section>
+        <section data-status=${this.state.title} class="todo-task-list"></section>
       </article>
     `;
   }
 
   async render() {
-    this.innerType === 'insertAdjacentHTML'
-      ? this.$target.insertAdjacentHTML('beforeend', await this.template())
-      : (this.$target.innerHTML = await this.template());
-
+    this.$target.insertAdjacentHTML('beforeend', await this.template());
     this.mounted();
   }
 }
@@ -4479,7 +4471,7 @@ __webpack_require__.r(__webpack_exports__);
 const $target = document.querySelector('.todo-main');
 
 new _components__WEBPACK_IMPORTED_MODULE_1__.Todo($target);
-new _components_common_index__WEBPACK_IMPORTED_MODULE_2__.Modal(document.body, { content: '상태 추가', type: 'input' }, 'insertAdjacentHTML');
+new _components_common_index__WEBPACK_IMPORTED_MODULE_2__.Modal(document.body, { content: '상태 추가', type: 'input' });
 
 })();
 
