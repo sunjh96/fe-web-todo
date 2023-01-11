@@ -21,7 +21,14 @@ export default class TodoStatus extends Component {
     const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}]`);
 
     taskData.forEach((obj) => {
-      const props = { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskDate: obj.date };
+      const props = {
+        taskId: obj.taskId,
+        taskTitle: obj.title,
+        taskContent: obj.content,
+        taskAuthor: obj.author,
+        taskDate: obj.date,
+        taskActive: obj.taskActive,
+      };
       new Task($taskTarget, props);
     });
   }

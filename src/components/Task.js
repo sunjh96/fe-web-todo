@@ -15,6 +15,7 @@ export default class Task extends Component {
       taskContent: this.props.taskContent,
       taskAuthor: this.props.taskAuthor,
       taskDate: this.props.taskDate,
+      taskActive: this.props.taskActive,
     };
   }
 
@@ -23,8 +24,12 @@ export default class Task extends Component {
     <section class="todo-task" data-task=${this.state.taskId}>
       <form data-type="input-task">
         <div class="task-title">
-          <textarea class="task-title-input active" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus>${this.state.taskTitle}</textarea>
-          <span id="delete-todo" class="active">
+          <textarea class="task-title-input ${
+            this.state.taskActive ? 'active' : ''
+          }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'}>${
+      this.state.taskTitle
+    }</textarea>
+          <span id="delete-todo" class=${this.state.taskActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
               <path
                 d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
@@ -33,9 +38,13 @@ export default class Task extends Component {
             </svg>
           </span>
         </div>
-        <textarea class="task-content-input active" placeholder="내용을 입력하세요" name="content" rows="1" required>${this.state.taskContent}</textarea>
-        <span class="task-author active">author by ${this.state.taskAuthor}</span>
-        <div data-seq=${this.state.taskId} class="button"></div>
+        <textarea class="task-content-input ${
+          this.state.taskActive ? 'active' : ''
+        }" placeholder="내용을 입력하세요" name="content" rows="1" required ${this.state.taskActive ? '' : 'disabled'}>${
+      this.state.taskContent
+    }</textarea>
+        <span class="task-author ${this.state.taskActive ? 'active' : ''}">author by ${this.state.taskAuthor}</span>
+        <div data-seq=${this.state.taskId} class="button ${this.state.taskActive ? '' : 'active'}"></div>
       </form>
     </section>
     `;

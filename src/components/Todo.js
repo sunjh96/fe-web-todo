@@ -40,7 +40,7 @@ export default class Todo extends Component {
     const _this = this;
 
     this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e));
+    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e, _this));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
     this.addEvent('click', '.add-status-btn', () => (document.querySelector('.modal-overlay').style.display = 'flex'));
   }
@@ -49,10 +49,16 @@ export default class Todo extends Component {
     const taskCount = await _this.state.userInfo.then((res) => res.taskCount);
     const $statusTarget = e.target.closest('[data-status]');
     const $buttonTarget = e.target.closest('#add-task');
-    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1 };
+    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1, taskActive: true };
 
     if ($buttonTarget) {
-      new Task($statusTarget, { taskTitle: '', taskContent: '', taskAuthor: '', taskData: '', taskId: taskCount + 1 });
+      new Task($statusTarget, {
+        taskTitle: '',
+        taskContent: '',
+        taskAuthor: '',
+        taskData: '',
+        taskId: taskCount + 1,
+      });
       await putTask(data);
     }
   }
@@ -64,6 +70,7 @@ export default class Todo extends Component {
     const contentInput = e.target['content'].value;
     const $statusTarget = e.target.closest('[data-status]');
     const $taskTarget = e.target.closest('[data-task]');
+    const $titleTarget = $taskTarget.querySelector('.task-title-input');
 
     const data = {
       title: titleInput,
@@ -71,28 +78,27 @@ export default class Todo extends Component {
       loginedUser: 'jangoh',
       statusName: $statusTarget.dataset.status,
       taskId: $taskTarget.dataset.task,
+      taskActive: false,
     };
+
+    $titleTarget.classList.toggle('active');
+    $taskTarget.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
+    $titleTarget.classList.toggle('active');
+
     await putTask(data);
-    $taskTarget.dispatchEvent(new Event('dblclick'));
   }
 
-  async updateTaskContent(e) {
+  async updateTaskContent(e, _this) {
     e.preventDefault();
+
+    const statusName = e.target.closest('[data-status]').dataset.status;
     const $taskTarget = e.target.closest('[data-task]');
-    const $titleTarget = $taskTarget.querySelector('.task-title-input');
-    const $contentTarget = $taskTarget.querySelector('.task-content-input');
+    const taskId = $taskTarget.dataset.task;
+    const taskTitle = $taskTarget.querySelector('.task-title-input').getInnerHTML();
+    const taskContent = $taskTarget.querySelector('.task-content-input').getInnerHTML();
 
-    // if (!$titleTarget.classList.contains('active')) {
-    $titleTarget.classList.toggle('active');
-    $contentTarget.classList.toggle('active');
-    $taskTarget.querySelector('#delete-todo').classList.toggle('active');
-    $taskTarget.querySelector('.task-author').classList.toggle('active');
-    $taskTarget.querySelector('.button').classList.toggle('active');
+    const data = { title: taskTitle, content: taskContent, loginedUser: 'jangoh', statusName, taskId: parseInt(taskId), taskActive: true };
 
-    !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
-    !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
-    // }
-
-    // await putTask({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
+    await putTask(data);
   }
 }

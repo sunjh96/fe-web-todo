@@ -2,7 +2,7 @@ const fs = require('fs');
 
 // Status별 Task 추가 메서드
 module.exports = async (req, res) => {
-  const { loginedUser, statusName, title, content, taskId } = req.body;
+  const { loginedUser, statusName, title, content, taskId, taskActive } = req.body;
   let userData = {};
 
   const prom = async () => {
@@ -30,6 +30,7 @@ module.exports = async (req, res) => {
           author: loginedUser,
           date: Date.now(),
           taskId: task.taskId,
+          taskActive,
         });
       }
 
@@ -45,14 +46,14 @@ module.exports = async (req, res) => {
   } else if (statusName) {
     taskList.some((task, idx) => {
       if (parseInt(task['taskId']) === parseInt(taskId)) {
-        taskList.splice(idx, 1, { title, content, author: loginedUser, date: Date.now(), taskId });
+        taskList.splice(idx, 1, { title, content, author: loginedUser, date: Date.now(), taskId, taskActive });
         taskIndex = idx;
       }
 
       return task['taskId'] === parseInt(taskId);
     });
 
-    taskIndex === -1 && (taskList = [...taskList, { title, content, author: loginedUser, date: Date.now(), taskId: taskCount + 1 }]);
+    taskIndex === -1 && (taskList = [...taskList, { title, content, author: loginedUser, date: Date.now(), taskId: taskCount + 1, taskActive }]);
 
     const newStatus = { ...status, [`${statusName}`]: taskList };
     const newUserData = { ...userData, status: newStatus, taskCount: taskCount + 1 };

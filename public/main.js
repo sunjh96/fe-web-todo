@@ -86,7 +86,7 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const _this = this;
 
     this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e));
+    this.addEvent('dblclick', '[data-task]', (e) => updateTaskContent(e, _this));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
     this.addEvent('click', '.add-status-btn', () => (document.querySelector('.modal-overlay').style.display = 'flex'));
   }
@@ -95,10 +95,16 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const taskCount = await _this.state.userInfo.then((res) => res.taskCount);
     const $statusTarget = e.target.closest('[data-status]');
     const $buttonTarget = e.target.closest('#add-task');
-    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1 };
+    const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1, taskActive: true };
 
     if ($buttonTarget) {
-      new _components__WEBPACK_IMPORTED_MODULE_2__.Task($statusTarget, { taskTitle: '', taskContent: '', taskAuthor: '', taskData: '', taskId: taskCount + 1 });
+      new _components__WEBPACK_IMPORTED_MODULE_2__.Task($statusTarget, {
+        taskTitle: '',
+        taskContent: '',
+        taskAuthor: '',
+        taskData: '',
+        taskId: taskCount + 1,
+      });
       await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
     }
   }
@@ -110,6 +116,7 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const contentInput = e.target['content'].value;
     const $statusTarget = e.target.closest('[data-status]');
     const $taskTarget = e.target.closest('[data-task]');
+    const $titleTarget = $taskTarget.querySelector('.task-title-input');
 
     const data = {
       title: titleInput,
@@ -117,29 +124,28 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
       loginedUser: 'jangoh',
       statusName: $statusTarget.dataset.status,
       taskId: $taskTarget.dataset.task,
+      taskActive: false,
     };
+
+    $titleTarget.classList.toggle('active');
+    $taskTarget.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
+    $titleTarget.classList.toggle('active');
+
     await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
-    $taskTarget.dispatchEvent(new Event('dblclick'));
   }
 
-  async updateTaskContent(e) {
+  async updateTaskContent(e, _this) {
     e.preventDefault();
+
+    const statusName = e.target.closest('[data-status]').dataset.status;
     const $taskTarget = e.target.closest('[data-task]');
-    const $titleTarget = $taskTarget.querySelector('.task-title-input');
-    const $contentTarget = $taskTarget.querySelector('.task-content-input');
+    const taskId = $taskTarget.dataset.task;
+    const taskTitle = $taskTarget.querySelector('.task-title-input').getInnerHTML();
+    const taskContent = $taskTarget.querySelector('.task-content-input').getInnerHTML();
 
-    // if (!$titleTarget.classList.contains('active')) {
-    $titleTarget.classList.toggle('active');
-    $contentTarget.classList.toggle('active');
-    $taskTarget.querySelector('#delete-todo').classList.toggle('active');
-    $taskTarget.querySelector('.task-author').classList.toggle('active');
-    $taskTarget.querySelector('.button').classList.toggle('active');
+    const data = { title: taskTitle, content: taskContent, loginedUser: 'jangoh', statusName, taskId: parseInt(taskId), taskActive: true };
 
-    !$titleTarget.classList.contains('active') ? ($titleTarget.disabled = true) : ($titleTarget.disabled = false);
-    !$contentTarget.classList.contains('active') ? ($contentTarget.disabled = true) : ($contentTarget.disabled = false);
-    // }
-
-    // await putTask({ loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: $taskTarget.dataset.task });
+    await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
   }
 }
 
@@ -4307,6 +4313,7 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
       taskContent: this.props.taskContent,
       taskAuthor: this.props.taskAuthor,
       taskDate: this.props.taskDate,
+      taskActive: this.props.taskActive,
     };
   }
 
@@ -4315,8 +4322,12 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
     <section class="todo-task" data-task=${this.state.taskId}>
       <form data-type="input-task">
         <div class="task-title">
-          <textarea class="task-title-input active" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus>${this.state.taskTitle}</textarea>
-          <span id="delete-todo" class="active">
+          <textarea class="task-title-input ${
+            this.state.taskActive ? 'active' : ''
+          }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'}>${
+      this.state.taskTitle
+    }</textarea>
+          <span id="delete-todo" class=${this.state.taskActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
               <path
                 d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
@@ -4325,9 +4336,13 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
             </svg>
           </span>
         </div>
-        <textarea class="task-content-input active" placeholder="내용을 입력하세요" name="content" rows="1" required>${this.state.taskContent}</textarea>
-        <span class="task-author active">author by ${this.state.taskAuthor}</span>
-        <div data-seq=${this.state.taskId} class="button"></div>
+        <textarea class="task-content-input ${
+          this.state.taskActive ? 'active' : ''
+        }" placeholder="내용을 입력하세요" name="content" rows="1" required ${this.state.taskActive ? '' : 'disabled'}>${
+      this.state.taskContent
+    }</textarea>
+        <span class="task-author ${this.state.taskActive ? 'active' : ''}">author by ${this.state.taskAuthor}</span>
+        <div data-seq=${this.state.taskId} class="button ${this.state.taskActive ? '' : 'active'}"></div>
       </form>
     </section>
     `;
@@ -4377,7 +4392,14 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
     const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}]`);
 
     taskData.forEach((obj) => {
-      const props = { taskId: obj.taskId, taskTitle: obj.title, taskContent: obj.content, taskAuthor: obj.author, taskDate: obj.date };
+      const props = {
+        taskId: obj.taskId,
+        taskTitle: obj.title,
+        taskContent: obj.content,
+        taskAuthor: obj.author,
+        taskDate: obj.date,
+        taskActive: obj.taskActive,
+      };
       new _components__WEBPACK_IMPORTED_MODULE_1__.Task($taskTarget, props);
     });
   }
