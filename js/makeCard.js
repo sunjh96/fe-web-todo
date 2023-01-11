@@ -19,7 +19,7 @@ const modalOpen = (e) => {
     deleteItemBtn.addEventListener("click", function () {
       console.log("click");
       modalClose();
-      toDoList.removeChild(removeTarget);
+      toDoList.remove(removeTarget);
     });
     modalCancelBtn.addEventListener("click", modalClose);
   }
