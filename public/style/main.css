@@ -265,6 +265,14 @@
   width: 16.75rem;
   position: relative;
 }
+.todo-task .material-symbols-outlined {
+  display: none;
+}
+.todo-task:hover .material-symbols-outlined {
+  display: flex;
+  font-size: 1rem;
+  color: #bdbdbd;
+}
 .todo-task form {
   display: flex;
   flex-direction: column;

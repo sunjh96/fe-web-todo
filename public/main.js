@@ -44,6 +44,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var _api_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(55);
+
 
 
 
@@ -84,9 +86,9 @@ class Todo extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setEvent() {
     const { addTask, setTaskContent, openModal } = this;
     const _this = this;
-
+    document.addEventListener('click', _drag__WEBPACK_IMPORTED_MODULE_4__.holdDownTask);
     this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
+    // this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
     this.addEvent('click', '.add-status-btn', openModal);
   }
@@ -4313,6 +4315,13 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
           }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'} value="${
       this.state.taskTitle
     }">${this.state.taskTitle}</textarea>
+          ${
+            this.state.taskActive
+              ? ''
+              : `<span class="material-symbols-outlined">
+                  edit
+                </span>`
+          }
           <span id="delete-todo" class=${this.state.taskActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
               <path
@@ -4375,7 +4384,7 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
 
   async mounted() {
     const taskData = await this.state.taskList;
-    const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}]`);
+    const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}task-list]`);
 
     taskData.forEach((obj) => {
       const props = {
@@ -4419,7 +4428,7 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
             </span>
           </div>
         </section>
-        <section data-status=${this.state.title} class="todo-task-list"></section>
+        <section data-status="${this.state.title}task-list" class="todo-task-list"></section>
       </article>
     `;
   }
@@ -4427,6 +4436,104 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
   async render() {
     this.$target.insertAdjacentHTML('beforeend', await this.template());
     this.mounted();
+  }
+}
+
+
+/***/ }),
+/* 55 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "drag": () => (/* binding */ drag),
+/* harmony export */   "holdDownTask": () => (/* binding */ holdDownTask)
+/* harmony export */ });
+function drag(event, elementToDrag = event.target) {
+  elementToDrag = elementToDrag.closest('[data-task]');
+  elementToDrag.style.position = 'absolute';
+  elementToDrag.style.zIndex = '100';
+
+  let startX = event.clientX;
+  let startY = event.clientY;
+
+  let origX = elementToDrag.offsetLeft;
+  let origY = elementToDrag.offsetTop;
+
+  let deltaX = startX - origX;
+  let deltaY = startY - origY;
+
+  document.addEventListener('mousemove', moveHandler, true);
+  document.addEventListener('mouseup', upHandler, true);
+
+  event.stopPropagation();
+  event.preventDefault();
+
+  function moveHandler(e) {
+    elementToDrag.style.left = e.clientX - deltaX + 'px';
+    elementToDrag.style.top = e.clientY - deltaY + 'px';
+
+    e.stopPropagation();
+  }
+
+  function upHandler(e) {
+    document.removeEventListener('mouseup', upHandler, true);
+    document.removeEventListener('mousemove', moveHandler, true);
+
+    e.stopPropagation();
+  }
+}
+
+function holdDownTask(e) {
+  const PRESS_HOLD_DURATION = 200;
+  let $taskTarget = e.target.closest('[data-task]');
+  let $taskTargets = [...document.querySelectorAll('[data-task]')];
+  let timerID, rotateTaskID;
+  let counter = 0;
+  let x = 0;
+
+  let pressHoldEvent = new CustomEvent('pressHold');
+
+  $taskTarget.addEventListener('mousedown', pressingDown);
+  $taskTarget.addEventListener('mouseup', notPressingDown);
+  $taskTarget.addEventListener('mouseleave', notPressingDown);
+  $taskTarget.addEventListener('pressHold', rotateX);
+
+  function timer() {
+    if (counter < PRESS_HOLD_DURATION) {
+      timerID = requestAnimationFrame(timer);
+      counter++;
+    } else {
+      $taskTarget.dispatchEvent(pressHoldEvent);
+    }
+  }
+
+  function pressingDown(e) {
+    requestAnimationFrame(timer);
+    e.preventDefault();
+  }
+
+  function notPressingDown(e) {
+    cancelAnimationFrame(timerID);
+    cancelAnimationFrame(rotateTaskID);
+    counter = 0;
+  }
+
+  function rotateX() {
+    $taskTargets.forEach((task) => {
+      if (x === 0) task.style.transform = `rotate(0deg)`;
+      else if (x === 1) task.style.transform = `rotate(-0.7deg)`;
+      else {
+        task.style.transform = `rotate(0.7deg)`;
+        x = 0;
+      }
+    });
+
+    setTimeout(() => {
+      x += 1;
+      rotateTaskID = requestAnimationFrame(rotateX);
+    }, 100);
   }
 }
 

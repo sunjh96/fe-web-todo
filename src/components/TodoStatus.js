@@ -18,7 +18,7 @@ export default class TodoStatus extends Component {
 
   async mounted() {
     const taskData = await this.state.taskList;
-    const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}]`);
+    const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}task-list]`);
 
     taskData.forEach((obj) => {
       const props = {
@@ -62,7 +62,7 @@ export default class TodoStatus extends Component {
             </span>
           </div>
         </section>
-        <section data-status=${this.state.title} class="todo-task-list"></section>
+        <section data-status="${this.state.title}task-list" class="todo-task-list"></section>
       </article>
     `;
   }

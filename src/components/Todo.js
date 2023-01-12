@@ -2,6 +2,7 @@ import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
 import { getUser, putTask } from '@/api/user';
+import { drag, holdDownTask } from '@/drag';
 
 /**
  * Class Todo
@@ -38,9 +39,9 @@ export default class Todo extends Component {
   setEvent() {
     const { addTask, setTaskContent, openModal } = this;
     const _this = this;
-
+    document.addEventListener('click', holdDownTask);
     this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
+    // this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
     this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
     this.addEvent('click', '.add-status-btn', openModal);
   }

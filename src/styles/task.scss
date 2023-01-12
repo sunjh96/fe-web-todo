@@ -18,6 +18,18 @@
   width: 16.75rem;
   position: relative;
 
+  .material-symbols-outlined {
+    display: none;
+  }
+
+  &:hover {
+    .material-symbols-outlined {
+      display: flex;
+      font-size: 1rem;
+      color: $gray400;
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;

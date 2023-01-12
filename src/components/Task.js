@@ -29,6 +29,13 @@ export default class Task extends Component {
           }" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus ${this.state.taskActive ? '' : 'disabled'} value="${
       this.state.taskTitle
     }">${this.state.taskTitle}</textarea>
+          ${
+            this.state.taskActive
+              ? ''
+              : `<span class="material-symbols-outlined">
+                  edit
+                </span>`
+          }
           <span id="delete-todo" class=${this.state.taskActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
               <path
