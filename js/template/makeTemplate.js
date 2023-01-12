@@ -18,10 +18,21 @@ const makeCard = ({ title, detail, id }) => {
         <div class="material-symbols-outlined item-edit-btn">edit</div>
       </div>
     </div>
-    <div class="item-editBtn-wrapper hidden">
-      <button class="item-edit-cancel-btn">취소</button>
-      <button class="item-edit-active-btn">수정</button>
+    <div class="item-edit-content-wrapper hidden">
+      <div class="item-content-box">
+        <div class="item-title-box">
+          <input class="item-edit-title-input" placeholder="${title}">
+        </div>
+        <div class="item-detail-box">
+          <textarea class="item-edit-detail-input" placeholder="${detail}"></textarea>
+        </div>
+      </div>
+      <div class="item-editBtn-wrapper">
+        <button class="item-edit-cancel-btn">취소</button>
+        <button class="item-edit-active-btn">수정</button>
+      </div>
     </div>
+    
 
     
   </li>`;
@@ -51,7 +62,28 @@ const makeColumn = ({ title = "제목" }) => {
   `;
 };
 
-const makeLogItem = (data) => {
+const makeLogMsg = ({ action, title, from, to, time }) => {
+  console.log("왔다");
+  console.log({ action, title, from, to, time });
+  if (action == "Add") {
+    const msg = `<strong>${to}</strong>에 <strong>${title}</strong>를 <strong>등록</strong>하였습니다.`;
+    return makeLogItem(msg, time);
+  }
+  if (action == "Delete") {
+    const msg = `<strong>${to}</strong>에 <strong>${title}</strong>를 <strong>제거</strong>하였습니다.`;
+    return makeLogItem(msg, time);
+  }
+  if (action == "Update") {
+    const msg = `<strong>${to}</strong>에 <strong>${title}</strong>를 <strong>수정</strong>하였습니다.`;
+    return makeLogItem(msg, time);
+  }
+  if (action == "Move") {
+    const msg = `<strong>${title}</strong>를 <strong>${from}</strong>에서 <strong>${to}</strong>로 <strong>이동</strong>하였습니다.`;
+    return makeLogItem(msg, time);
+  }
+};
+
+const makeLogItem = (msg, time) => {
   return `
   <li class="menu-log-box">
     <div class="log-profile">
@@ -59,11 +91,11 @@ const makeLogItem = (data) => {
     </div>
     <div class="log-content-box">
       <div class="log-profile-name">@sam</div>
-      <div class="log-content-text"><strong>${data.To}</strong>에 <strong>${data.Title}</strong>을 <strong>${data.Action}</strong>하였습니다. </div>
-      <div class="log-content-time">${data.time}분 전</div>
+      <div class="log-content-text">${msg} </div>
+      <div class="log-content-time">${time}</div>
     </div>
   </li>
   `;
 };
 
-export { makeCard, makeColumn, makeLogItem };
+export { makeCard, makeColumn, makeLogMsg };

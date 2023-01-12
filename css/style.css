@@ -70,3 +70,10 @@ body {
 ul {
   padding: 0;
 }
+input {
+  width: 85%;
+}
+textarea {
+  resize: none;
+  width: 85%;
+}

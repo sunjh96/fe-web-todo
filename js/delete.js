@@ -1,7 +1,11 @@
 import { arrCount } from "./arrCount.js";
-import { todos } from "./data.js";
-const titleInputBox = document.getElementsByClassName("title-input"); // 할 일 제목 입력창
-const detailInputBox = document.getElementsByClassName("detail-input"); // 할 일 내용 입력창
+import { listData } from "./data/listData.js";
+
+import { makeLogMsg } from "./template/makeTemplate.js";
+import { logData } from "./data/logData.js";
+
+const Logcondition = ["해야할 일", "하고 있는 일", "완료한 일"];
+
 const condition = ["todo", "doing", "done"];
 
 const defineItemTarget = {
@@ -24,11 +28,13 @@ const defineItemTarget = {
     this._Id = num;
   },
 };
+
 const closeModal = (e) => {
   if (e.target.id == "modal-cancel-btn") {
     document.getElementById("modal").classList.add("hidden");
   }
 };
+
 const openModal = (e) => {
   if (e.target.id == "item-delete-btn") {
     document.getElementById("modal").classList.remove("hidden");
@@ -41,14 +47,33 @@ const openModal = (e) => {
 };
 const deleteItem = (e) => {
   if (e.target.id == "modal-delete-btn") {
+    let today = new Date();
     document.getElementById("modal").classList.add("hidden");
-    console.log(defineItemTarget.Id);
-    todos
+    listData
       .filter((item) => item.id === defineItemTarget.Id)
       .map(() => {
-        let index = todos.findIndex((obj) => obj.id === defineItemTarget.Id);
-        const idx = condition.findIndex((obj) => obj === todos[index].status);
-        todos.splice(index, 1);
+        let index = listData.findIndex((obj) => obj.id === defineItemTarget.Id);
+        const idx = condition.findIndex(
+          (obj) => obj === listData[index].status
+        );
+        console.log(listData[index].title);
+        const newLogItem = makeLogMsg({
+          action: "Delete",
+          title: listData[index].title,
+          from: "",
+          to: Logcondition[idx],
+          time: today.toLocaleString(),
+        });
+        const menuLogWrapper = document.querySelector(".menu-log-wrapper");
+        menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
+        logData.push({
+          Action: "Delete",
+          Title: listData[index].title,
+          To: Logcondition[idx],
+          From: "",
+          time: today.toLocaleString(),
+        });
+        listData.splice(index, 1);
         const focusItem = document.querySelector(".focus");
         focusItem.remove();
         defineItemTarget.Item.classList.add("focus");
@@ -57,4 +82,4 @@ const deleteItem = (e) => {
   }
 };
 
-export { openModal, closeModal, deleteItem };
+export { openModal, closeModal, deleteItem, defineItemTarget };

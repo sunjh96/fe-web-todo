@@ -1,8 +1,12 @@
-import { todos } from "./data.js";
+import { listData } from "./data/listData.js";
 import { makeCard } from "./template/makeTemplate.js";
 import { arrCount } from "./arrCount.js";
 import { openMenu, closeMenu, ShowLogs } from "./menu.js";
-import { openItemEditForm, closeItemEditForm } from "./edit.js";
+import {
+  openItemEditForm,
+  cancelItemEditForm,
+  editItemEditForm,
+} from "./edit.js";
 import { openModal, closeModal, deleteItem } from "./delete.js";
 
 const toDoList = document.getElementById("item-todo-list"); // 할 일 리스트창
@@ -14,7 +18,7 @@ const CONSTANT = [0, 1, 2];
 
 const showItems = () => {
   //toDoList.innerHTML = "";
-  todos.map((item) => {
+  listData.map((item) => {
     const card = makeCard({
       title: item.title,
       detail: item.details,
@@ -32,10 +36,11 @@ const clickDocument = () => {
     openMenu(e);
     closeMenu(e);
     openItemEditForm(e);
-    closeItemEditForm(e);
+    cancelItemEditForm(e);
     openModal(e);
     closeModal(e);
     deleteItem(e);
+    editItemEditForm(e);
   });
 };
 
@@ -49,5 +54,6 @@ const init = () => {
 };
 
 init();
+console.log;
 
 export { showItems };

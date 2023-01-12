@@ -1,5 +1,5 @@
 import { logData } from "./data/logData.js";
-import { makeLogItem } from "./template/makeTemplate.js";
+import { makeLogMsg } from "./template/makeTemplate.js";
 
 const menuLogWrapper = document.querySelector(".menu-log-wrapper");
 
@@ -16,7 +16,13 @@ const closeMenu = (e) => {
 //로그보여주기
 const ShowLogs = () => {
   logData.map((data) => {
-    const newLogItem = makeLogItem(data);
+    const newLogItem = makeLogMsg({
+      action: data.Action,
+      title: data.Title,
+      from: data.From,
+      to: data.To,
+      time: data.time,
+    });
     menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
   });
 };
