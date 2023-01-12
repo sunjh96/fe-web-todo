@@ -5,10 +5,10 @@
   "main": "index.html",
   "scripts": {
     "build": "webpack watch",
-    "dev": "webpack serve --open --mode=development --hot",
+    "dev": "webpack serve --open --mode=development",
     "start": "concurrently \"npm run build\" \"npm run dev\" "
   },
-  "proxy": "http://127.0.0.1:3000",
+  "proxy": "http://127.0.0.1:5500",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sunjh96/fe-web-todo.git"

@@ -15,6 +15,7 @@ export default class Component {
   props;
   state;
   innerType;
+  counter = 0;
 
   constructor($target, props, innerType) {
     this.$target = $target;
@@ -29,6 +30,11 @@ export default class Component {
 
   template() {
     return '';
+  }
+
+  useEffect(dependency) {
+    if (dependency.length > 0) {
+    }
   }
 
   mounted() {}

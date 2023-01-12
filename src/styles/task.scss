@@ -20,13 +20,17 @@
 
   .material-symbols-outlined {
     display: none;
+    position: absolute;
+    right: 0.875rem;
+    top: 2.5rem;
   }
 
   &:hover {
     .material-symbols-outlined {
       display: flex;
-      font-size: 1rem;
+      font-size: 1.25rem;
       color: $gray400;
+      cursor: pointer;
     }
   }
 

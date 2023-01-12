@@ -42,10 +42,10 @@ module.exports = {
       devServer.app.use(apiMocker('/api', 'src/api'));
     },
     proxy: {
-      '/api/': { target: 'http://127.0.0.1:3000', changeOrigin: true },
+      '/api/': { target: 'http://127.0.0.1:5500', changeOrigin: true },
     },
     compress: true,
-    port: 3000,
+    port: 5500,
     host: '127.0.0.1',
     historyApiFallback: true,
   },

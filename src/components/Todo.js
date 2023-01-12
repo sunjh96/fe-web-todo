@@ -1,8 +1,7 @@
-import Component from '@/core/Component';
+import { Component, drag, holdDownTask } from '@/core';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
 import { getUser, putTask } from '@/api/user';
-import { drag, holdDownTask } from '@/drag';
 
 /**
  * Class Todo
@@ -38,11 +37,12 @@ export default class Todo extends Component {
 
   setEvent() {
     const { addTask, setTaskContent, openModal } = this;
-    const _this = this;
-    document.addEventListener('click', holdDownTask);
-    this.addEvent('click', '[data-status]', (e) => addTask(e, _this));
-    // this.addEvent('dblclick', '[data-task]', (e) => setTaskContent(e));
-    this.addEvent('submit', '[data-type=input-task]', (e) => setTaskContent(e));
+
+    this.addEvent('mousedown', '[data-task]', holdDownTask);
+    this.addEvent('click', '.material-symbols-outlined', setTaskContent);
+    this.addEvent('click', '[data-status]', addTask.bind(this));
+    this.addEvent('dblclick', '[data-task]', setTaskContent);
+    this.addEvent('submit', '[data-type=input-task]', setTaskContent);
     this.addEvent('click', '.add-status-btn', openModal);
   }
 
@@ -50,8 +50,8 @@ export default class Todo extends Component {
     document.querySelector('.modal-overlay').style.display = 'flex';
   }
 
-  async addTask(e, _this) {
-    const taskCount = await _this.state.userInfo.then((res) => res.taskCount);
+  async addTask(e) {
+    const taskCount = await this.state.userInfo.then((res) => res.taskCount);
     const $statusTarget = e.target.closest('[data-status]');
     const $buttonTarget = e.target.closest('#add-task');
     const data = { title: '', content: '', loginedUser: 'jangoh', statusName: $statusTarget.dataset.status, taskId: taskCount + 1, taskActive: true };
@@ -63,7 +63,9 @@ export default class Todo extends Component {
         taskAuthor: '',
         taskData: '',
         taskId: taskCount + 1,
+        taskActive: true,
       });
+
       await putTask(data);
     }
   }
@@ -71,7 +73,7 @@ export default class Todo extends Component {
   async setTaskContent(e) {
     e.preventDefault();
 
-    const statusName = e.target.closest('[data-status]').dataset.status;
+    const statusName = e.target.closest('[data-status]').dataset.status.split('task-list')[0];
     const $taskTarget = e.target.closest('[data-task]');
     const taskId = $taskTarget.dataset.task;
 

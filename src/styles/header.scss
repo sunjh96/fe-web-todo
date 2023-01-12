@@ -5,10 +5,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-}
 
-.header > h2 {
-  font-size: 2.5rem;
+  h2 {
+    font-size: 2.5rem;
+  }
 }
 
 .trigger {
@@ -19,6 +19,27 @@
   top: calc(0.875rem - 1px);
   right: 0;
   position: absolute;
+  cursor: pointer;
+
+  button {
+    display: none;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 2rem;
+    top: -0.5rem;
+    left: -1.25rem;
+    border-radius: 2rem;
+    border: none;
+    background-color: $ok-btn-disabled-color;
+    color: $white;
+
+    &:hover {
+      scale: 1.05;
+      box-shadow: 1px 1px 10px $cancel-btn-text-color;
+    }
+  }
 }
 
 .trigger span {

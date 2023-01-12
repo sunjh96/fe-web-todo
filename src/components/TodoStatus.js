@@ -66,7 +66,6 @@ export default class TodoStatus extends Component {
       </article>
     `;
   }
-
   async render() {
     this.$target.insertAdjacentHTML('beforeend', await this.template());
     this.mounted();
