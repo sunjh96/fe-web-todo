@@ -1,6 +1,9 @@
 import { todos } from "./data.js";
 import { makeCard } from "./template/makeTemplate.js";
 import { arrCount } from "./arrCount.js";
+import { openMenu, closeMenu, ShowLogs } from "./menu.js";
+import { openItemEditForm, closeItemEditForm } from "./edit.js";
+import { openModal, closeModal, deleteItem } from "./delete.js";
 
 const toDoList = document.getElementById("item-todo-list"); // 할 일 리스트창
 const doingList = document.getElementById("item-doing-list"); // 할 일 리스트창
@@ -23,11 +26,26 @@ const showItems = () => {
   });
 };
 
+const clickDocument = () => {
+  document.addEventListener("click", (e) => {
+    console.log(e.target.className);
+    openMenu(e);
+    closeMenu(e);
+    openItemEditForm(e);
+    closeItemEditForm(e);
+    openModal(e);
+    closeModal(e);
+    deleteItem(e);
+  });
+};
+
 const init = () => {
   showItems();
   arrCount(0);
   arrCount(1);
   arrCount(2);
+  clickDocument();
+  ShowLogs();
 };
 
 init();

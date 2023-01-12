@@ -32,16 +32,17 @@ const closeModal = (e) => {
 const openModal = (e) => {
   if (e.target.id == "item-delete-btn") {
     document.getElementById("modal").classList.remove("hidden");
-    defineItemTarget.Item = e.target.parentNode.parentNode;
+    defineItemTarget.Item = e.target.parentNode.parentNode.parentNode;
     defineItemTarget.Item.classList.add("focus");
     defineItemTarget.Id = parseInt(
-      e.target.parentNode.parentNode.getAttribute("id")
+      e.target.parentNode.parentNode.parentNode.getAttribute("id")
     );
   }
 };
 const deleteItem = (e) => {
   if (e.target.id == "modal-delete-btn") {
     document.getElementById("modal").classList.add("hidden");
+    console.log(defineItemTarget.Id);
     todos
       .filter((item) => item.id === defineItemTarget.Id)
       .map(() => {
@@ -56,8 +57,4 @@ const deleteItem = (e) => {
   }
 };
 
-document.addEventListener("click", (e) => {
-  closeModal(e);
-  openModal(e);
-  deleteItem(e);
-});
+export { openModal, closeModal, deleteItem };

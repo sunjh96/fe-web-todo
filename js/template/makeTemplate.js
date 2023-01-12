@@ -1,16 +1,29 @@
 const makeCard = ({ title, detail, id }) => {
   return `
   <li class="item-wrapper" id="${id}" draggable="true" ondrag="drag_handler(event)">
-      <div class="item-title-box">
-        <h3 class="item-title">${title}</h3>
-        <span class="material-symbols-outlined item-delete-btn" id="item-delete-btn">close</span>
+    <div class="item-content-wrapper">
+      <div class="item-content-box">
+        <div class="item-title-box">
+          <h3 class="item-title">${title}</h3>
+        </div>
+        <div class="item-detail-box">
+          <p class="item-detail">${detail}</p>
+        </div>
+        <div class="item-author-box">
+          <p class="item-author">Author by web</p>
+        </div>
       </div>
-      <div class="item-detail-box">
-        <p class="item-text">${detail}</p>
+      <div class="item-btn-wrapper">
+        <div class="material-symbols-outlined item-delete-btn" id="item-delete-btn">close</div>
+        <div class="material-symbols-outlined item-edit-btn">edit</div>
       </div>
-      <div class="item-author-box">
-        <p class="item-author">Author by web</p>
-      </div>
+    </div>
+    <div class="item-editBtn-wrapper hidden">
+      <button class="item-edit-cancel-btn">취소</button>
+      <button class="item-edit-active-btn">수정</button>
+    </div>
+
+    
   </li>`;
 };
 
@@ -38,7 +51,7 @@ const makeColumn = ({ title = "제목" }) => {
   `;
 };
 
-const makeLogList = () => {
+const makeLogItem = (data) => {
   return `
   <li class="menu-log-box">
     <div class="log-profile">
@@ -46,11 +59,11 @@ const makeLogList = () => {
     </div>
     <div class="log-content-box">
       <div class="log-profile-name">@sam</div>
-      <div class="log-content-text">해야할 일에 블로그에 포스팅 할 것을 등록하였습니다. </div>
-      <div class="log-content-time">1분 전</div>
+      <div class="log-content-text"><strong>${data.To}</strong>에 <strong>${data.Title}</strong>을 <strong>${data.Action}</strong>하였습니다. </div>
+      <div class="log-content-time">${data.time}분 전</div>
     </div>
   </li>
   `;
 };
 
-export { makeCard, makeColumn, makeLogList };
+export { makeCard, makeColumn, makeLogItem };

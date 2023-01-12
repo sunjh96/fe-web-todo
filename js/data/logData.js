@@ -1,10 +1,86 @@
-{
-    "Log":[
-        {
-            "From":"Todo",
-            "To":"Done",
-            "Action":"",
-            "Time":""
-        }
-    ],
-}
+export const logData = [
+  {
+    Action: "Add",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "",
+    time: "11",
+  },
+  {
+    Action: "Add",
+    Title: "자바스크립트 공부하기",
+    To: "하고 있는 일",
+    From: "",
+    time: "10",
+  },
+  {
+    Action: "Delete",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "",
+    time: "9",
+  },
+  {
+    Action: "Delete",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "",
+    time: "8",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "7",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "6",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "7",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "6",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "7",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "6",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "7",
+  },
+  {
+    Action: "Move",
+    Title: "자바스크립트 공부하기",
+    To: "해야할 일",
+    From: "하고 있는 일",
+    time: "6",
+  },
+];
