@@ -1,1 +1,16 @@
-{"id":0,"userName":"jangoh","status":{"해야할일":[{"title":"","content":"","author":"jangoh","date":1673563350308,"taskId":8,"taskActive":true}],"하는중":[{"title":"b","content":"b","author":"jangoh","date":1673585465842,"taskId":6,"taskActive":true}],"완료":[{"title":"a","content":"a","author":"jangoh","date":1673577943059,"taskId":10,"taskActive":false},{"title":"","content":"","author":"jangoh","date":1673574786587,"taskId":11,"taskActive":true}]},"taskCount":15}
+{
+  "id": 0,
+  "userName": "jangoh",
+  "status": {
+    "해야할일": [
+      { "title": "소프티어 부트캠프 1기", "content": "정장오 !!!!", "author": "jangoh", "date": 1673588582178, "taskId": 3, "taskActive": false }
+    ],
+    "하는중": [{ "title": "반갑습니다. 11", "content": "반가워요", "author": "jangoh", "date": 1673590922951, "taskId": 9, "taskActive": false }],
+    "완료": [
+      { "title": "완료 테스트", "content": "테스트", "author": "jangoh", "date": 1673588564750, "taskId": 1, "taskActive": false },
+      { "title": "123", "content": "123", "author": "jangoh", "date": 1673590939036, "taskId": 12, "taskActive": false }
+    ],
+    "상태 추가 테스트": []
+  },
+  "taskCount": 13
+}

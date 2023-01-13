@@ -12,6 +12,7 @@ export default function holdDownTask(e) {
   let timerID, rotateID, setTimeoutID;
   let counter = 0;
   let rotateDir = 0;
+  let dragCount = 0;
 
   $taskTarget.addEventListener('mouseup', notPressingDown);
   $taskTarget.addEventListener('pressHold', rotateX);
@@ -41,15 +42,11 @@ export default function holdDownTask(e) {
     $taskTarget.removeEventListener('mouseup', notPressingDown);
     $taskTarget.removeEventListener('pressHold', rotateX);
 
-    drag(e);
-
     counter = 0;
   }
-
-  // function start(e) {}
-
   function rotateX() {
     $taskTargets.forEach((task) => {
+      !dragCount && task.addEventListener('mousedown', drag);
       if (rotateDir === 0) {
         task.style.transform = `rotate(0deg)`;
       } else if (rotateDir === 1) {
@@ -59,6 +56,7 @@ export default function holdDownTask(e) {
         task.style.transform = `rotate(0.7deg)`;
       }
     });
+    dragCount++;
 
     setTimeoutID = setTimeout(() => {
       rotateDir += 1;
@@ -69,6 +67,7 @@ export default function holdDownTask(e) {
   function stopRotate() {
     cancelAnimationFrame(rotateID);
     clearTimeout(setTimeoutID);
+    $taskTarget.removeEventListener('mousedown', drag);
 
     $eventFinishButtonTarget.style.display = 'none';
     $triggerTargets.forEach((elem) => (elem.style.display = 'block'));

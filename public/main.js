@@ -82,11 +82,12 @@ class Todo extends _core__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   setEvent() {
-    const { addTask, deleteTask, setTaskContent, openModal } = this;
+    const { addTask, deleteTask, deleteStatus, setTaskContent, openModal } = this;
 
     this.addEvent('mousedown', '[data-task]', _core__WEBPACK_IMPORTED_MODULE_0__.holdDownTask);
     this.addEvent('click', '.edit-btn', setTaskContent);
     this.addEvent('click', '#delete-todo', deleteTask);
+    this.addEvent('click', '#delete-status', deleteStatus);
     this.addEvent('click', '[data-status]', addTask.bind(this));
     this.addEvent('dblclick', '[data-task]', setTaskContent);
     this.addEvent('submit', '[data-type=input-task]', setTaskContent);
@@ -144,6 +145,12 @@ class Todo extends _core__WEBPACK_IMPORTED_MODULE_0__.Component {
     const taskId = $taskTarget.dataset.task;
 
     (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.deleteTask)({ statusName, taskId, loginedUser: 'jangoh' });
+  }
+
+  deleteStatus({ target }) {
+    const statusName = target.closest('[data-status]').dataset.status.split('task-list')[0];
+
+    (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.deleteStatus)({ statusName, loginedUser: 'jangoh' });
   }
 }
 
@@ -208,11 +215,6 @@ class Component {
 
   template() {
     return '';
-  }
-
-  useEffect(dependency) {
-    if (dependency.length > 0) {
-    }
   }
 
   mounted() {}
@@ -310,6 +312,7 @@ function holdDownTask(e) {
   let timerID, rotateID, setTimeoutID;
   let counter = 0;
   let rotateDir = 0;
+  let dragCount = 0;
 
   $taskTarget.addEventListener('mouseup', notPressingDown);
   $taskTarget.addEventListener('pressHold', rotateX);
@@ -339,15 +342,11 @@ function holdDownTask(e) {
     $taskTarget.removeEventListener('mouseup', notPressingDown);
     $taskTarget.removeEventListener('pressHold', rotateX);
 
-    (0,_drag__WEBPACK_IMPORTED_MODULE_0__["default"])(e);
-
     counter = 0;
   }
-
-  // function start(e) {}
-
   function rotateX() {
     $taskTargets.forEach((task) => {
+      !dragCount && task.addEventListener('mousedown', _drag__WEBPACK_IMPORTED_MODULE_0__["default"]);
       if (rotateDir === 0) {
         task.style.transform = `rotate(0deg)`;
       } else if (rotateDir === 1) {
@@ -357,6 +356,7 @@ function holdDownTask(e) {
         task.style.transform = `rotate(0.7deg)`;
       }
     });
+    dragCount++;
 
     setTimeoutID = setTimeout(() => {
       rotateDir += 1;
@@ -367,6 +367,7 @@ function holdDownTask(e) {
   function stopRotate() {
     cancelAnimationFrame(rotateID);
     clearTimeout(setTimeoutID);
+    $taskTarget.removeEventListener('mousedown', _drag__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
     $eventFinishButtonTarget.style.display = 'none';
     $triggerTargets.forEach((elem) => (elem.style.display = 'block'));
@@ -493,6 +494,7 @@ class Modal extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createUser": () => (/* binding */ createUser),
+/* harmony export */   "deleteStatus": () => (/* binding */ deleteStatus),
 /* harmony export */   "deleteTask": () => (/* binding */ deleteTask),
 /* harmony export */   "getStatusTasks": () => (/* binding */ getStatusTasks),
 /* harmony export */   "getTaskCount": () => (/* binding */ getTaskCount),
@@ -543,6 +545,11 @@ async function putTask(data) {
 }
 
 async function deleteTask(data) {
+  const response = await _client__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api', data);
+  return response.data;
+}
+
+async function deleteStatus(data) {
   const response = await _client__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api', data);
   return response.data;
 }
@@ -4597,7 +4604,7 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
                 />
               </svg>
             </span>
-            <span id="delete-todo">
+            <span id="delete-status">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
                 <path
                   d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"

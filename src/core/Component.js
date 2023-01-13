@@ -32,11 +32,6 @@ export default class Component {
     return '';
   }
 
-  useEffect(dependency) {
-    if (dependency.length > 0) {
-    }
-  }
-
   mounted() {}
 
   render() {

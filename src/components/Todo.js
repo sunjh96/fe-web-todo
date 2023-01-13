@@ -1,7 +1,7 @@
 import { Component, holdDownTask } from '@/core';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
-import { getUser, putTask, deleteTask } from '@/api/user';
+import { getUser, putTask, deleteTask, deleteStatus } from '@/api/user';
 
 /**
  * Class Todo
@@ -36,11 +36,12 @@ export default class Todo extends Component {
   }
 
   setEvent() {
-    const { addTask, deleteTask, setTaskContent, openModal } = this;
+    const { addTask, deleteTask, deleteStatus, setTaskContent, openModal } = this;
 
     this.addEvent('mousedown', '[data-task]', holdDownTask);
     this.addEvent('click', '.edit-btn', setTaskContent);
     this.addEvent('click', '#delete-todo', deleteTask);
+    this.addEvent('click', '#delete-status', deleteStatus);
     this.addEvent('click', '[data-status]', addTask.bind(this));
     this.addEvent('dblclick', '[data-task]', setTaskContent);
     this.addEvent('submit', '[data-type=input-task]', setTaskContent);
@@ -98,5 +99,11 @@ export default class Todo extends Component {
     const taskId = $taskTarget.dataset.task;
 
     deleteTask({ statusName, taskId, loginedUser: 'jangoh' });
+  }
+
+  deleteStatus({ target }) {
+    const statusName = target.closest('[data-status]').dataset.status.split('task-list')[0];
+
+    deleteStatus({ statusName, loginedUser: 'jangoh' });
   }
 }

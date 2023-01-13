@@ -20,8 +20,16 @@ module.exports = async (req, res) => {
     }
     return key === statusName;
   });
+  if (!title && !content && !taskActive && !taskId) {
+    delete status[`${statusName}`];
 
-  if (!title && !content && !taskActive && taskId) {
+    const newStatus = { ...status };
+    const newUserData = { ...userData, status: newStatus, taskCount };
+
+    fs.writeFileSync(`./src/api/users/${loginedUser}/GET.json`, JSON.stringify(newUserData), function (err) {
+      if (err) throw err;
+    });
+  } else if (!title && !content && !taskActive && taskId) {
     taskList.some((task, idx) => {
       if (parseInt(task['taskId']) === parseInt(taskId)) {
         taskList.splice(idx, 1);
