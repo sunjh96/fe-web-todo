@@ -18,19 +18,39 @@
   width: 16.75rem;
   position: relative;
 
-  .material-symbols-outlined {
+  &.active-bg {
+    border: 1px solid $svg-hover-color;
+  }
+
+  .edit-btn {
     display: none;
     position: absolute;
-    right: 0.875rem;
-    top: 2.5rem;
+    right: 1rem;
+    top: 3rem;
+  }
+
+  #delete-todo {
+    svg {
+      cursor: pointer;
+
+      &:hover {
+        path {
+          fill: red;
+        }
+      }
+    }
   }
 
   &:hover {
-    .material-symbols-outlined {
+    .edit-btn {
       display: flex;
-      font-size: 1.25rem;
-      color: $gray400;
       cursor: pointer;
+
+      &:hover {
+        path {
+          fill: $svg-hover-color;
+        }
+      }
     }
   }
 

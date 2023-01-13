@@ -82,10 +82,11 @@ class Todo extends _core__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   setEvent() {
-    const { addTask, setTaskContent, openModal } = this;
+    const { addTask, deleteTask, setTaskContent, openModal } = this;
 
     this.addEvent('mousedown', '[data-task]', _core__WEBPACK_IMPORTED_MODULE_0__.holdDownTask);
-    this.addEvent('click', '.material-symbols-outlined', setTaskContent);
+    this.addEvent('click', '.edit-btn', setTaskContent);
+    this.addEvent('click', '#delete-todo', deleteTask);
     this.addEvent('click', '[data-status]', addTask.bind(this));
     this.addEvent('dblclick', '[data-task]', setTaskContent);
     this.addEvent('submit', '[data-type=input-task]', setTaskContent);
@@ -125,7 +126,7 @@ class Todo extends _core__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     let data = { loginedUser: 'jangoh', statusName, taskId: parseInt(taskId) };
 
-    if (e.type === 'dblclick') {
+    if (e.type === 'dblclick' || e.target.closest('.edit-btn')) {
       data = { ...data, taskActive: true };
     } else {
       const taskTitleInput = e.target['title'].value;
@@ -135,6 +136,14 @@ class Todo extends _core__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
 
     await (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.putTask)(data);
+  }
+
+  deleteTask({ target }) {
+    const statusName = target.closest('[data-status]').dataset.status.split('task-list')[0];
+    const $taskTarget = target.closest('[data-task]');
+    const taskId = $taskTarget.dataset.task;
+
+    (0,_api_user__WEBPACK_IMPORTED_MODULE_3__.deleteTask)({ statusName, taskId, loginedUser: 'jangoh' });
   }
 }
 
@@ -286,6 +295,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ holdDownTask)
 /* harmony export */ });
+/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+
+
 function holdDownTask(e) {
   const PRESS_HOLD_DURATION = 150;
 
@@ -327,8 +339,12 @@ function holdDownTask(e) {
     $taskTarget.removeEventListener('mouseup', notPressingDown);
     $taskTarget.removeEventListener('pressHold', rotateX);
 
+    (0,_drag__WEBPACK_IMPORTED_MODULE_0__["default"])(e);
+
     counter = 0;
   }
+
+  // function start(e) {}
 
   function rotateX() {
     $taskTargets.forEach((task) => {
@@ -477,6 +493,7 @@ class Modal extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createUser": () => (/* binding */ createUser),
+/* harmony export */   "deleteTask": () => (/* binding */ deleteTask),
 /* harmony export */   "getStatusTasks": () => (/* binding */ getStatusTasks),
 /* harmony export */   "getTaskCount": () => (/* binding */ getTaskCount),
 /* harmony export */   "getUser": () => (/* binding */ getUser),
@@ -521,6 +538,11 @@ async function patchStatus(loginedUser, statusName) {
 }
 
 async function putTask(data) {
+  const response = await _client__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api', data);
+  return response.data;
+}
+
+async function deleteTask(data) {
   const response = await _client__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api', data);
   return response.data;
 }
@@ -4459,7 +4481,7 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   template() {
     return `
-    <section class="todo-task" data-task=${this.state.taskId}>
+    <section class="todo-task ${this.state.taskActive ? 'active-bg' : ''}" data-task=${this.state.taskId}>
       <form data-type="input-task">
         <div class="task-title">
           <textarea class="task-title-input ${
@@ -4499,6 +4521,7 @@ class Task extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   mounted() {
+    const isDisabled = !(this.state.taskTitle && this.state.taskContent);
     let $buttonTarget = this.$target.querySelectorAll('.button');
     $buttonTarget = Array.prototype.filter.call($buttonTarget, (el) => parseInt(el.dataset.seq) === parseInt(this.state.taskId));
 
@@ -4538,10 +4561,10 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 
   async mounted() {
-    const taskData = await this.state.taskList;
+    const taskDatas = await this.state.taskList;
     const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}task-list]`);
 
-    taskData.forEach((obj) => {
+    taskDatas.forEach((obj) => {
       const props = {
         taskId: obj.taskId,
         taskTitle: obj.title,
@@ -4550,6 +4573,7 @@ class TodoStatus extends _core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]
         taskDate: obj.date,
         taskActive: obj.taskActive,
       };
+
       new _components__WEBPACK_IMPORTED_MODULE_1__.Task($taskTarget, props);
     });
   }

@@ -38,3 +38,8 @@ export async function putTask(data) {
   const response = await client.put('/api', data);
   return response.data;
 }
+
+export async function deleteTask(data) {
+  const response = await client.put('/api', data);
+  return response.data;
+}

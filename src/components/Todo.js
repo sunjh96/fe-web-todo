@@ -1,7 +1,7 @@
-import { Component, drag, holdDownTask } from '@/core';
+import { Component, holdDownTask } from '@/core';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
-import { getUser, putTask } from '@/api/user';
+import { getUser, putTask, deleteTask } from '@/api/user';
 
 /**
  * Class Todo
@@ -36,10 +36,11 @@ export default class Todo extends Component {
   }
 
   setEvent() {
-    const { addTask, setTaskContent, openModal } = this;
+    const { addTask, deleteTask, setTaskContent, openModal } = this;
 
     this.addEvent('mousedown', '[data-task]', holdDownTask);
-    this.addEvent('click', '.material-symbols-outlined', setTaskContent);
+    this.addEvent('click', '.edit-btn', setTaskContent);
+    this.addEvent('click', '#delete-todo', deleteTask);
     this.addEvent('click', '[data-status]', addTask.bind(this));
     this.addEvent('dblclick', '[data-task]', setTaskContent);
     this.addEvent('submit', '[data-type=input-task]', setTaskContent);
@@ -79,7 +80,7 @@ export default class Todo extends Component {
 
     let data = { loginedUser: 'jangoh', statusName, taskId: parseInt(taskId) };
 
-    if (e.type === 'dblclick') {
+    if (e.type === 'dblclick' || e.target.closest('.edit-btn')) {
       data = { ...data, taskActive: true };
     } else {
       const taskTitleInput = e.target['title'].value;
@@ -89,5 +90,13 @@ export default class Todo extends Component {
     }
 
     await putTask(data);
+  }
+
+  deleteTask({ target }) {
+    const statusName = target.closest('[data-status]').dataset.status.split('task-list')[0];
+    const $taskTarget = target.closest('[data-task]');
+    const taskId = $taskTarget.dataset.task;
+
+    deleteTask({ statusName, taskId, loginedUser: 'jangoh' });
   }
 }

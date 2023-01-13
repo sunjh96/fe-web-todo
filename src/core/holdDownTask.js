@@ -1,3 +1,5 @@
+import drag from './drag';
+
 export default function holdDownTask(e) {
   const PRESS_HOLD_DURATION = 150;
 
@@ -39,8 +41,12 @@ export default function holdDownTask(e) {
     $taskTarget.removeEventListener('mouseup', notPressingDown);
     $taskTarget.removeEventListener('pressHold', rotateX);
 
+    drag(e);
+
     counter = 0;
   }
+
+  // function start(e) {}
 
   function rotateX() {
     $taskTargets.forEach((task) => {

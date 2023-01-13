@@ -21,7 +21,22 @@ module.exports = async (req, res) => {
     return key === statusName;
   });
 
-  if (!title && !content && title !== '' && content !== '') {
+  if (!title && !content && !taskActive && taskId) {
+    taskList.some((task, idx) => {
+      if (parseInt(task['taskId']) === parseInt(taskId)) {
+        taskList.splice(idx, 1);
+      }
+
+      return task['taskId'] === parseInt(taskId);
+    });
+
+    const newStatus = { ...status, [`${statusName}`]: taskList };
+    const newUserData = { ...userData, status: newStatus, taskCount };
+
+    fs.writeFileSync(`./src/api/users/${loginedUser}/GET.json`, JSON.stringify(newUserData), function (err) {
+      if (err) throw err;
+    });
+  } else if (!title && !content && title !== '' && content !== '') {
     taskList.some((task, idx) => {
       if (parseInt(task['taskId']) === parseInt(taskId)) {
         taskList.splice(idx, 1, {

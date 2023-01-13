@@ -1,1 +1,1 @@
-{ "id": 0, "userName": "jangoh", "status": { "해야할일": [], "하는중": [], "완료": [], "상태 추가": [] }, "taskCount": 0 }
+{"id":0,"userName":"jangoh","status":{"해야할일":[{"title":"","content":"","author":"jangoh","date":1673563350308,"taskId":8,"taskActive":true}],"하는중":[{"title":"b","content":"b","author":"jangoh","date":1673585465842,"taskId":6,"taskActive":true}],"완료":[{"title":"a","content":"a","author":"jangoh","date":1673577943059,"taskId":10,"taskActive":false},{"title":"","content":"","author":"jangoh","date":1673574786587,"taskId":11,"taskActive":true}]},"taskCount":15}

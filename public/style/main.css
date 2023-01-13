@@ -140,6 +140,7 @@
   border: none;
   background-color: #86c6ff;
   color: #ffffff;
+  cursor: pointer;
 }
 .trigger button:hover {
   scale: 1.05;
@@ -238,7 +239,7 @@
   scale: 1.2;
 }
 .todo-header .todo-svg span:hover svg path {
-  fill: purple;
+  fill: #0075de;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
@@ -253,17 +254,27 @@
   width: 16.75rem;
   position: relative;
 }
-.todo-task .material-symbols-outlined {
+.todo-task.active-bg {
+  border: 1px solid #0075de;
+}
+.todo-task .edit-btn {
   display: none;
   position: absolute;
-  right: 0.875rem;
-  top: 2.5rem;
+  right: 1rem;
+  top: 3rem;
 }
-.todo-task:hover .material-symbols-outlined {
-  display: flex;
-  font-size: 1.25rem;
-  color: #bdbdbd;
+.todo-task #delete-todo svg {
   cursor: pointer;
+}
+.todo-task #delete-todo svg:hover path {
+  fill: red;
+}
+.todo-task:hover .edit-btn {
+  display: flex;
+  cursor: pointer;
+}
+.todo-task:hover .edit-btn:hover path {
+  fill: #0075de;
 }
 .todo-task form {
   display: flex;

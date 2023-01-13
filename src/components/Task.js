@@ -21,7 +21,7 @@ export default class Task extends Component {
 
   template() {
     return `
-    <section class="todo-task" data-task=${this.state.taskId}>
+    <section class="todo-task ${this.state.taskActive ? 'active-bg' : ''}" data-task=${this.state.taskId}>
       <form data-type="input-task">
         <div class="task-title">
           <textarea class="task-title-input ${
@@ -61,6 +61,7 @@ export default class Task extends Component {
   }
 
   mounted() {
+    const isDisabled = !(this.state.taskTitle && this.state.taskContent);
     let $buttonTarget = this.$target.querySelectorAll('.button');
     $buttonTarget = Array.prototype.filter.call($buttonTarget, (el) => parseInt(el.dataset.seq) === parseInt(this.state.taskId));
 

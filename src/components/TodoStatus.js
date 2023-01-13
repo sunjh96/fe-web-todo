@@ -17,10 +17,10 @@ export default class TodoStatus extends Component {
   }
 
   async mounted() {
-    const taskData = await this.state.taskList;
+    const taskDatas = await this.state.taskList;
     const $taskTarget = this.$target.querySelector(`[data-status=${this.state.title}task-list]`);
 
-    taskData.forEach((obj) => {
+    taskDatas.forEach((obj) => {
       const props = {
         taskId: obj.taskId,
         taskTitle: obj.title,
@@ -29,6 +29,7 @@ export default class TodoStatus extends Component {
         taskDate: obj.date,
         taskActive: obj.taskActive,
       };
+
       new Task($taskTarget, props);
     });
   }
