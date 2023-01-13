@@ -1,8 +1,9 @@
 import { makeLogMsg } from "./template/makeTemplate.js";
 import { logData } from "./data/logData.js";
 import { listData } from "./data/listData.js";
+import { showItems } from "./init.js";
 
-const Logcondition = ["해야할 일", "하고 있는 일", "완료한 일"];
+const logConditions = ["해야할 일", "하고 있는 일", "완료한 일"];
 const conditions = ["todo", "doing", "done"];
 
 const openItemEditForm = (e) => {
@@ -53,13 +54,15 @@ const editItemEditForm = (e) => {
         ? (item["title"] = revisedTitle) && (item["details"] = revisedDetail)
         : "";
     });
+    parentNode.querySelector(".item-title").innerHTML = revisedTitle;
+    parentNode.querySelector(".item-detail").innerHTML = revisedDetail;
     let today = new Date();
 
     const newLogItem = makeLogMsg({
       action: "Update",
       title: revisedTitle,
       from: "",
-      to: Logcondition[ColumnName],
+      to: logConditions[ColumnName],
       time: today.toLocaleString(),
     });
     const menuLogWrapper = document.querySelector(".menu-log-wrapper");
@@ -67,7 +70,7 @@ const editItemEditForm = (e) => {
     logData.push({
       Action: "Update",
       Title: revisedTitle,
-      To: Logcondition[ColumnName],
+      To: logConditions[ColumnName],
       From: "",
       time: today.toLocaleString(),
     });

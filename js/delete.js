@@ -3,8 +3,9 @@ import { listData } from "./data/listData.js";
 
 import { makeLogMsg } from "./template/makeTemplate.js";
 import { logData } from "./data/logData.js";
+import { showItems } from "./init.js";
 
-const Logcondition = ["해야할 일", "하고 있는 일", "완료한 일"];
+const column = ["해야할 일", "하고 있는 일", "완료한 일"];
 
 const condition = ["todo", "doing", "done"];
 
@@ -53,15 +54,14 @@ const deleteItem = (e) => {
       .filter((item) => item.id === defineItemTarget.Id)
       .map(() => {
         let index = listData.findIndex((obj) => obj.id === defineItemTarget.Id);
-        const idx = condition.findIndex(
+        const columnId = condition.findIndex(
           (obj) => obj === listData[index].status
         );
-        console.log(listData[index].title);
         const newLogItem = makeLogMsg({
           action: "Delete",
           title: listData[index].title,
           from: "",
-          to: Logcondition[idx],
+          to: column[columnId],
           time: today.toLocaleString(),
         });
         const menuLogWrapper = document.querySelector(".menu-log-wrapper");
@@ -69,7 +69,7 @@ const deleteItem = (e) => {
         logData.push({
           Action: "Delete",
           Title: listData[index].title,
-          To: Logcondition[idx],
+          To: column[columnId],
           From: "",
           time: today.toLocaleString(),
         });
@@ -77,7 +77,7 @@ const deleteItem = (e) => {
         const focusItem = document.querySelector(".focus");
         focusItem.remove();
         defineItemTarget.Item.classList.add("focus");
-        arrCount(idx);
+        arrCount(columnId);
       });
   }
 };

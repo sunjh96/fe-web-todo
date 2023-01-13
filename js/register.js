@@ -4,9 +4,10 @@ import { makeLogMsg } from "./template/makeTemplate.js";
 import { arrCount } from "./arrCount.js";
 import { listData } from "./data/listData.js";
 import { logData } from "./data/logData.js";
-const titleInputBox = document.getElementsByClassName("title-input"); // 할 일 제목 입력창
-const detailInputBox = document.getElementsByClassName("detail-input"); // 할 일 내용 입력창
-const registerBtn = document.querySelectorAll(".register-btn"); // 버튼
+
+const titleInputBox = document.getElementsByClassName("title-input");
+const detailInputBox = document.getElementsByClassName("detail-input");
+const registerBtn = document.querySelectorAll(".register-btn");
 
 const condition = ["todo", "doing", "done"];
 const Logcondition = ["해야할 일", "하고 있는 일", "완료한 일"];

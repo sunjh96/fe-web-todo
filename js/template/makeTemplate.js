@@ -63,8 +63,6 @@ const makeColumn = ({ title = "제목" }) => {
 };
 
 const makeLogMsg = ({ action, title, from, to, time }) => {
-  console.log("왔다");
-  console.log({ action, title, from, to, time });
   if (action == "Add") {
     const msg = `<strong>${to}</strong>에 <strong>${title}</strong>를 <strong>등록</strong>하였습니다.`;
     return makeLogItem(msg, time);
@@ -74,7 +72,7 @@ const makeLogMsg = ({ action, title, from, to, time }) => {
     return makeLogItem(msg, time);
   }
   if (action == "Update") {
-    const msg = `<strong>${to}</strong>에 <strong>${title}</strong>를 <strong>수정</strong>하였습니다.`;
+    const msg = `<strong>${to}</strong>에 <strong>${title}</strong>로 <strong>수정</strong>하였습니다.`;
     return makeLogItem(msg, time);
   }
   if (action == "Move") {

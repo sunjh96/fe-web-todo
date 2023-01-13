@@ -54,6 +54,5 @@ const init = () => {
 };
 
 init();
-console.log;
 
 export { showItems };
