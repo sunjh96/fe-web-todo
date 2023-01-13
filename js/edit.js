@@ -1,10 +1,8 @@
-import { makeLogMsg } from "./template/makeTemplate.js";
-import { logData } from "./data/logData.js";
 import { listData } from "./data/listData.js";
-import { showItems } from "./init.js";
+import { findColumnName } from "./ColumnIndex.js";
+import { addLogItem } from "./logItem.js";
 
 const logConditions = ["해야할 일", "하고 있는 일", "완료한 일"];
-const conditions = ["todo", "doing", "done"];
 
 const openItemEditForm = (e) => {
   if (e.target.className.includes("item-edit-btn")) {
@@ -28,15 +26,6 @@ const cancelItemEditForm = (e) => {
   }
 };
 
-const findColumnName = (ID) => {
-  let index = listData.findIndex((obj) => obj.id == ID);
-  console.log(index);
-  const columnId = conditions.findIndex(
-    (obj) => obj === listData[index].status
-  );
-  return columnId;
-};
-
 const editItemEditForm = (e) => {
   if (e.target.className === "item-edit-active-btn") {
     const targetNode = e.target.parentNode.parentNode;
@@ -48,7 +37,7 @@ const editItemEditForm = (e) => {
     const revisedDetail = targetNode.querySelector(
       ".item-edit-detail-input"
     ).value;
-    const targetId = targetNode.parentNode.getAttribute("id");
+    const targetId = parentNode.getAttribute("id");
     listData.filter((item) => {
       item["id"] == targetId
         ? (item["title"] = revisedTitle) && (item["details"] = revisedDetail)
@@ -56,25 +45,12 @@ const editItemEditForm = (e) => {
     });
     parentNode.querySelector(".item-title").innerHTML = revisedTitle;
     parentNode.querySelector(".item-detail").innerHTML = revisedDetail;
-    let today = new Date();
-
-    const newLogItem = makeLogMsg({
+    addLogItem({
       action: "Update",
       title: revisedTitle,
-      from: "",
       to: logConditions[ColumnName],
-      time: today.toLocaleString(),
+      from: "",
     });
-    const menuLogWrapper = document.querySelector(".menu-log-wrapper");
-    menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
-    logData.push({
-      Action: "Update",
-      Title: revisedTitle,
-      To: logConditions[ColumnName],
-      From: "",
-      time: today.toLocaleString(),
-    });
-
     closeItemEditForm(parentNode);
   }
 };

@@ -1,9 +1,8 @@
-import { makeCard } from "./template/makeTemplate.js";
-import { makeLogMsg } from "./template/makeTemplate.js";
-
+import { makeListCard } from "./template/listItem.js";
 import { arrCount } from "./arrCount.js";
 import { listData } from "./data/listData.js";
-import { logData } from "./data/logData.js";
+
+import { addLogItem } from "./logItem.js";
 
 const titleInputBox = document.getElementsByClassName("title-input");
 const detailInputBox = document.getElementsByClassName("detail-input");
@@ -20,14 +19,13 @@ const makeId = () => {
 };
 
 const registerItem = (index) => {
-  let today = new Date();
   event.preventDefault();
   if (!titleInputBox[index].value || !detailInputBox[index].value)
     alert("내용을 입력해 주세요!");
   else {
     const putHere = document.querySelectorAll(".item-list")[index];
     const itemId = makeId();
-    const newItemBox = makeCard({
+    const newItemBox = makeListCard({
       title: titleInputBox[index].value,
       detail: detailInputBox[index].value,
       status: condition[index],
@@ -40,23 +38,13 @@ const registerItem = (index) => {
       status: condition[index],
       id: itemId,
     });
-    const newLogItem = makeLogMsg({
+    addLogItem({
       action: "Add",
       title: titleInputBox[index].value,
-      from: "",
       to: Logcondition[index],
-      time: today.toLocaleString(),
+      from: "",
     });
-    const menuLogWrapper = document.querySelector(".menu-log-wrapper");
-    menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
-    logData.push({
-      Action: "Add",
-      Title: titleInputBox[index].value,
-      To: Logcondition[index],
-      From: "",
-      time: today.toLocaleString(),
-    });
-    titleInputBox[index].value = ""; // 할 일 입력창 초기화
+    titleInputBox[index].value = "";
     detailInputBox[index].value = "";
     document.querySelectorAll(".item-add-box")[index].classList.add("hidden");
   }

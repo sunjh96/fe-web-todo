@@ -1,5 +1,5 @@
 import { logData } from "./data/logData.js";
-import { makeLogMsg } from "./template/makeTemplate.js";
+import { makeLogMsg } from "./template/logItem.js";
 
 const menuLogWrapper = document.querySelector(".menu-log-wrapper");
 

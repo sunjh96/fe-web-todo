@@ -1,5 +1,3 @@
-import { listData } from "./data/listData.js";
-import { makeCard } from "./template/makeTemplate.js";
 import { arrCount } from "./arrCount.js";
 import { openMenu, closeMenu, ShowLogs } from "./menu.js";
 import {
@@ -7,28 +5,10 @@ import {
   cancelItemEditForm,
   editItemEditForm,
 } from "./edit.js";
-import { openModal, closeModal, deleteItem } from "./delete.js";
-
-const toDoList = document.getElementById("item-todo-list"); // 할 일 리스트창
-const doingList = document.getElementById("item-doing-list"); // 할 일 리스트창
-const doneList = document.getElementById("item-done-list"); // 할 일 리스트창
-const condition = ["todo", "doing", "done"];
-const columnName = [toDoList, doingList, doneList];
-const CONSTANT = [0, 1, 2];
-
-const showItems = () => {
-  //toDoList.innerHTML = "";
-  listData.map((item) => {
-    const card = makeCard({
-      title: item.title,
-      detail: item.details,
-      id: item.id,
-    });
-    CONSTANT.filter((ele) => item.status === condition[ele]).map((ele) => {
-      columnName[ele].insertAdjacentHTML("beforeend", card);
-    });
-  });
-};
+import { openModal, cancelDeteleItem, deleteItem } from "./delete.js";
+import { showItems } from "./show.js";
+import { openListAddForm, closeListAddForm } from "./addForm.js";
+import { openAddColumn, closeAddColumn } from "./column.js";
 
 const clickDocument = () => {
   document.addEventListener("click", (e) => {
@@ -38,18 +18,22 @@ const clickDocument = () => {
     openItemEditForm(e);
     cancelItemEditForm(e);
     openModal(e);
-    closeModal(e);
+    cancelDeteleItem(e);
     deleteItem(e);
     editItemEditForm(e);
+    openListAddForm(e);
+    closeListAddForm(e);
+    openAddColumn(e);
+    closeAddColumn(e);
   });
 };
 
 const init = () => {
   showItems();
+  clickDocument();
   arrCount(0);
   arrCount(1);
   arrCount(2);
-  clickDocument();
   ShowLogs();
 };
 

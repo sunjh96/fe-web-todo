@@ -1,13 +1,9 @@
 import { arrCount } from "./arrCount.js";
 import { listData } from "./data/listData.js";
-
-import { makeLogMsg } from "./template/makeTemplate.js";
-import { logData } from "./data/logData.js";
-import { showItems } from "./init.js";
+import { findColumnName } from "./ColumnIndex.js";
+import { addLogItem } from "./logItem.js";
 
 const column = ["해야할 일", "하고 있는 일", "완료한 일"];
-
-const condition = ["todo", "doing", "done"];
 
 const defineItemTarget = {
   get condition() {
@@ -30,56 +26,50 @@ const defineItemTarget = {
   },
 };
 
-const closeModal = (e) => {
-  if (e.target.id == "modal-cancel-btn") {
-    document.getElementById("modal").classList.add("hidden");
+const closeModal = () => {
+  document.getElementById("modal").classList.add("hidden");
+};
+
+const cancelDeteleItem = (e) => {
+  if (
+    e.target.id == "modal-cancel-btn" ||
+    e.target.className === "modal-background"
+  ) {
+    closeModal();
+    document.querySelector(".focus").classList.remove("focus");
   }
 };
 
 const openModal = (e) => {
   if (e.target.id == "item-delete-btn") {
     document.getElementById("modal").classList.remove("hidden");
-    defineItemTarget.Item = e.target.parentNode.parentNode.parentNode;
-    defineItemTarget.Item.classList.add("focus");
-    defineItemTarget.Id = parseInt(
-      e.target.parentNode.parentNode.parentNode.getAttribute("id")
-    );
+    const itemNode = e.target.parentNode.parentNode.parentNode;
+    defineItemTarget.Item = itemNode;
+    itemNode.classList.add("focus");
+    defineItemTarget.Id = parseInt(itemNode.getAttribute("id"));
   }
 };
+
 const deleteItem = (e) => {
   if (e.target.id == "modal-delete-btn") {
-    let today = new Date();
-    document.getElementById("modal").classList.add("hidden");
     listData
       .filter((item) => item.id === defineItemTarget.Id)
       .map(() => {
         let index = listData.findIndex((obj) => obj.id === defineItemTarget.Id);
-        const columnId = condition.findIndex(
-          (obj) => obj === listData[index].status
-        );
-        const newLogItem = makeLogMsg({
+        const columnIdx = findColumnName(defineItemTarget.Id);
+        addLogItem({
           action: "Delete",
           title: listData[index].title,
+          to: column[columnIdx],
           from: "",
-          to: column[columnId],
-          time: today.toLocaleString(),
-        });
-        const menuLogWrapper = document.querySelector(".menu-log-wrapper");
-        menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
-        logData.push({
-          Action: "Delete",
-          Title: listData[index].title,
-          To: column[columnId],
-          From: "",
-          time: today.toLocaleString(),
         });
         listData.splice(index, 1);
         const focusItem = document.querySelector(".focus");
         focusItem.remove();
-        defineItemTarget.Item.classList.add("focus");
-        arrCount(columnId);
+        closeModal();
+        arrCount(columnIdx);
       });
   }
 };
 
-export { openModal, closeModal, deleteItem, defineItemTarget };
+export { openModal, cancelDeteleItem, deleteItem, defineItemTarget };

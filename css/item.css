@@ -15,7 +15,18 @@
   margin-top: 13px;
   border: 1px solid #0075de;
 }
-.item-wrapper:has(span:hover) {
+.item-wrapper:has(.item-delete-btn:hover) {
+  background: #ffeeec;
+  border: 1px solid #ff4343;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+  list-style-type: none;
+  padding: 16px;
+  margin-top: 13px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.focus {
   background: #ffeeec;
   border: 1px solid #ff4343;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);

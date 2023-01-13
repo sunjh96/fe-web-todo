@@ -1,24 +1,15 @@
-const addCardBtn = document.querySelectorAll(".add-card-btn");
-const addCard = document.querySelectorAll(".item-add-box");
-const CancelBtn = document.querySelectorAll(".cancel-btn");
-const toDoList = document.querySelector(".list-wrapper"); // 할 일 리스트창
-
-const foldModal = (num) => {
-  addCard[num].classList.add("hidden");
-};
-//보임
-const unfoldModal = (num) => {
-  addCard[num].classList.remove("hidden");
+const openListAddForm = (e) => {
+  if (e.target.className.includes("add-card-btn")) {
+    const column = e.target.parentNode.parentNode;
+    column.querySelector(".item-add-box").classList.remove("hidden");
+  }
 };
 
-addCardBtn.forEach((el, index) => {
-  el.onclick = () => {
-    unfoldModal(index);
-  };
-});
+const closeListAddForm = (e) => {
+  if (e.target.className.includes("cancel-btn")) {
+    const column = e.target.parentNode.parentNode.parentNode.parentNode;
+    column.querySelector(".item-add-box").classList.add("hidden");
+  }
+};
 
-CancelBtn.forEach((el, index) => {
-  el.onclick = () => {
-    foldModal(index);
-  };
-});
+export { openListAddForm, closeListAddForm };
