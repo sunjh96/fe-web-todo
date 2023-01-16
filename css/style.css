@@ -1,0 +1,97 @@
+body {
+  background-color: #e5e5e5;
+  margin-top: 0;
+  padding-left: 33px;
+}
+.container {
+  display: flex;
+}
+.todoBox,
+.doingBox,
+.doneBox {
+  width: 270px;
+  margin-right: 10px;
+}
+.listTitleBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  height: 40px;
+  padding: 5px;
+}
+
+.count-box {
+  background: #bdbdbd;
+  border-radius: 20px;
+  width: 26px;
+  height: 26px;
+  margin-left: 8px;
+  display: flex;
+}
+.count-num {
+  width: fit-content;
+  margin: auto;
+  height: fit-content;
+}
+.add-card-btn {
+  float: right;
+  color: #bdbdbd;
+  margin-left: auto;
+  font-size: 27px;
+  cursor: pointer;
+}
+.add-card-btn:hover {
+  float: right;
+  color: #0075de;
+  margin-left: auto;
+  font-size: 27px;
+}
+.close-card-btn:hover {
+  color: #ff4343;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.close-card-btn {
+  color: #bdbdbd;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
+.list-wrapper {
+  height: 68vh;
+  overflow-y: scroll;
+}
+.list-wrapper::-webkit-scrollbar {
+  visibility: hidden;
+}
+ul {
+  padding: 0;
+}
+input {
+  width: 85%;
+}
+textarea {
+  resize: none;
+  width: 85%;
+}
+.column-add-btn-wrapper {
+  width: 64px;
+  height: 64px;
+  background: #0075de;
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+    0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 100px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  display: flex;
+}
+.column-add-btn {
+  color: white;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
