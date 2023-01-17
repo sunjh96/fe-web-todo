@@ -1,5 +1,5 @@
 const countItemNum = document.querySelectorAll(".count-num");
-import { getListData } from "./dataUtil.js";
+import { getListData } from "../dataUtil.js";
 const columnName = ["todo", "doing", "done"];
 
 //  리스트 개수 카운트

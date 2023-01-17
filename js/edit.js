@@ -1,6 +1,6 @@
 import { addLogItem } from "./logItem.js";
 import { getListData } from "./dataUtil.js";
-import { findColumnName } from "./ColumnIndex.js";
+import { findColumnName } from "./util/ColumnIndex.js";
 
 const logConditions = ["해야할 일", "하고 있는 일", "완료한 일"];
 

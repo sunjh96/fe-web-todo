@@ -8,49 +8,89 @@
       "time": "11"
     },
     {
-      "action": "Update",
-      "title": "aaa",
+      "action": "Delete",
+      "title": "r",
+      "to": "해야할 일",
       "from": "",
-      "id": "2023. 1. 17. 오전 9:54:08"
+      "id": "2023. 1. 17. 오후 5:11:40"
+    },
+    {
+      "action": "Delete",
+      "title": "fwe",
+      "to": "해야할 일",
+      "from": "",
+      "id": "2023. 1. 17. 오후 5:13:40"
+    },
+    {
+      "action": "Add",
+      "title": "wer",
+      "to": "해야할 일",
+      "from": "",
+      "id": "2vve6hJ"
+    },
+    {
+      "action": "Delete",
+      "title": "wer",
+      "to": "해야할 일",
+      "from": "",
+      "id": "2023. 1. 17. 오후 5:21:20"
+    },
+    {
+      "action": "Delete",
+      "title": "그림",
+      "to": "하고 있는 일",
+      "from": "",
+      "id": "2023. 1. 17. 오후 5:23:37"
+    },
+    {
+      "action": "Delete",
+      "title": "we",
+      "to": "해야할 일",
+      "from": "",
+      "id": "2023. 1. 17. 오후 5:24:12"
+    },
+    {
+      "action": "Add",
+      "title": "eee",
+      "to": "해야할 일",
+      "from": "",
+      "id": "ayaUyiE"
+    },
+    {
+      "action": "Delete",
+      "title": "ee",
+      "to": "하고 있는 일",
+      "from": "",
+      "id": "2023. 1. 17. 오후 5:25:22"
+    },
+    {
+      "action": "Add",
+      "title": "ee",
+      "to": "하고 있는 일",
+      "from": "",
+      "id": "Su7UTfj"
     },
     {
       "action": "Update",
       "title": "wer",
       "from": "",
-      "id": "2023. 1. 17. 오전 9:57:12"
+      "id": "qHKZ0Wb"
     },
     {
       "action": "Update",
-      "title": "f",
+      "title": "그림그리기 좋아",
       "from": "",
-      "id": "2023. 1. 17. 오전 10:01:03"
+      "id": "ATYTUcM"
     },
     {
-      "action": "Update",
-      "title": "rmflrl",
+      "action": "Add",
+      "title": "rr",
+      "to": "하고 있는 일",
       "from": "",
-      "id": "2023. 1. 17. 오전 10:03:38"
-    },
-    {
-      "action": "Update",
-      "title": "rrrr",
-      "from": "",
-      "id": "2023. 1. 17. 오전 10:06:47"
+      "id": "SYYWDLF"
     }
   ],
   "lists": [
-    {
-      "title": "그리기",
-      "details": "favorite",
-      "status": "doing",
-      "id": 312323
-    },
-    {
-      "title": "그림",
-      "details": "favorite",
-      "status": "doing",
-      "id": 323
-    },
     {
       "title": "림 그리기",
       "details": "favorite",
@@ -58,16 +98,28 @@
       "id": 312
     },
     {
-      "title": "rrrr",
-      "details": "r",
+      "title": "wer",
+      "details": "wer",
       "status": "todo",
-      "id": 4862
+      "id": 8320
+    },
+    {
+      "title": "그림그리기 좋아",
+      "details": "ㅋㅋ",
+      "status": "todo",
+      "id": 5916
     },
     {
       "title": "wer",
       "details": "wer",
-      "status": "todo",
-      "id": 5848
+      "status": "doing",
+      "id": 2207
+    },
+    {
+      "title": "rr",
+      "details": "rr",
+      "status": "doing",
+      "id": 5817
     }
   ]
 }

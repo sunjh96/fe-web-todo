@@ -1,5 +1,5 @@
 import { makeListCard } from "./template/listItem.js";
-import { arrCount } from "./arrCount.js";
+import { arrCount } from "./util/arrCount.js";
 import { addLogItem } from "./logItem.js";
 import { postListData, postLogData } from "./dataUtil.js";
 

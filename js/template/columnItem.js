@@ -1,5 +1,4 @@
 const makeColumn = ({ title = "제목" }) => {
-  console.log("title");
   return `
   <div class="doingBox">
         <div class="listTitleBox">

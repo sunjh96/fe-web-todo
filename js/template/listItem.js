@@ -1,6 +1,6 @@
 const makeListCard = ({ title, detail, id }) => {
   return `
-    <li class="item-wrapper" id="${id}" draggable="true" ondrag="drag_handler(event)">
+    <li class="item-wrapper" id="${id}" draggable="true" ">
       <div class="item-content-wrapper">
         <div class="item-content-box">
           <div class="item-title-box">

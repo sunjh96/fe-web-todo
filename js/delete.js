@@ -1,7 +1,7 @@
-import { arrCount } from "./arrCount.js";
+import { arrCount } from "./util/arrCount.js";
 import { addLogItem } from "./logItem.js";
-import { getListData } from "./dataUtil.js";
-import { findColumnName } from "./ColumnIndex.js";
+import { getListData, deleteListData } from "./dataUtil.js";
+import { findColumnName } from "./util/ColumnIndex.js";
 
 const column = ["해야할 일", "하고 있는 일", "완료한 일"];
 const columnStatus = ["todo", "doing", "done"];
@@ -59,13 +59,7 @@ const deleteItem = async (e) => {
       (obj) => obj == listData[index].status
     );
     const focusItem = document.querySelector(".focus");
-    await axios.delete(`http://localhost:3001/lists/${defineItemTarget.Id}`);
-    console.log({
-      action: "Delete",
-      title: listData[index].title,
-      to: column[columnIdx],
-      from: "",
-    });
+    deleteListData(defineItemTarget.Id);
     addLogItem({
       action: "Delete",
       title: listData[index].title,

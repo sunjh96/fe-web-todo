@@ -22,7 +22,7 @@ const ShowLogs = async () => {
       title: item.title,
       from: item.from,
       to: item.to,
-      time: item.time,
+      id: item.id,
     });
     menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
   });

@@ -18,9 +18,7 @@ const addColumn = (e) => {
     const columnInputBox = document.querySelector(".modal-column-input");
     if (!columnInputBox.value) alert("제목을 입력해 주세요!");
     else {
-      console.log(columnInputBox.value);
       const container = document.querySelector(".container");
-      console.log(container);
       const newColumn = makeColumn({ title: columnInputBox.value });
       container.insertAdjacentHTML("beforeend", newColumn);
       columnInputBox.value = "";
