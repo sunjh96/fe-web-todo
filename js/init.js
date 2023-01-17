@@ -8,7 +8,7 @@ import {
 import { openModal, cancelDeteleItem, deleteItem } from "./delete.js";
 import { showItems } from "./show.js";
 import { openListAddForm, closeListAddForm } from "./addForm.js";
-import { openAddColumn, closeAddColumn } from "./column.js";
+import { openAddColumn, closeAddColumn, addColumn } from "./column.js";
 
 const clickDocument = () => {
   document.addEventListener("click", (e) => {
@@ -25,6 +25,7 @@ const clickDocument = () => {
     closeListAddForm(e);
     openAddColumn(e);
     closeAddColumn(e);
+    addColumn(e);
   });
 };
 

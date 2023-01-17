@@ -1,9 +1,10 @@
 import { arrCount } from "./arrCount.js";
-import { listData } from "./data/listData.js";
-import { findColumnName } from "./ColumnIndex.js";
 import { addLogItem } from "./logItem.js";
+import { getListData } from "./dataUtil.js";
+import { findColumnName } from "./ColumnIndex.js";
 
 const column = ["해야할 일", "하고 있는 일", "완료한 일"];
+const columnStatus = ["todo", "doing", "done"];
 
 const defineItemTarget = {
   get condition() {
@@ -50,26 +51,31 @@ const openModal = (e) => {
   }
 };
 
-const deleteItem = (e) => {
+const deleteItem = async (e) => {
   if (e.target.id == "modal-delete-btn") {
-    listData
-      .filter((item) => item.id === defineItemTarget.Id)
-      .map(() => {
-        let index = listData.findIndex((obj) => obj.id === defineItemTarget.Id);
-        const columnIdx = findColumnName(defineItemTarget.Id);
-        addLogItem({
-          action: "Delete",
-          title: listData[index].title,
-          to: column[columnIdx],
-          from: "",
-        });
-        listData.splice(index, 1);
-        const focusItem = document.querySelector(".focus");
-        focusItem.remove();
-        closeModal();
-        arrCount(columnIdx);
-      });
+    const listData = await getListData();
+    const index = listData.findIndex((obj) => obj.id == defineItemTarget.Id);
+    const columnIdx = columnStatus.findIndex(
+      (obj) => obj == listData[index].status
+    );
+    const focusItem = document.querySelector(".focus");
+    await axios.delete(`http://localhost:3001/lists/${defineItemTarget.Id}`);
+    console.log({
+      action: "Delete",
+      title: listData[index].title,
+      to: column[columnIdx],
+      from: "",
+    });
+    addLogItem({
+      action: "Delete",
+      title: listData[index].title,
+      to: column[columnIdx],
+      from: "",
+    });
+    focusItem.remove();
+    closeModal();
+    arrCount(columnIdx);
   }
 };
 
-export { openModal, cancelDeteleItem, deleteItem, defineItemTarget };
+export { openModal, cancelDeteleItem, deleteItem };

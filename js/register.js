@@ -1,8 +1,7 @@
 import { makeListCard } from "./template/listItem.js";
 import { arrCount } from "./arrCount.js";
-import { listData } from "./data/listData.js";
-
 import { addLogItem } from "./logItem.js";
+import { postListData, postLogData } from "./dataUtil.js";
 
 const titleInputBox = document.getElementsByClassName("title-input");
 const detailInputBox = document.getElementsByClassName("detail-input");
@@ -25,30 +24,34 @@ const registerItem = (index) => {
   else {
     const putHere = document.querySelectorAll(".item-list")[index];
     const itemId = makeId();
-    const newItemBox = makeListCard({
-      title: titleInputBox[index].value,
-      detail: detailInputBox[index].value,
-      status: condition[index],
+    const newTitle = titleInputBox[index].value;
+    const newDetail = detailInputBox[index].value;
+    const newStatus = condition[index];
+
+    const newItemObj = {
+      title: newTitle,
+      details: newDetail,
+      status: newStatus,
       id: itemId,
-    });
-    putHere.insertAdjacentHTML("afterbegin", newItemBox);
-    listData.push({
-      title: titleInputBox[index].value,
-      detail: detailInputBox[index].value,
-      status: condition[index],
-      id: itemId,
-    });
-    addLogItem({
+    };
+    const newLogItem = {
       action: "Add",
-      title: titleInputBox[index].value,
+      title: newTitle,
       to: Logcondition[index],
       from: "",
-    });
+    };
+
+    const newItemBox = makeListCard(newItemObj);
+    putHere.insertAdjacentHTML("afterbegin", newItemBox);
+
+    postListData(newItemObj);
+    postLogData(newLogItem);
+
     titleInputBox[index].value = "";
     detailInputBox[index].value = "";
     document.querySelectorAll(".item-add-box")[index].classList.add("hidden");
   }
-  arrCount(index, condition[index]);
+  arrCount(index);
 };
 
 registerBtn.forEach((el, index) => {
