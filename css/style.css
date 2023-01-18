@@ -64,6 +64,8 @@ body {
   height: 68vh;
   overflow-y: scroll;
   justify-items: auto;
+
+  padding: 5px;
 }
 .list-wrapper::-webkit-scrollbar {
   visibility: hidden;

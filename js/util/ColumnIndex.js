@@ -11,4 +11,10 @@ const findColumnName = async (ID) => {
   return columnIdx;
 };
 
-export { findColumnName };
+const findItemIdex = async (ID) => {
+  const listData = await getListData();
+  const index = listData.findIndex((obj) => obj.id == ID);
+  return index;
+};
+
+export { findColumnName, findItemIdex };
