@@ -9,7 +9,7 @@ import { openModal, cancelDeteleItem, deleteItem } from "./delete.js";
 import { showItems } from "./show.js";
 import { openListAddForm, closeListAddForm } from "./view/itemForm.js";
 import { openAddColumn, closeAddColumn, addColumn } from "./column.js";
-import { changeUpDown } from "./drag.js";
+import { mousedown, mouseup, mousemove } from "./dragEvent.js";
 
 const container = document.querySelector(".container");
 const listItem = document.getElementsByClassName(".item-wrapper");
@@ -36,6 +36,15 @@ const clickDocument = () => {
   menu.addEventListener("click", (e) => {
     closeMenu(e);
   });
+  container.addEventListener("mousedown", (e) => {
+    mousedown(e);
+  });
+  container.addEventListener("mousemove", (e) => {
+    mousemove(e);
+  });
+  container.addEventListener("mouseup", (e) => {
+    mouseup(e);
+  });
 };
 
 const init = () => {
@@ -45,7 +54,6 @@ const init = () => {
   arrCount(1);
   arrCount(2);
   ShowLogs();
-  changeUpDown();
 };
 
 init();

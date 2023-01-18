@@ -1,6 +1,6 @@
 const makeListCard = ({ title, detail, id }) => {
   return `
-    <li class="item-wrapper" id="${id}" draggable="true" ">
+    <li class="item-wrapper" id="${id}"  ">
       <div class="item-content-wrapper">
         <div class="item-content-box">
           <div class="item-title-box">

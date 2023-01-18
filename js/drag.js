@@ -2,6 +2,8 @@ const todoBox = document.querySelector("#item-todo-list");
 const doingBox = document.querySelector("#item-doing-list");
 const doneBox = document.querySelector("#item-done-list");
 
+const itemBox = document.getElementsByClassName("item-list");
+
 const boxNames = [todoBox, doingBox, doneBox];
 
 const changeUpDown = () => {
@@ -23,7 +25,7 @@ const changeUpDown = () => {
       e.preventDefault();
 
       const currentDropItem = e.target.closest(".item-wrapper");
-      const listArr = [...currentItem.parentElement.children];
+      const dropListArr = [...currentDropItem.parentElement.children];
       const dropItemIndex = listArr.indexOf(currentDropItem);
 
       if (currentItemIndex < dropItemIndex) {

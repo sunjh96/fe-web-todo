@@ -1,34 +1,6 @@
 {
   "logs": [
     {
-      "action": "Add",
-      "title": "자바스크립트 공부하기",
-      "to": "해야할 일",
-      "from": "",
-      "time": "11"
-    },
-    {
-      "action": "Delete",
-      "title": "r",
-      "to": "해야할 일",
-      "from": "",
-      "id": "2023. 1. 17. 오후 5:11:40"
-    },
-    {
-      "action": "Delete",
-      "title": "fwe",
-      "to": "해야할 일",
-      "from": "",
-      "id": "2023. 1. 17. 오후 5:13:40"
-    },
-    {
-      "action": "Add",
-      "title": "wer",
-      "to": "해야할 일",
-      "from": "",
-      "id": "2vve6hJ"
-    },
-    {
       "action": "Delete",
       "title": "wer",
       "to": "해야할 일",
@@ -41,53 +13,6 @@
       "to": "하고 있는 일",
       "from": "",
       "id": "2023. 1. 17. 오후 5:23:37"
-    },
-    {
-      "action": "Delete",
-      "title": "we",
-      "to": "해야할 일",
-      "from": "",
-      "id": "2023. 1. 17. 오후 5:24:12"
-    },
-    {
-      "action": "Add",
-      "title": "eee",
-      "to": "해야할 일",
-      "from": "",
-      "id": "ayaUyiE"
-    },
-    {
-      "action": "Delete",
-      "title": "ee",
-      "to": "하고 있는 일",
-      "from": "",
-      "id": "2023. 1. 17. 오후 5:25:22"
-    },
-    {
-      "action": "Add",
-      "title": "ee",
-      "to": "하고 있는 일",
-      "from": "",
-      "id": "Su7UTfj"
-    },
-    {
-      "action": "Update",
-      "title": "wer",
-      "from": "",
-      "id": "qHKZ0Wb"
-    },
-    {
-      "action": "Update",
-      "title": "그림그리기 좋아",
-      "from": "",
-      "id": "ATYTUcM"
-    },
-    {
-      "action": "Add",
-      "title": "rr",
-      "to": "하고 있는 일",
-      "from": "",
-      "id": "SYYWDLF"
     }
   ],
   "lists": [
@@ -104,8 +29,8 @@
       "id": 8320
     },
     {
-      "title": "그림그리기 좋아",
-      "details": "ㅋㅋ",
+      "title": "그림 그리기 싫어",
+      "details": "ㅎㅎ",
       "status": "todo",
       "id": 5916
     },
@@ -120,6 +45,12 @@
       "details": "rr",
       "status": "doing",
       "id": 5817
+    },
+    {
+      "title": "fef",
+      "details": "f",
+      "status": "done",
+      "id": 8840
     }
   ]
 }
