@@ -1,5 +1,5 @@
 import { addLogItem } from "./logItem.js";
-import { getListData } from "./dataUtil.js";
+import { patchListData } from "./dataUtil.js";
 import { findColumnName } from "./util/ColumnIndex.js";
 
 const logConditions = ["해야할 일", "하고 있는 일", "완료한 일"];
@@ -40,7 +40,7 @@ const editItemEditForm = async (e) => {
     ).value;
     const targetId = parentNode.getAttribute("id");
     const updateDataObj = { title: revisedTitle, details: revisedDetail };
-    axios.patch(`http://localhost:3001/lists/${targetId}`, updateDataObj);
+    patchListData(targetId, updateDataObj);
 
     parentNode.querySelector(".item-title").innerHTML = revisedTitle;
     parentNode.querySelector(".item-detail").innerHTML = revisedDetail;

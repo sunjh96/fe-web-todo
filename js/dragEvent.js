@@ -1,3 +1,5 @@
+import { patchListData } from "./dataUtil.js";
+
 let currentItem = null;
 let hoverItem = null;
 let dropTargetColumn = null;
@@ -16,20 +18,30 @@ function mousedown(e) {
 function mousemove(e) {
   if (hoverItem !== null) {
     const { pageX, pageY } = e;
-    console.log(pageX, pageY);
     dropTargetColumn = e.target.closest("ul");
-    console.log(dropTargetColumn);
     moveItem(pageX, pageY);
   }
 }
 
 function mouseup(e) {
-  dropTargetColumn.appendChild(currentItem);
-  currentItem.classList.remove("move");
-  hoverItem.remove();
-  currentItem = null;
-  hoverItem = null;
-  dropTargetColumn = null;
+  if (dropTargetColumn !== null) {
+    dropTargetColumn.appendChild(currentItem);
+    readyForPatching();
+    currentItem.classList.remove("move");
+    hoverItem.remove();
+    currentItem = null;
+    hoverItem = null;
+    dropTargetColumn = null;
+  }
+}
+
+function readyForPatching() {
+  const targetId = currentItem.getAttribute("id");
+  const columnStatus = dropTargetColumn.getAttribute("id");
+  const updateDataObj = {
+    status: columnStatus,
+  };
+  patchListData(targetId, updateDataObj);
 }
 
 function moveItem(X, Y) {

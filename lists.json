@@ -13,6 +13,24 @@
       "to": "하고 있는 일",
       "from": "",
       "id": "2023. 1. 17. 오후 5:23:37"
+    },
+    {
+      "action": "Update",
+      "title": "점심",
+      "from": "",
+      "id": "4IinPIh"
+    },
+    {
+      "action": "Update",
+      "title": "점심",
+      "from": "",
+      "id": "a2gpGPm"
+    },
+    {
+      "action": "Update",
+      "title": "ㅈㄷㄱ",
+      "from": "",
+      "id": "d0cqU4o"
     }
   ],
   "lists": [
@@ -23,9 +41,9 @@
       "id": 312
     },
     {
-      "title": "wer",
-      "details": "wer",
-      "status": "todo",
+      "title": "ㅈㄷㄱ",
+      "details": "ㅈㄷㄱ",
+      "status": "doing",
       "id": 8320
     },
     {
@@ -43,7 +61,7 @@
     {
       "title": "rr",
       "details": "rr",
-      "status": "doing",
+      "status": "todo",
       "id": 5817
     },
     {

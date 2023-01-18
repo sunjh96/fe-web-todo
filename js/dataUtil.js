@@ -39,4 +39,15 @@ const deleteListData = async (ID) => {
   await axios.delete(`http://localhost:3001/lists/${ID}`);
 };
 
-export { getListData, getLogData, postLogData, postListData, deleteListData };
+const patchListData = async (ID, updateDataObj) => {
+  axios.patch(`http://localhost:3001/lists/${ID}`, updateDataObj);
+};
+
+export {
+  getListData,
+  getLogData,
+  postLogData,
+  postListData,
+  deleteListData,
+  patchListData,
+};
