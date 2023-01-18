@@ -4,10 +4,10 @@ const makeColumn = ({ title = "제목" }) => {
         <div class="listTitleBox">
           <h3>${title}</h3>
           <div class="count-box">
-            <div class="count-num">1</div>
+            <div class="count-num">0</div>
           </div>
-          <span class="material-symbols-outlined add-card-btn" id="addDoingBtn">add</span>
-          <span class="material-symbols-outlined close-card-btn" id="closeDoingBtn">close</span>
+          <span class="material-symbols-outlined add-card-btn" >add</span>
+          <span class="material-symbols-outlined close-card-btn" >close</span>
         </div>
         <div class="list-wrapper">
           <form class="item-add-box hidden">
