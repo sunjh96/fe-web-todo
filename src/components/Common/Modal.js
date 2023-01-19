@@ -1,7 +1,7 @@
 import Component from '@/core/Component';
 import { Button } from '@/components/common';
 import { TodoStatus } from '@/components';
-import { patchStatus } from '@/api/user';
+import { patchStatus } from '@/api/forMission/user';
 
 export default class Modal extends Component {
   setup() {

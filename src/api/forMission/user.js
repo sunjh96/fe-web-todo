@@ -1,13 +1,17 @@
-import client from './client';
+/**
+ * Mission 제출용
+ */
 
-export async function getUser(userName) {
+import client from '../client';
+
+export async function getUserInfo(userName) {
   const response = await client.get(`/api/users/${userName}`);
 
   return response.data;
 }
 
-export async function getStatusTasks(userName, statusName) {
-  const statusList = await getUser(userName).then((res) => res.status);
+export async function getStatusTask(userName, statusName) {
+  const statusList = await getUserInfo(userName).then((res) => res.status);
 
   for (const [key, val] of Object.entries(statusList)) {
     if (key === statusName) return val;
@@ -17,7 +21,7 @@ export async function getStatusTasks(userName, statusName) {
 }
 
 export async function getTaskCount(userName) {
-  const taskCount = await getUser(userName).then((res) => res.taskCount);
+  const taskCount = await getUserInfo(userName).then((res) => res.taskCount);
 
   return taskCount;
 }

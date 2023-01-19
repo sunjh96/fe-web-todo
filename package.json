@@ -37,6 +37,7 @@
     "concurrently": "^7.6.0",
     "connect-api-mocker": "^1.10.0",
     "css-loader": "^6.7.3",
+    "firebase": "^9.15.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1"

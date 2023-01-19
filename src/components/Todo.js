@@ -1,7 +1,7 @@
 import { Component, holdDownTask } from '@/core';
 import { Button } from '@/components/common';
 import { TodoStatus, Task } from '@/components';
-import { getUser, putTask, deleteTask, deleteStatus } from '@/api/user';
+import { getUserInfo, putTask, deleteTask, deleteStatus } from '@/api/forMission/user';
 
 /**
  * Class Todo
@@ -14,7 +14,7 @@ export default class Todo extends Component {
   setup() {
     this.state = {
       userInfo: (() => {
-        return getUser('jangoh').then((res) => {
+        return getUserInfo('jangoh').then((res) => {
           return res;
         });
       })(),

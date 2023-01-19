@@ -1,9 +1,15 @@
 import './styles/main.scss';
 
-import { Todo } from '@/components';
-import { Modal } from '@/components/common/index';
+import { StatusModel } from '@/models';
+import { MainViewModel, StatusViewModel } from '@/viewModels';
+import { StatusView } from '@/views';
 
-const $target = document.querySelector('.todo-main');
+async function init() {
+  const statusList = await new StatusModel().statusData;
 
-new Todo($target);
-new Modal(document.body, { content: '상태 추가', type: 'input' });
+  new MainViewModel('.todo-main').test();
+  StatusView();
+  new StatusViewModel('.todo-main', statusList);
+}
+
+init();

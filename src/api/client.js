@@ -1,6 +1,18 @@
 import axios from 'axios';
 
-const baseURL = 'http://127.0.0.1:5500/';
-const client = axios.create({ baseURL });
+/**
+ * TODO express로 restAPI 간단하게 만들기
+ */
+
+const baseURL = 'https://firestore.googleapis.com/v1/projects/todo-4684b/databases/(default)/documents/';
+const accessToken =
+  'eyJhbGciOiJSUzI1NiIsImtpZCI6ImY1NWU0ZDkxOGE0ODY0YWQxMzUxMDViYmRjMDEwYWY5Njc5YzM0MTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdG9kby00Njg0YiIsImF1ZCI6InRvZG8tNDY4NGIiLCJhdXRoX3RpbWUiOjE2NzM5NTQ4MzgsInVzZXJfaWQiOiJWTk1SblQ0R3QxWHF4WWc2cUlsYjYyZ0RmdXUyIiwic3ViIjoiVk5NUm5UNEd0MVhxeFlnNnFJbGI2MmdEZnV1MiIsImlhdCI6MTY3Mzk1NDgzOCwiZXhwIjoxNjczOTU4NDM4LCJlbWFpbCI6InN1bmpoOTZAdG9kby5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsic3Vuamg5NkB0b2RvLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.TuuhlMGk4RWOxaWlTFHBCaLrSFthiW5sTUjXNx1NG85VHLodloh4OAfYiZQLFyfPefuQl0zaczWoPJILZR0_c7AuNp2JvqbC6Krs7Q7xSf62OJf2v46DqiJuW1mhbXy3D8F-w5bqmflX5NXt5tHYJ_DQcTGzKWCJaZZeHeqMcSdUVGKSqDnIl-sJaVwSzhVstVHfoGs8G2qiLZarTxxc06vSb8nQqlPAqZElJSrkEUubeQqKZE747Rur6-q-QJkIWyiJyyd8YIekKJXqOjz1DpHm1KahE-CViQGRSq7TLNQpECsan2j3MGbD7ofqXOeJ705PAuZFTY-0Hh4DB_1upw';
+
+const client = axios.create({
+  baseURL,
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+});
 
 export default client;

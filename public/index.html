@@ -7,6 +7,7 @@
     <title>TO-DO LIST</title>
   <script defer src="main.js"></script><link href="style/main.css" rel="stylesheet"></head>
   <body>
+    <div id="app"></div>
     <header class="header">
       <h2>TO-DO LIST</h2>
       <div class="trigger">
@@ -16,6 +17,6 @@
         <span class="trigger-line"></span>
       </div>
     </header>
-    <main class="todo-main"></main>
+    <main data-viewmodel="lists" data-status-count class="todo-main"></main>
   </body>
 </html>
