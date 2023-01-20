@@ -2,9 +2,15 @@ import { patchListData, getListData } from "./dataUtil.js";
 import { addLogItem } from "./logItem.js";
 
 let currentItem = null;
-let hoverItem = null;
-let dropTargetColumn = null;
+let currentColumnArr = null;
 let currentColumnName = null;
+
+let dropTargetColumn = null;
+let dropColumnArr = null;
+
+let hoverItem = null;
+let nearItemIndex = null;
+let nearItem = null;
 
 function mousedown(e) {
   if (
@@ -23,6 +29,9 @@ function mousedown(e) {
   currentColumn.appendChild(hoverItem);
   currentItem.classList.add("move");
   const { pageX, pageY } = e;
+  currentColumnArr = [...currentColumn.children];
+  const currentIdx = currentColumnArr.indexOf(currentItem);
+  currentColumnArr.splice(currentIdx, 1);
   hoverItem.classList.add("blink");
   moveItem(pageX, pageY);
 }
@@ -34,17 +43,21 @@ function mousemove(e) {
   ) {
     return;
   }
-  if (hoverItem !== null) {
+  if (hoverItem) {
     const { pageX, pageY } = e;
     dropTargetColumn = e.target.closest("ul");
+    dropColumnArr = [...dropTargetColumn.children];
+    nearItem = e.target.closest("li");
+    nearItemIndex = dropColumnArr.indexOf(nearItem);
+    dropColumnArr.splice(nearItemIndex, 0, hoverItem);
     moveItem(pageX, pageY);
   }
 }
 
 function mouseup(e) {
-  if (dropTargetColumn !== null) {
-    dropTargetColumn.appendChild(currentItem);
+  if (dropTargetColumn) {
     readyForPatching();
+    dropTargetColumn.appendChild(currentItem);
     currentItem.classList.remove("move");
     hoverItem.remove();
     currentItem = null;
@@ -54,16 +67,26 @@ function mouseup(e) {
 }
 
 const readyForPatching = async () => {
-  const targetId = currentItem.getAttribute("id");
+  console.log(currentColumnArr);
+  console.log(dropColumnArr);
+  const targetTitle = currentItem.dataset.title;
   const columnStatus = dropTargetColumn.getAttribute("id");
-  const updateDataObj = {
-    status: columnStatus,
-  };
-  const listData = await getListData();
-  const index = await listData.findIndex((obj) => obj.id == targetId);
-  const targetTitle = listData[index].title;
+  if (currentColumnArr !== null) {
+    currentColumnArr.map((item) => {
+      const updateDataObj = {
+        index: currentColumnArr.indexOf(item),
+      };
+      patchListData(item.id, updateDataObj);
+    });
+  }
+  dropColumnArr.map((el) => {
+    const updateDataObj = {
+      status: columnStatus,
+      index: dropColumnArr.indexOf(el),
+    };
+    patchListData(el.id, updateDataObj);
+  });
 
-  patchListData(targetId, updateDataObj);
   addLogItem({
     action: "Move",
     title: targetTitle,

@@ -10,15 +10,22 @@ const CONSTANT = [0, 1, 2];
 
 const showItems = async () => {
   const listData = await getListData();
-  listData.map((item) => {
+  const sortedData = listData.sort(function (a, b) {
+    return a.index - b.index;
+  });
+  console.log(sortedData);
+  sortedData.map((item) => {
     const card = makeListCard({
       title: item.title,
       detail: item.details,
       id: item.id,
     });
-    CONSTANT.filter((ele) => item.status === condition[ele]).map((ele) => {
-      columnName[ele].insertAdjacentHTML("beforeend", card);
-    });
+    //prettier-ignore
+    CONSTANT
+      .filter((idx) => item.status === condition[idx])
+        .map((el) => {
+          columnName[el].insertAdjacentHTML("beforeend", card);
+        });
   });
 };
 

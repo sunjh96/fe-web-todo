@@ -12,12 +12,12 @@ import { openAddColumn, closeAddColumn, addColumn } from "./column.js";
 import { mousedown, mouseup, mousemove } from "./dragEvent.js";
 
 const container = document.querySelector(".container");
-const listItem = document.getElementsByClassName(".item-wrapper");
 const header = document.querySelector(".header-wrapper");
 const menu = document.querySelector(".menu-wrapper");
 
 const clickDocument = () => {
   document.addEventListener("click", (e) => {
+    console.log(e.target.className);
     openItemEditForm(e);
     cancelItemEditForm(e);
     openModal(e);
@@ -56,6 +56,17 @@ const init = () => {
   ShowLogs();
 };
 
+const checkInput = () => {
+  if (
+    document.querySelector(".title-input").value ||
+    document.querySelector(".title-input").value
+  ) {
+    console.log("ge");
+    document.querySelector(".register-btn").classList.add("active-btn");
+  }
+};
+
 init();
+checkInput();
 
 export { showItems };

@@ -1,39 +1,18 @@
-import { arrCount } from "./util/arrCount.js";
 import { addLogItem } from "./logItem.js";
-import { getListData, deleteListData } from "./dataUtil.js";
-import { findColumnName } from "./util/ColumnIndex.js";
+import { deleteListData } from "./dataUtil.js";
 
-const column = ["해야할 일", "하고 있는 일", "완료한 일"];
-const columnStatus = ["todo", "doing", "done"];
-
-const defineItemTarget = {
-  get condition() {
-    return this._condition;
-  },
-  set condition(num) {
-    this._condition = num;
-  },
-  get Item() {
-    return this._Item;
-  },
-  set Item(str) {
-    this._Item = str;
-  },
-  get Id() {
-    return this._Id;
-  },
-  set Id(num) {
-    this._Id = num;
-  },
-};
+let targetItem = null;
+let targetItemId = null;
 
 const closeModal = () => {
-  document.getElementById("modal").classList.add("hidden");
+  document.querySelector(".modal").classList.add("hidden");
+  targetItem = null;
+  targetItemId = null;
 };
 
 const cancelDeteleItem = (e) => {
   if (
-    e.target.id == "modal-cancel-btn" ||
+    e.target.id === "modal-cancel-btn" ||
     e.target.className === "modal-background"
   ) {
     closeModal();
@@ -43,32 +22,27 @@ const cancelDeteleItem = (e) => {
 
 const openModal = (e) => {
   if (e.target.id == "item-delete-btn") {
-    document.getElementById("modal").classList.remove("hidden");
-    const itemNode = e.target.parentNode.parentNode.parentNode;
-    defineItemTarget.Item = itemNode;
-    itemNode.classList.add("focus");
-    defineItemTarget.Id = parseInt(itemNode.getAttribute("id"));
+    document.querySelector(".modal").classList.remove("hidden");
+    targetItem = e.target.closest("li");
+    targetItem.classList.add("focus");
+    targetItemId = parseInt(targetItem.getAttribute("id"));
   }
 };
 
 const deleteItem = async (e) => {
-  if (e.target.id == "modal-delete-btn") {
-    const listData = await getListData();
-    const index = listData.findIndex((obj) => obj.id == defineItemTarget.Id);
-    const columnIdx = columnStatus.findIndex(
-      (obj) => obj == listData[index].status
-    );
+  if (e.target.id === "modal-delete-btn") {
+    const targetTitle = targetItem.dataset.title;
+    const targetColumn = targetItem.closest("ul").id;
     const focusItem = document.querySelector(".focus");
-    deleteListData(defineItemTarget.Id);
+    deleteListData(targetItemId);
     addLogItem({
       action: "Delete",
-      title: listData[index].title,
-      to: column[columnIdx],
+      title: targetTitle,
+      to: targetColumn,
       from: "",
     });
     focusItem.remove();
     closeModal();
-    arrCount(columnIdx);
   }
 };
 
