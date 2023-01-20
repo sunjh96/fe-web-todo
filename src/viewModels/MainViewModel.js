@@ -1,68 +1,88 @@
 import { typeCheck } from '@/utils';
-import { Scanner, Processor, ViewModel } from '@/core';
+// import { Binder, DomVisitor, DomScanner, Processor, ViewModel } from '@/core';
+import ViewModel from '@/core/ViewModel.js';
+import Binder from '@/core/Binder.js';
+import DomVisitor from '@/core/DomVisitor.js';
+import Processor from '@/core/Processor.js';
+import DomScanner from '@/core/DomScanner.js';
 
 const MainViewModel = class {
-  constructor(target, _ = typeCheck(target, 'string')) {
-    this.scanner = new Scanner();
-    this.binder = this.scanner.scan(document.querySelector(target));
-    this.bindProcessor();
+  rootViewModel;
+
+  constructor(target, _0 = typeCheck(target, 'string')) {
+    this.rootViewModel;
+    this.visitor = new DomVisitor();
+    this.scanner = new DomScanner(this.visitor);
+    this.binder = typeCheck(this.scanner.scan(document.body), Binder);
+    this.bindProcessor(this.visitor, this.scanner);
   }
 
-  test() {
-    const { createViewModel } = this;
+  bindProcessor(visitor, scanner) {
+    const processor = new (class extends Processor {
+      _process(viewModel, elem, key, val) {
+        elem.style[key] = val;
+      }
+    })('styles');
 
-    const lists = createViewModel({
-      lists: { data: 2 },
-    });
+    processor
+      .next(
+        new (class extends Processor {
+          _process(viewModel, elem, key, val) {
+            elem.setAttribute(key, val);
+          }
+        })('attributes'),
+      )
+      .next(
+        new (class extends Processor {
+          _process(viewModel, elem, key, val) {
+            elem[key] = val;
+          }
+        })('properties'),
+      )
+      .next(
+        new (class extends Processor {
+          _process(viewModel, elem, key, val) {
+            elem.addEventListener(`${key}`, val(viewModel));
+          }
+        })('events'),
+      )
+      .next(
+        new (class extends Processor {
+          _process(viewModel, elem, key, val) {
+            const { name = err('이름이 없습니다'), data = err('데이터가 없습니다') } = viewModel.template;
+            const template = DomScanner.get(name) || err('에러 : ' + name);
 
-    const rootViewModel = createViewModel({
-      lists,
-    });
+            if (!(data instanceof Array)) err('에러 :' + data);
 
-    this.watchRootViewModel(rootViewModel);
-  }
+            data.forEach((viewModel, i) => {
+              if (!(viewModel instanceof ViewModel)) err(`에레 : ${viewModel}`);
+            });
 
-  bindProcessor() {
-    this.binder.addProcessor(
-      new (class extends Processor {
-        _process(viewmodel, elem, key, val) {
-          const a = elem.dataset;
-          a.statusCount = val;
-        }
-      })('lists'),
-    );
+            Object.freeze(data);
 
-    this.binder.addProcessor(
-      new (class extends Processor {
-        _process(viewmodel, elem, key, val) {
-          elem.style[key] = val;
-        }
-      })('styles'),
-    );
+            visitor.visit((elem) => {
+              if (elem.binder) {
+                const [binder, viewModel] = elem.binder;
+                binder.unwatch(viewModel);
+                delete elem.binder;
+              }
+            }, elem);
 
-    this.binder.addProcessor(
-      new (class extends Processor {
-        _process(viewmodel, elem, key, val) {
-          elem.setAttribute(key, val);
-        }
-      })('attributes'),
-    );
+            elem.innerHTML = '';
+            data.forEach((viewModel) => {
+              const child = template.cloneNode(true);
+              const binder = scanner.scan(child);
 
-    this.binder.addProcessor(
-      new (class extends Processor {
-        _process(viewmodel, elem, key, val) {
-          elem[key] = val;
-        }
-      })('properties'),
-    );
+              binder.processor = processor;
+              elem.binders = [binder, viewModel];
+              binder.watch(viewModel);
+              elem.appendChild(child);
+            });
+          }
+        })('template'),
+      );
 
-    this.binder.addProcessor(
-      new (class extends Processor {
-        _process(viewmodel, elem, key, val) {
-          elem.addEventListener(`${key}`, val(viewmodel));
-        }
-      })('events'),
-    );
+    this.binder.processor = processor;
   }
 
   createViewModel(inLineData) {

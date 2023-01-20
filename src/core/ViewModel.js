@@ -1,91 +1,81 @@
 import { typeCheck } from '@/utils';
-import { ViewModelValue } from '@/core';
-// import { ViewModelValue, ViewModelListener } from '@/core';
-import ViewModelListener from './ViewModelListener.js';
+import { ViewModelValue, ViewModelSubject } from '@/core';
 
-const ViewModel = class extends ViewModelListener {
-  static #subjects = new Set();
-  static #inited = false;
-
-  subKey = '';
-  parent = null;
+/**
+ * @param {object} data - object type
+ *
+ * @summary  물리적인 View를 대신하여 순수한 메모리 객체로서의 View를 만들어내는 객체 (인메모리 객체)
+ */
+const ViewModel = class extends ViewModelSubject {
+  static KEY = Symbol(); //모든 Key를 Observer에게 보고
   styles = {};
   attributes = {};
   properties = {};
   events = {};
-  lists = {};
-  #isUpdated = new Set();
-  #listeners = new Set();
+  #subKey = '';
+  #parent = null;
 
-  constructor(data, _ = typeCheck(data, 'object')) {
+  constructor(data, _0 = typeCheck(data, 'object')) {
     super();
-
-    Object.entries(data).forEach(([k, v]) => {
-      if ('styles,attributes,properties'.includes(k)) {
-        if (!v || typeof v != 'object') throw `invalid object k: ${k}, v:${v}`;
-        this[k] = ViewModel.define(this, k, v);
-      } else {
-        Object.defineProperty(this, k, ViewModel.descriptor(this, '', k, v));
-        if (v instanceof ViewModel) {
-          v.parent = this;
-          v.subKey = k;
-          v.addListener(this);
-        }
-      }
-    });
-
-    ViewModel.notify(this);
+    this[ViewModel.KEY] = 'root';
+    Object.entries(data).forEach(([k, v]) => this.define(this, k, v));
     Object.seal(this);
   }
 
-  static get = (data) => new ViewModel(data);
+  define(target, k, v) {
+    if (v && typeof v == 'object' && !(v instanceof ViewModel)) {
+      if (v instanceof Array) {
+        target[k] = [];
+        target[k][ViewModel.KEY] = `${target[ViewModel.KEY]}.${k}`; // 상대적인 경로 표기. key의 확장
+        v.forEach((v, i) => this.define(target[k], i, v));
+      } else {
+        target[k] = { [ViewModel.KEY]: `${target[ViewModel.KEY]}.${k}` };
+        Object.entries(v).forEach(([ik, iv]) => this.define(target[k], ik, iv));
+      }
 
-  static notify(vm) {
-    this.#subjects.add(vm);
-
-    if (this.#inited) return;
-
-    this.#inited = true;
-
-    const f = () => {
-      this.#subjects.forEach((vm) => {
-        if (vm.#isUpdated.size) {
-          vm.notify();
-          vm.#isUpdated.clear();
-        }
+      Object.defineProperty(target[k], 'subKey', {
+        get: () => target.subKey,
       });
-      requestAnimationFrame(f);
-    };
+    } else {
+      if (v instanceof ViewModel) v._setParent(this, k);
 
-    requestAnimationFrame(f);
+      Object.defineProperties(target, {
+        [k]: {
+          enumerable: true,
+          get: (_) => v,
+          set: (newV) => {
+            v = newV;
+            this.add(new ViewModelValue(target.subKey, target[ViewModel.KEY], k, v));
+          },
+        },
+      });
+    }
   }
 
-  static descriptor = (vm, category, k, v) => ({
-    enumerable: true,
-    get: () => v,
-    set(newV) {
-      v = newV;
-      vm.#isUpdated.add(new ViewModelValue(vm.subKey, category, k, v));
-    },
-  });
+  static get(data) {
+    return new ViewModel(data);
+  }
 
-  static define = (vm, category, obj) =>
-    Object.defineProperties(
-      obj,
-      Object.entries(obj).reduce((r, [k, v]) => ((r[k] = ViewModel.descriptor(vm, category, k, v)), r), {}),
-    );
+  get subKey() {
+    return this.#subKey;
+  }
 
-  viewmodelUpdated(updated) {
-    updated.forEach((v) => this.#isUpdated.add(v));
+  get parent() {
+    return this.#parent;
   }
-  addListener(v, _ = typeCheck(v, ViewModelListener)) {
-    this.#listeners.add(v);
+
+  get notifyTarget() {
+    return this;
   }
-  removeListener(v, _ = typeCheck(v, ViewModelListener)) {
-    this.#listeners.delete(v);
+
+  _setParent(parent, subKey) {
+    this.#parent = typeCheck(parent, ViewModel);
+    this.#subKey = subKey;
+    this.addListener(parent);
   }
-  notify() {
-    this.#listeners.forEach((v) => v.viewmodelUpdated(this.#isUpdated));
+
+  viewmodelUpdated(target, updated) {
+    updated.forEach((v) => this.add(v));
   }
 };
 

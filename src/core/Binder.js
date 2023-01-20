@@ -1,59 +1,61 @@
 import { typeCheck } from '@/utils';
-import { Processor, BinderItem, ViewModel, ViewModelListener } from '@/core';
+import { BinderItem, ViewModel, ViewModelListener } from '@/core';
+
+/**
+ * @param none
+ *
+ * @summary ViewModel을 감지하여 View에 반영함으로써 View에 대한 제어는 Binder에게 위임
+ */
 
 const Binder = class extends ViewModelListener {
   #items = new Set();
-  #processors = {};
-  rootViewModel;
+  #processor = null;
 
-  add(v, _ = typeCheck(v, BinderItem)) {
-    this.#items.add(v);
-  }
-
-  addProcessor(v, _ = typeCheck(v, Processor)) {
-    this.#processors[v.category] = v;
+  set processor(binderItem) {
+    this.#processor = binderItem;
   }
 
   render(viewmodel, _ = typeCheck(viewmodel, ViewModel)) {
-    const processores = Object.entries(this.#processors);
-
     this.#items.forEach(({ dataTypeValue, elem }) => {
-      dataTypeValue = typeCheck(viewmodel[dataTypeValue], ViewModel);
+      const viewModel = typeCheck(viewmodel[dataTypeValue], ViewModel);
 
-      processores.forEach(([category, processor]) => {
-        Object.entries(dataTypeValue[category]).forEach(([key, val]) => {
-          processor.process(dataTypeValue, elem, key, val);
+      Object.entries(viewModel).forEach(([category, childViewModel]) => {
+        Object.entries(childViewModel).forEach(([key, val]) => {
+          this.#processor.process(category, viewModel, elem, key, val);
         });
       });
     });
   }
 
-  watch(viewmodel, _ = typeCheck(viewmodel, ViewModel)) {
-    this.rootViewModel = viewmodel;
+  add(binderItem, _0 = typeCheck(binderItem, BinderItem)) {
+    this.#items.add(binderItem);
+  }
+
+  watch(viewmodel, _0 = typeCheck(viewmodel, ViewModel)) {
     viewmodel.addListener(this);
     this.render(viewmodel);
   }
 
-  unwatch(viewmodel, _ = typeCheck(viewmodel, ViewModel)) {
+  unwatch(viewmodel, _0 = typeCheck(viewmodel, ViewModel)) {
     viewmodel.removeListener(this);
   }
 
-  viewmodelUpdated(updated) {
+  viewmodelUpdated(target, updated, _0 = typeCheck(target, ViewModel)) {
     const items = {};
 
-    this.#items.forEach(({ vmName, el }) => {
-      items[vmName] = [typeCheck(this.rootViewModel[vmName], ViewModel), el];
+    this.#items.forEach(({ dataTypeValue, elem }) => {
+      items[dataTypeValue] = [typeCheck(target[dataTypeValue], ViewModel), elem];
     });
 
-    updated.forEach(({ subKey, category, k, v }) => {
+    updated.forEach(({ subKey, category, key, val }) => {
       if (!items[subKey]) return;
 
-      const [vm, el] = items[subKey];
-      const processor = this.#processors[category];
+      const [dataTypeValue, elem] = items[subKey];
+      const processor = this.#processor;
 
-      if (!el || !processor) return;
+      if (!elem || !processor) return;
 
-      processor.process(vm, el, k, v);
+      processor.process(category.split('.').pop(), dataTypeValue, elem, key, val);
     });
   }
 };

@@ -1,16 +1,12 @@
 import { getStatusList, setStatusList } from '@/api/status';
 
 /**
- * @constructor
- * @summary
+ * @param none
+ *
+ * @summary Firebase로부터 Status에 관한 데이터를 조회,수정,삭제하는 객체
  */
-
 const StatusModel = class {
   #statusData;
-
-  constructor() {
-    this.#statusData;
-  }
 
   async setStatusData() {
     this.#statusData = await getStatusList();

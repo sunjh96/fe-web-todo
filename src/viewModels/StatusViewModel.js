@@ -1,10 +1,11 @@
 import { typeCheck } from '@/utils';
 import { MainViewModel } from '@/viewModels';
-
+import { ViewModel } from '@/core';
 /**
  * @param { HTMLElment } target - HTMLElment Type, 하위에 append할 타겟
- * @param { object } statusList - Model에서 불러온 Status 종류
- * @summary -
+ * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
+ *
+ * @summary - statusList에 들어있는 배열의 값들만큼 view를 그리는 객체
  */
 
 const StatusViewModel = class extends MainViewModel {
@@ -18,28 +19,38 @@ const StatusViewModel = class extends MainViewModel {
 
   setInlineProperties() {
     const { createViewModel } = this;
-    const viewModelList = {};
 
-    Object.entries(this.#statusList).forEach(([key, val]) => {
-      viewModelList[`status${key - 1}`] = createViewModel({});
-      viewModelList[`add_task_btn${key - 1}`] = createViewModel({});
-      viewModelList[`delete_status_btn${key - 1}`] = createViewModel({});
-      viewModelList[`status_title${key - 1}`] = createViewModel({
-        properties: { innerHTML: val },
-      });
-      viewModelList[`task_count${key - 1}`] = createViewModel({ properties: { innerHTML: 0 } });
+    const statusTitle = ViewModel.get({});
+    const statusCount = ViewModel.get({});
+    const taskList = ViewModel.get({});
+
+    const main = ViewModel.get({
+      template: {
+        name: 'status',
+        data: Object.values(this.#statusList).map((name) =>
+          ViewModel.get({
+            statusTitle: ViewModel.get({
+              properties: { innerHTML: name },
+            }),
+            statusCount: ViewModel.get({
+              properties: { innerHTML: 0 },
+            }),
+            taskList: ViewModel.get({
+              attributes: { 'data-statusName': name },
+            }),
+          }),
+        ),
+      },
     });
 
-    const lists = createViewModel({
-      lists: { data: 3 },
+    this.rootViewModel = createViewModel({
+      main,
+      statusTitle,
+      statusCount,
+      taskList,
     });
 
-    const rootViewModel = createViewModel({
-      ...viewModelList,
-      lists,
-    });
-
-    this.watchRootViewModel(rootViewModel);
+    this.watchRootViewModel(this.rootViewModel);
   }
 };
 

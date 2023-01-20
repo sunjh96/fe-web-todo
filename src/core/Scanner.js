@@ -1,32 +1,25 @@
 import { typeCheck } from '@/utils';
-import { Binder, BinderItem } from '@/core';
+import { Visitor } from '@/core';
 
 /**
- * @constructor none
- * @summary DOM Tree를 순회하면서 Scan 하여 Binding 하는 역할
+ * @param none
+ *
+ * @summary 구현 클래스 DomScanner의 추상 클래스
  */
 
 const Scanner = class {
-  scan(elem, _ = typeCheck(elem, HTMLElement)) {
-    const binder = new Binder();
-    this.checkItem(binder, elem);
+  #visitor;
 
-    const stack = [elem.firstElementChild];
-    let target;
-
-    while ((target = stack.pop())) {
-      this.checkItem(binder, target);
-      if (target.firstElementChild) stack.push(target.firstElementChild);
-      if (target.nextElementSibling) stack.push(target.nextElementSibling);
-    }
-
-    return binder;
+  constructor(visitor, _ = typeCheck(visitor, Visitor)) {
+    this.#visitor = visitor;
   }
 
-  checkItem(binder, elem) {
-    const dataTypeValue = elem.getAttribute('data-viewmodel');
+  visit(f, target) {
+    this.#visitor.visit(f, target);
+  }
 
-    if (dataTypeValue) binder.add(new BinderItem(elem, dataTypeValue));
+  scan(target) {
+    throw `override`;
   }
 };
 

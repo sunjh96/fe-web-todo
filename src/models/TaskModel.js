@@ -1,12 +1,36 @@
-import { getUserInfo, putTask, deleteTask, deleteStatus } from '@/api/forMission/user';
-let userInfo;
+import { getTaskList } from '@/api/task';
+
+/**
+ * @constructor
+ * @summary
+ */
 
 const TaskModel = class {
-  constructor() {}
+  #taskData;
 
-  addStatus() {}
-  deleteStatus() {}
-  changeStatusName() {}
+  constructor() {
+    this.#taskData;
+  }
+
+  async setTaskData() {
+    this.#taskData = await getTaskList();
+
+    return this.#taskData;
+  }
+
+  get taskData() {
+    return (async () => {
+      try {
+        return await this.setTaskData();
+      } catch (e) {
+        throw `데이터 fetch 에러 => ${e} `;
+      }
+    })();
+  }
+
+  addTask() {}
+  deleteTask() {}
+  modifyTaskName() {}
 };
 
 export default TaskModel;

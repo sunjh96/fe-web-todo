@@ -1,6 +1,6 @@
 const ViewModelValue = class {
-  constructor(subKey, category, k, v) {
-    Object.assign(this, { subKey, category, k, v });
+  constructor(subKey, category, key, val) {
+    Object.assign(this, { subKey, category, key, val });
     Object.freeze(this);
   }
 };

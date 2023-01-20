@@ -15,9 +15,12 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "StatusModel": () => (/* reexport safe */ _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "StatusView": () => (/* reexport safe */ _StatusView_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "TaskView": () => (/* reexport safe */ _TaskView_js__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
-/* harmony import */ var _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _StatusView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _TaskView_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+
 
 
 
@@ -29,20 +32,148 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _api_status__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+const StatusView = () => {
+  const $statusTarget = document.querySelector('.todo-main');
+
+  const template = `
+              <article class="todo-article" data-template="status">
+                <section class="todo-header">
+                  <div class="todo-title">
+                    <h3 data-viewmodel="statusTitle"></h3>
+                    <div data-viewmodel="statusCount">count</div>
+                  </div>
+                  <div class="todo-svg">
+                    <span id="add-task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
+                        <path
+                          d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                    <span id="delete-status">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                        <path
+                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </section>
+                <section class="todo-task-list" data-viewmodel="taskList" data-statusName>
+                  <section class="todo-task" data-template="task">
+                    <form data-type="input-task">
+                      <div class="task-title">
+                        <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="taskTitle"></textarea>
+                        <svg class="edit-btn" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                            <path
+                              d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
+                              fill="#010101"
+                            />
+                        </svg>
+                        <span id="delete-todo">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                            <path
+                              d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                              fill="#BDBDBD"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required></textarea>
+                      <span class="task-author"></span>
+                      <div class="button">
+                      </div>
+                    </form>
+                  </section>
+                </section>
+              </article>
+            `;
+
+  $statusTarget.innerHTML = template;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatusView);
+
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const TaskView = () => {
+  const $taskTarget = document.querySelector('.todo-task-list');
+
+  const template = `
+              <section class="todo-task" data-template="task">
+                <form data-type="input-task">
+                  <div class="task-title">
+                    <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="task_title"></textarea>
+                    <svg class="edit-btn" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                        <path
+                          d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
+                          fill="#010101"
+                        />
+                    </svg>
+                    <span id="delete-todo">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                        <path
+                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required></textarea>
+                  <span class="task-author"></span>
+                  <div class="button"></div>
+                </form>
+              </section>
+            `;
+
+  $taskTarget.innerHTML = template;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskView);
+
+
+/***/ }),
+/* 5 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "StatusModel": () => (/* reexport safe */ _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "TaskModel": () => (/* reexport safe */ _TaskModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])
+/* harmony export */ });
+/* harmony import */ var _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _TaskModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
+
+
+
+
+/***/ }),
+/* 6 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _api_status__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 
 
 /**
- * @constructor
- * @summary
+ * @param none
+ *
+ * @summary Firebase로부터 Status에 관한 데이터를 조회,수정,삭제하는 객체
  */
-
 const StatusModel = class {
   #statusData;
-
-  constructor() {
-    this.#statusData;
-  }
 
   async setStatusData() {
     this.#statusData = await (0,_api_status__WEBPACK_IMPORTED_MODULE_0__.getStatusList)();
@@ -69,7 +200,7 @@ const StatusModel = class {
 
 
 /***/ }),
-/* 4 */
+/* 7 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -77,8 +208,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getStatusList": () => (/* binding */ getStatusList),
 /* harmony export */   "setStatusList": () => (/* binding */ setStatusList)
 /* harmony export */ });
-/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
 
 
 
@@ -96,26 +227,22 @@ async function getStatusList() {
 async function setStatusList() {
   const statusRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
   console.log(statusRef);
-  // "DC" 문서의 capital 필드(키) 값 수정하기
-  // await updateDoc(statusRef, {
-  //   status: {},
-  // });
 }
 
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var firebase_compat_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
-/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
-/* harmony import */ var firebase_compat_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
-/* harmony import */ var firebase_compat_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(23);
+/* harmony import */ var firebase_compat_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
+/* harmony import */ var firebase_compat_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(21);
+/* harmony import */ var firebase_compat_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
 
 
 
@@ -140,14 +267,14 @@ const db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getFirestore)(app)
 
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
 
 
 
@@ -175,17 +302,17 @@ _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"].registerVersion(nam
 
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ firebase)
 /* harmony export */ });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 
 
 
@@ -620,7 +747,7 @@ registerCoreComponents();
 
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2766,7 +2893,7 @@ function getModularInstance(service) {
 
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2775,7 +2902,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ComponentContainer": () => (/* binding */ ComponentContainer),
 /* harmony export */   "Provider": () => (/* binding */ Provider)
 /* harmony export */ });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
 
 
 /**
@@ -3188,7 +3315,7 @@ class ComponentContainer {
 
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3212,10 +3339,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "registerVersion": () => (/* binding */ registerVersion),
 /* harmony export */   "setLogLevel": () => (/* binding */ setLogLevel)
 /* harmony export */ });
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 
 
 
@@ -4152,7 +4279,7 @@ registerCoreComponents('');
 
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4384,7 +4511,7 @@ function setUserLogHandler(logCallback, options) {
 
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4394,7 +4521,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "unwrap": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.u),
 /* harmony export */   "wrap": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)
 /* harmony export */ });
-/* harmony import */ var _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
 
 
 
@@ -4486,7 +4613,7 @@ function getMethod(target, prop) {
 
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4685,7 +4812,7 @@ const unwrap = (value) => reverseTransformCache.get(value);
 
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4784,13 +4911,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "where": () => (/* reexport safe */ _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.where),
 /* harmony export */   "writeBatch": () => (/* reexport safe */ _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.writeBatch)
 /* harmony export */ });
-/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
+/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
 
 //# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4889,11 +5016,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "where": () => (/* binding */ rl),
 /* harmony export */   "writeBatch": () => (/* binding */ af)
 /* harmony export */ });
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
-/* harmony import */ var _firebase_webchannel_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _firebase_webchannel_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
 
 
 
@@ -25418,7 +25545,7 @@ function lf(t, e) {
 
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -25545,7 +25672,7 @@ var FetchXmlHttpFactory = esm.FetchXmlHttpFactory=ed;var WebChannel = esm.WebCha
 
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -25569,7 +25696,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "registerVersion": () => (/* reexport safe */ _firebase_app__WEBPACK_IMPORTED_MODULE_0__.registerVersion),
 /* harmony export */   "setLogLevel": () => (/* reexport safe */ _firebase_app__WEBPACK_IMPORTED_MODULE_0__.setLogLevel)
 /* harmony export */ });
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
 
 
 
@@ -25597,24 +25724,24 @@ var version = "9.15.0";
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_auth_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
+/* harmony import */ var _firebase_auth_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
 
 //# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _firebase_auth_internal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _firebase_auth_internal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(23);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 
 
 
@@ -26621,7 +26748,7 @@ registerAuthCompat(_firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"])
 
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -26722,11 +26849,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "verifyBeforeUpdateEmail": () => (/* reexport safe */ _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__.ac),
 /* harmony export */   "verifyPasswordResetCode": () => (/* reexport safe */ _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__.a4)
 /* harmony export */ });
-/* harmony import */ var _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
 
 
 
@@ -27300,7 +27427,7 @@ function addFrameworkForLogging(auth, framework) {
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -27408,11 +27535,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "y": () => (/* binding */ signOut),
 /* harmony export */   "z": () => (/* binding */ deleteUser)
 /* harmony export */ });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(22);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(25);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 
 
 
@@ -36934,7 +37061,7 @@ registerAuth("Browser" /* ClientPlatform.BROWSER */);
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -37216,27 +37343,27 @@ function __classPrivateFieldIn(state, receiver) {
 
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_firestore_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var _firebase_firestore_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
 
 //# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "registerFirestore": () => (/* binding */ registerFirestore)
 /* harmony export */ });
-/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
+/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 
 
 
@@ -38237,111 +38364,149 @@ registerFirestore(_firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 /***/ }),
-/* 25 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MainViewModel": () => (/* reexport safe */ _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "StatusViewModel": () => (/* reexport safe */ _StatusViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])
-/* harmony export */ });
-/* harmony import */ var _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
-/* harmony import */ var _StatusViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(40);
-
-
-
-
-/***/ }),
-/* 26 */
+/* 28 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var _api_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
 
 
+/**
+ * @constructor
+ * @summary
+ */
 
-const MainViewModel = class {
-  constructor(target, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, 'string')) {
-    this.scanner = new _core__WEBPACK_IMPORTED_MODULE_1__.Scanner();
-    this.binder = this.scanner.scan(document.querySelector(target));
-    this.bindProcessor();
+const TaskModel = class {
+  #taskData;
+
+  constructor() {
+    this.#taskData;
   }
 
-  test() {
-    const { createViewModel } = this;
+  async setTaskData() {
+    this.#taskData = await (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.getTaskList)();
 
-    const lists = createViewModel({
-      lists: { data: 2 },
-    });
-
-    const rootViewModel = createViewModel({
-      lists,
-    });
-
-    this.watchRootViewModel(rootViewModel);
+    return this.#taskData;
   }
 
-  bindProcessor() {
-    this.binder.addProcessor(
-      new (class extends _core__WEBPACK_IMPORTED_MODULE_1__.Processor {
-        _process(viewmodel, elem, key, val) {
-          const a = elem.dataset;
-          a.statusCount = val;
-        }
-      })('lists'),
-    );
-
-    this.binder.addProcessor(
-      new (class extends _core__WEBPACK_IMPORTED_MODULE_1__.Processor {
-        _process(viewmodel, elem, key, val) {
-          elem.style[key] = val;
-        }
-      })('styles'),
-    );
-
-    this.binder.addProcessor(
-      new (class extends _core__WEBPACK_IMPORTED_MODULE_1__.Processor {
-        _process(viewmodel, elem, key, val) {
-          elem.setAttribute(key, val);
-        }
-      })('attributes'),
-    );
-
-    this.binder.addProcessor(
-      new (class extends _core__WEBPACK_IMPORTED_MODULE_1__.Processor {
-        _process(viewmodel, elem, key, val) {
-          elem[key] = val;
-        }
-      })('properties'),
-    );
-
-    this.binder.addProcessor(
-      new (class extends _core__WEBPACK_IMPORTED_MODULE_1__.Processor {
-        _process(viewmodel, elem, key, val) {
-          elem.addEventListener(`${key}`, val(viewmodel));
-        }
-      })('events'),
-    );
+  get taskData() {
+    return (async () => {
+      try {
+        return await this.setTaskData();
+      } catch (e) {
+        throw `데이터 fetch 에러 => ${e} `;
+      }
+    })();
   }
 
-  createViewModel(inLineData) {
-    return _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel.get(inLineData);
-  }
-
-  watchRootViewModel(rootViewModel) {
-    this.binder.watch(rootViewModel);
-  }
+  addTask() {}
+  deleteTask() {}
+  modifyTaskName() {}
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MainViewModel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskModel);
 
 
 /***/ }),
-/* 27 */
+/* 29 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTaskList": () => (/* binding */ getTaskList)
+/* harmony export */ });
+/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+
+
+
+async function getTaskList() {
+  const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
+  const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getDoc)(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data().tasks;
+  } else {
+    console.log('데이터가 없습니다.');
+  }
+}
+
+
+/***/ }),
+/* 30 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
+
+
+
+/**
+ * @param { HTMLElment } target - HTMLElment Type, 하위에 append할 타겟
+ * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
+ *
+ * @summary -
+ */
+
+const StatusViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
+  #statusList;
+
+  constructor(target, statusList, _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(statusList, 'object')) {
+    super(target);
+    this.#statusList = statusList;
+    this.setInlineProperties();
+  }
+
+  setInlineProperties() {
+    const { createViewModel } = this;
+
+    const statusTitle = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
+    const statusCount = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
+    const taskList = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
+
+    const main = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+      template: {
+        name: 'status',
+        data: Object.values(this.#statusList).map((v) =>
+          _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+            statusTitle: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+              properties: { innerHTML: v },
+            }),
+            statusCount: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+              properties: { innerHTML: 0 },
+            }),
+            taskList: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+              attributes: { 'data-statusName': v },
+            }),
+          }),
+        ),
+      },
+    });
+
+    this.rootViewModel = createViewModel({
+      main,
+      statusTitle,
+      statusCount,
+      taskList,
+    });
+
+    this.watchRootViewModel(this.rootViewModel);
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatusViewModel);
+
+
+/***/ }),
+/* 31 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38350,16 +38515,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "holdDownTask": () => (/* reexport safe */ _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "typeCheck": () => (/* reexport safe */ _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
-/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
+/* harmony import */ var _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
+/* harmony import */ var _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
 
 
 
 
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38386,7 +38551,7 @@ const typeCheck = (target, type) => {
 
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38430,14 +38595,14 @@ function drag(event, elementToDrag = event.target) {
 
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ holdDownTask)
 /* harmony export */ });
-/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
 
 
 function holdDownTask(e) {
@@ -38516,28 +38681,265 @@ function holdDownTask(e) {
 
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Binder": () => (/* reexport safe */ _Binder_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "BinderItem": () => (/* reexport safe */ _BinderItem_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "MainViewModel": () => (/* reexport safe */ _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "StatusViewModel": () => (/* reexport safe */ _StatusViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   "TaskViewModel": () => (/* reexport safe */ _TaskViewModel_js__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */ });
+/* harmony import */ var _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var _StatusViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _TaskViewModel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50);
+
+
+
+
+
+/***/ }),
+/* 36 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
+/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(43);
+/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(47);
+/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
+/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(48);
+
+// import { Binder, DomVisitor, DomScanner, Processor, ViewModel } from '@/core';
+
+
+
+
+
+
+const MainViewModel = class {
+  rootViewModel;
+
+  constructor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, 'string')) {
+    this.rootViewModel;
+    this.visitor = new _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    this.scanner = new _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.visitor);
+    this.binder = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(this.scanner.scan(document.body), _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    this.bindProcessor(this.visitor, this.scanner);
+  }
+
+  bindProcessor(visitor, scanner) {
+    const processor = new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+      _process(viewModel, elem, key, val) {
+        elem.style[key] = val;
+      }
+    })('styles');
+
+    processor
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem.setAttribute(key, val);
+          }
+        })('attributes'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem[key] = val;
+          }
+        })('properties'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem.addEventListener(`${key}`, val(viewModel));
+          }
+        })('events'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            const { name = err('no name'), data = err('no data') } = viewModel.template;
+            const template = _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"].get(name) || err('no template' + name);
+
+            if (!(data instanceof Array)) err('invalid data:' + data);
+
+            data.forEach((viewModel, i) => {
+              if (!(viewModel instanceof _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])) err(`invalid Viewmodel: ${i} - ${viewModel}`);
+            });
+
+            Object.freeze(data);
+
+            visitor.visit((elem) => {
+              if (elem.binder) {
+                const [binder, viewModel] = elem.binder;
+                binder.unwatch(viewModel);
+                delete elem.binder;
+              }
+            }, elem);
+
+            elem.innerHTML = '';
+            data.forEach((viewModel) => {
+              const child = template.cloneNode(true);
+              const binder = scanner.scan(child);
+
+              binder.processor = processor;
+              elem.binders = [binder, viewModel];
+              binder.watch(viewModel);
+              elem.appendChild(child);
+            });
+          }
+        })('template'),
+      );
+
+    this.binder.processor = processor;
+  }
+
+  createViewModel(inLineData) {
+    return _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(inLineData);
+  }
+
+  watchRootViewModel(rootViewModel) {
+    this.binder.watch(rootViewModel);
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MainViewModel);
+
+
+/***/ }),
+/* 37 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+
+
+
+/**
+ * @param {object} data - object type
+ *
+ * @summary  물리적인 View를 대신하여 순수한 메모리 객체로서의 View를 만들어내는 객체 (인메모리 객체)
+ */
+const ViewModel = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelSubject {
+  static KEY = Symbol(); //모든 Key를 Observer에게 보고
+  styles = {};
+  attributes = {};
+  properties = {};
+  events = {};
+  #subKey = '';
+  #parent = null;
+
+  constructor(data, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(data, 'object')) {
+    super();
+    this[ViewModel.KEY] = 'root';
+    Object.entries(data).forEach(([k, v]) => this.define(this, k, v));
+    Object.seal(this);
+  }
+
+  define(target, k, v) {
+    if (v && typeof v == 'object' && !(v instanceof ViewModel)) {
+      if (v instanceof Array) {
+        target[k] = [];
+        target[k][ViewModel.KEY] = `${target[ViewModel.KEY]}.${k}`; // 상대적인 경로 표기. key의 확장
+        v.forEach((v, i) => this.define(target[k], i, v));
+      } else {
+        target[k] = { [ViewModel.KEY]: `${target[ViewModel.KEY]}.${k}` };
+        Object.entries(v).forEach(([ik, iv]) => this.define(target[k], ik, iv));
+      }
+
+      Object.defineProperty(target[k], 'subKey', {
+        get: () => target.subKey,
+      });
+    } else {
+      if (v instanceof ViewModel) v._setParent(this, k);
+
+      Object.defineProperties(target, {
+        [k]: {
+          enumerable: true,
+          get: (_) => v,
+          set: (newV) => {
+            v = newV;
+            this.add(new _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue(target.subKey, target[ViewModel.KEY], k, v));
+          },
+        },
+      });
+    }
+  }
+
+  static get(data) {
+    return new ViewModel(data);
+  }
+
+  get subKey() {
+    return this.#subKey;
+  }
+
+  get parent() {
+    return this.#parent;
+  }
+
+  get notifyTarget() {
+    return this;
+  }
+
+  _setParent(parent, subKey) {
+    this.#parent = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(parent, ViewModel);
+    this.#subKey = subKey;
+    this.addListener(parent);
+  }
+
+  viewmodelUpdated(target, updated) {
+    updated.forEach((v) => this.add(v));
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModel);
+
+
+/***/ }),
+/* 38 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Binder": () => (/* reexport safe */ _Binder_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "BinderItem": () => (/* reexport safe */ _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   "Component": () => (/* reexport safe */ _Component_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "Processor": () => (/* reexport safe */ _Processor_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "Scanner": () => (/* reexport safe */ _Scanner_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   "DomScanner": () => (/* reexport safe */ _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   "DomVisitor": () => (/* reexport safe */ _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   "Processor": () => (/* reexport safe */ _Processor_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   "Scanner": () => (/* reexport safe */ _Scanner_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   "ViewModel": () => (/* reexport safe */ _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   "ViewModelListener": () => (/* reexport safe */ _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "ViewModelValue": () => (/* reexport safe */ _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */   "ViewModelSubject": () => (/* reexport safe */ _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   "ViewModelValue": () => (/* reexport safe */ _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "Visitor": () => (/* reexport safe */ _Visitor_js__WEBPACK_IMPORTED_MODULE_8__["default"])
 /* harmony export */ });
-/* harmony import */ var _Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
-/* harmony import */ var _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
-/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
-/* harmony import */ var _Binder_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(36);
-/* harmony import */ var _BinderItem_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(37);
-/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(38);
-/* harmony import */ var _Processor_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(39);
+/* harmony import */ var _Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
+/* harmony import */ var _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
+/* harmony import */ var _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
+/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41);
+/* harmony import */ var _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42);
+/* harmony import */ var _Binder_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(43);
+/* harmony import */ var _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(44);
+/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(45);
+/* harmony import */ var _Visitor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(46);
+/* harmony import */ var _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(47);
+/* harmony import */ var _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(48);
+/* harmony import */ var _Processor_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(49);
+
+
+
+
 
 
 
@@ -38553,7 +38955,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /***/ }),
-/* 32 */
+/* 39 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38621,129 +39023,7 @@ class Component {
 
 
 /***/ }),
-/* 33 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
-/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
-
-
-// import { ViewModelValue, ViewModelListener } from '@/core';
-
-
-const ViewModel = class extends _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
-  static #subjects = new Set();
-  static #inited = false;
-
-  subKey = '';
-  parent = null;
-  styles = {};
-  attributes = {};
-  properties = {};
-  events = {};
-  lists = {};
-  #isUpdated = new Set();
-  #listeners = new Set();
-
-  constructor(data, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(data, 'object')) {
-    super();
-
-    Object.entries(data).forEach(([k, v]) => {
-      if ('styles,attributes,properties'.includes(k)) {
-        if (!v || typeof v != 'object') throw `invalid object k: ${k}, v:${v}`;
-        this[k] = ViewModel.define(this, k, v);
-      } else {
-        Object.defineProperty(this, k, ViewModel.descriptor(this, '', k, v));
-        if (v instanceof ViewModel) {
-          v.parent = this;
-          v.subKey = k;
-          v.addListener(this);
-        }
-      }
-    });
-
-    ViewModel.notify(this);
-    Object.seal(this);
-  }
-
-  static get = (data) => new ViewModel(data);
-
-  static notify(vm) {
-    this.#subjects.add(vm);
-
-    if (this.#inited) return;
-
-    this.#inited = true;
-
-    const f = () => {
-      this.#subjects.forEach((vm) => {
-        if (vm.#isUpdated.size) {
-          vm.notify();
-          vm.#isUpdated.clear();
-        }
-      });
-      requestAnimationFrame(f);
-    };
-
-    requestAnimationFrame(f);
-  }
-
-  static descriptor = (vm, category, k, v) => ({
-    enumerable: true,
-    get: () => v,
-    set(newV) {
-      v = newV;
-      vm.#isUpdated.add(new _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue(vm.subKey, category, k, v));
-    },
-  });
-
-  static define = (vm, category, obj) =>
-    Object.defineProperties(
-      obj,
-      Object.entries(obj).reduce((r, [k, v]) => ((r[k] = ViewModel.descriptor(vm, category, k, v)), r), {}),
-    );
-
-  viewmodelUpdated(updated) {
-    updated.forEach((v) => this.#isUpdated.add(v));
-  }
-  addListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
-    this.#listeners.add(v);
-  }
-  removeListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
-    this.#listeners.delete(v);
-  }
-  notify() {
-    this.#listeners.forEach((v) => v.viewmodelUpdated(this.#isUpdated));
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModel);
-
-
-/***/ }),
-/* 34 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const ViewModelListener = class {
-  viewmodelUpdated(updated) {
-    throw '상속만 하세요.';
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelListener);
-
-
-/***/ }),
-/* 35 */
+/* 40 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38751,8 +39031,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 const ViewModelValue = class {
-  constructor(subKey, category, k, v) {
-    Object.assign(this, { subKey, category, k, v });
+  constructor(subKey, category, key, val) {
+    Object.assign(this, { subKey, category, key, val });
     Object.freeze(this);
   }
 };
@@ -38761,47 +39041,153 @@ const ViewModelValue = class {
 
 
 /***/ }),
-/* 36 */
+/* 41 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/**
+ * @param none
+ *
+ * @summary 변화의 감지에 대한 내용을 수신하는 객체
+ */
+
+const ViewModelListener = class {
+  viewmodelUpdated(updated) {
+    throw '상속 필요';
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelListener);
 
 
+/***/ }),
+/* 42 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
+
+
+
+
+const ViewModelSubject = class extends _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  static #subjects = new Set();
+  static #inited = false;
+  #info = new Set();
+  #listeners = new Set();
+
+  static notify() {
+    const f = () => {
+      this.#subjects.forEach((vm) => {
+        if (vm.#info.size) {
+          vm.notify();
+          vm.clear();
+        }
+      });
+
+      if (this.#inited) requestAnimationFrame(f);
+    };
+
+    requestAnimationFrame(f);
+  }
+
+  static watch(vm, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(vm, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#subjects.add(vm);
+
+    if (!this.#inited) {
+      this.#inited = true;
+      this.notify();
+    }
+  }
+
+  static unwatch(vm, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(vm, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#subjects.delete(vm);
+
+    if (!this.#subjects.size) this.#inited = false;
+  }
+
+  add(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue)) {
+    this.#info.add(v);
+  }
+
+  clear() {
+    this.#info.clear();
+  }
+
+  addListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#listeners.add(v);
+    ViewModelSubject.watch(this);
+  }
+
+  removeListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#listeners.delete(v);
+    if (!this.#listeners.size) ViewModelSubject.unwatch(this);
+  }
+
+  notify() {
+    this.#listeners.forEach((v) => v.viewmodelUpdated(this.notifyTarget, this.#info));
+  }
+
+  get notifyTarget() {
+    throw 'ViewModel에게 위임해야함';
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelSubject);
+
+
+/***/ }),
+/* 43 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+
+
+
+/**
+ * @param none
+ * 
+ * @summary ViewModel을 감지하여 View에 반영함으로써 View에 대한 제어는 Binder에게 위임
+ */
 
 const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListener {
   #items = new Set();
-  #processors = {};
-  rootViewModel;
+  #processor = null;
 
-  add(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem)) {
-    this.#items.add(v);
-  }
-
-  addProcessor(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _core__WEBPACK_IMPORTED_MODULE_1__.Processor)) {
-    this.#processors[v.category] = v;
+  set processor(binderItem) {
+    this.#processor = binderItem;
   }
 
   render(viewmodel, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
-    const processores = Object.entries(this.#processors);
-
     this.#items.forEach(({ dataTypeValue, elem }) => {
-      dataTypeValue = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel);
+      const viewModel = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel);
 
-      processores.forEach(([category, processor]) => {
-        Object.entries(dataTypeValue[category]).forEach(([key, val]) => {
-          processor.process(dataTypeValue, elem, key, val);
+      Object.entries(viewModel).forEach(([category, childViewModel]) => {
+        Object.entries(childViewModel).forEach(([key, val]) => {
+          this.#processor.process(category, viewModel, elem, key, val);
         });
       });
     });
   }
 
+  add(binderItem, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(binderItem, _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem)) {
+    this.#items.add(binderItem);
+  }
+
   watch(viewmodel, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
-    this.rootViewModel = viewmodel;
     viewmodel.addListener(this);
     this.render(viewmodel);
   }
@@ -38810,22 +39196,22 @@ const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListene
     viewmodel.removeListener(this);
   }
 
-  viewmodelUpdated(updated) {
+  viewmodelUpdated(target, updated) {
     const items = {};
 
-    this.#items.forEach(({ vmName, el }) => {
-      items[vmName] = [(0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(this.rootViewModel[vmName], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel), el];
+    this.#items.forEach(({ dataTypeValue, elem }) => {
+      items[dataTypeValue] = [(0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel), elem];
     });
 
-    updated.forEach(({ subKey, category, k, v }) => {
+    updated.forEach(({ subKey, category, key, val }) => {
       if (!items[subKey]) return;
 
-      const [vm, el] = items[subKey];
-      const processor = this.#processors[category];
+      const [dataTypeValue, elem] = items[subKey];
+      const processor = this.#processor;
 
-      if (!el || !processor) return;
+      if (!elem || !processor) return;
 
-      processor.process(vm, el, k, v);
+      processor.process(category.split('.').pop(), dataTypeValue, elem, key, val);
     });
   }
 };
@@ -38834,14 +39220,14 @@ const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListene
 
 
 /***/ }),
-/* 37 */
+/* 44 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
 
 
 const BinderItem = class {
@@ -38856,44 +39242,37 @@ const BinderItem = class {
 
 
 /***/ }),
-/* 38 */
+/* 45 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 
 
 
 /**
- * @constructor none
- * @summary DOM Tree를 순회하면서 Scan 하여 Binding 하는 역할
+ * @param none
+ *
+ * @summary 구현 클래스 DomScanner의 추상 클래스
  */
 
 const Scanner = class {
-  scan(elem, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement)) {
-    const binder = new _core__WEBPACK_IMPORTED_MODULE_1__.Binder();
-    this.checkItem(binder, elem);
+  #visitor;
 
-    const stack = [elem.firstElementChild];
-    let target;
-
-    while ((target = stack.pop())) {
-      this.checkItem(binder, target);
-      if (target.firstElementChild) stack.push(target.firstElementChild);
-      if (target.nextElementSibling) stack.push(target.nextElementSibling);
-    }
-
-    return binder;
+  constructor(visitor, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(visitor, _core__WEBPACK_IMPORTED_MODULE_1__.Visitor)) {
+    this.#visitor = visitor;
   }
 
-  checkItem(binder, elem) {
-    const dataTypeValue = elem.getAttribute('data-viewmodel');
+  visit(f, target) {
+    this.#visitor.visit(f, target);
+  }
 
-    if (dataTypeValue) binder.add(new _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem(elem, dataTypeValue));
+  scan(target) {
+    throw `override`;
   }
 };
 
@@ -38901,29 +39280,171 @@ const Scanner = class {
 
 
 /***/ }),
-/* 39 */
+/* 46 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+
+
+/**
+ * @param none
+ *
+ * @summary target이 HTML인지 Canvas인지 알 수없기 때문에 만든 추상 클래스
+ */
+const Visitor = class {
+  visit(action, target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function')) {
+    throw '상속 필요';
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Visitor);
+
+
+/***/ }),
+/* 47 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+
+
+
+/**
+ * @param {function} action - 전달받은 함수
+ * @param {HTMLElement} startTarget - 탐색 시작할 Element
+ *
+ * @summary startTarget 지점으로부터 DOM Tree를 순회하는 객체
+ */
+const DomVisitor = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Visitor {
+  visit(action, startTarget, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function'), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(startTarget, HTMLElement)) {
+    const stack = [];
+    let curr = startTarget.firstElementChild;
+
+    if (!curr) return;
+
+    do {
+      action(curr);
+      if (curr.firstElementChild) stack.push(curr.firstElementChild);
+      if (curr.nextElementSibling) stack.push(curr.nextElementSibling);
+    } while ((curr = stack.pop()));
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomVisitor);
+
+
+/***/ }),
+/* 48 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+
+
+
+/**
+ * @param {DomVisitor} visitor - DomVisitor 객체
+ *
+ * @summary 추상 클래스 Scanner의 구현 클래스이며 전달받은 target이 설정한 data-type과 맞는 것들을 바인딩 하는 클래스
+ */
+const DomScanner = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Scanner {
+  static #templates = new Map();
+
+  constructor(visitor, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(visitor, _core__WEBPACK_IMPORTED_MODULE_1__.DomVisitor)) {
+    super(visitor);
+  }
+
+  static get(key) {
+    return this.#templates.get(key);
+  }
+
+  scan(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, HTMLElement)) {
+    const binder = new _core__WEBPACK_IMPORTED_MODULE_1__.Binder();
+
+    const checkDataType = (elem) => {
+      const template = elem.getAttribute('data-template');
+
+      if (template) {
+        elem.removeAttribute('data-template');
+        DomScanner.#templates.set(template, elem);
+        elem.parentElement.removeChild(elem);
+      } else {
+        const targetElement = elem.getAttribute('data-viewmodel');
+
+        if (targetElement) {
+          // elem.removeAttribute('data-viewmodel');
+          binder.add(new _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem(elem, targetElement));
+        }
+      }
+    };
+
+    checkDataType(target);
+
+    this.visit(checkDataType, target);
+
+    return binder;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomScanner);
+
+
+/***/ }),
+/* 49 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 
 
 
 const Processor = class {
+  #category;
+  #next = null;
+
   constructor(category) {
-    this.category = category;
+    this.#category = category;
     Object.freeze(this);
   }
 
-  process(viewmodel, elem, key, val, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement), _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(key, 'string')) {
-    this._process(viewmodel, elem, key, val);
+  process(
+    category,
+    viewModel,
+    elem,
+    key,
+    val,
+    _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewModel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel),
+    _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement),
+    _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(key, 'string'),
+  ) {
+    if (this.#category === category) this._process(viewModel, elem, key, val);
+    if (this.#next !== null) this.#next.process(category, viewModel, elem, key, val);
   }
-  _process(viewmodel, elem, key, val) {
-    throw 'override';
+
+  _process(viewModel, elem, key, val) {
+    throw '상속 X';
+  }
+
+  next(processor) {
+    this.#next = processor;
+
+    return processor;
   }
 };
 
@@ -38931,125 +39452,62 @@ const Processor = class {
 
 
 /***/ }),
-/* 40 */
+/* 50 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 
 
 
 /**
  * @param { HTMLElment } target - HTMLElment Type, 하위에 append할 타겟
- * @param { object } statusList - Model에서 불러온 Status 종류
+ * @param { object } taskList - Model에서 불러온 Status 종류
  * @summary -
  */
 
-const StatusViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
-  #statusList;
+const TaskViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
+  #taskList;
 
-  constructor(target, statusList, _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(statusList, 'object')) {
-    super(target);
-    this.#statusList = statusList;
+  constructor(target, statusList, taskList, _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(taskList, 'object')) {
+    super(target, statusList);
+    this.#taskList = taskList;
     this.setInlineProperties();
   }
 
   setInlineProperties() {
     const { createViewModel } = this;
-    const viewModelList = {};
+    // console.log(rootViewModel);
+    const taskTitle = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
 
-    Object.entries(this.#statusList).forEach(([key, val]) => {
-      viewModelList[`status${key - 1}`] = createViewModel({});
-      viewModelList[`add_task_btn${key - 1}`] = createViewModel({});
-      viewModelList[`delete_status_btn${key - 1}`] = createViewModel({});
-      viewModelList[`status_title${key - 1}`] = createViewModel({
-        properties: { innerHTML: val },
-      });
-      viewModelList[`task_count${key - 1}`] = createViewModel({ properties: { innerHTML: 0 } });
+    const taskList = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+      template: {
+        name: 'task',
+        data: Object.values(this.#taskList).map((v) =>
+          _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+            taskTitle: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+              properties: { innerHTML: v[0].title },
+            }),
+          }),
+        ),
+      },
     });
 
-    const lists = createViewModel({
-      lists: { data: 3 },
-    });
+    // rootViewModel = createViewModel({
+    //   taskList,
+    //   taskTitle,
+    // });
 
-    const rootViewModel = createViewModel({
-      ...viewModelList,
-      lists,
-    });
-
-    this.watchRootViewModel(rootViewModel);
+    // this.watchRootViewModel(rootViewModel);
   }
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatusViewModel);
-
-
-/***/ }),
-/* 41 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "StatusView": () => (/* reexport safe */ _StatusView_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _StatusView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42);
-
-
-
-/***/ }),
-/* 42 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const StatusView = () => {
-  const $statusTarget = document.querySelector('.todo-main');
-  const count = Array.from({ length: $statusTarget.dataset.statusCount });
-
-  const template = count
-    .map((val, i) => {
-      return `
-              <article class="todo-article" data-viewmodel="status${i}">
-                <section class="todo-header">
-                  <div class="todo-title">
-                    <h3 data-viewmodel="status_title${i}"></h3>
-                    <div data-viewmodel="task_count${i}"></div>
-                  </div>
-                  <div class="todo-svg">
-                    <span id="add-task" data-viewmodel="add_task_btn${i}">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
-                        <path
-                          d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                    <span id="delete-status" data-viewmodel="delete_status_btn${i}">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                        <path
-                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </section>
-                <!-- <section data-viewmodel="task" class="todo-task-list"></section> -->
-              </article>
-            `;
-    })
-    .join('');
-
-  $statusTarget.innerHTML = template;
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatusView);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskViewModel);
 
 
 /***/ })
@@ -39126,9 +39584,10 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
-/* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41);
+/* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _viewModels_StatusViewModel_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
+/* harmony import */ var _viewModels_TaskViewModel_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
 
 
 
@@ -39136,11 +39595,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function init() {
-  const statusList = await new _models__WEBPACK_IMPORTED_MODULE_1__.StatusModel().statusData;
+  const statusList = await new _models__WEBPACK_IMPORTED_MODULE_2__.StatusModel().statusData;
+  const taskList = await new _models__WEBPACK_IMPORTED_MODULE_2__.TaskModel().taskData;
 
-  new _viewModels__WEBPACK_IMPORTED_MODULE_2__.MainViewModel('.todo-main').test();
-  (0,_views__WEBPACK_IMPORTED_MODULE_3__.StatusView)();
-  new _viewModels__WEBPACK_IMPORTED_MODULE_2__.StatusViewModel('.todo-main', statusList);
+  (0,_views__WEBPACK_IMPORTED_MODULE_1__.StatusView)();
+  debugger;
+  new _viewModels_StatusViewModel_js__WEBPACK_IMPORTED_MODULE_3__["default"]('.todo-main', statusList);
+
+  // TaskView();
+  // new TaskViewModel('.todo-main', statusList, taskList);
 }
 
 init();
