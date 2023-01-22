@@ -1,4 +1,4 @@
-const makeListCard = ({ title, detail, id }) => {
+const makeListCard = ({ title, details, id }) => {
   return `
     <li class="item-wrapper" id="${id}" data-title="${title}">
       <div class="item-content-wrapper">
@@ -7,7 +7,7 @@ const makeListCard = ({ title, detail, id }) => {
             <h3 class="item-title">${title}</h3>
           </div>
           <div class="item-detail-box">
-            <p class="item-detail">${detail}</p>
+            <p class="item-detail">${details}</p>
           </div>
           <div class="item-author-box">
             <p class="item-author">Author by web</p>
@@ -24,7 +24,7 @@ const makeListCard = ({ title, detail, id }) => {
             <input class="item-edit-title-input" placeholder="${title}">
           </div>
           <div class="item-detail-box">
-            <textarea class="item-edit-detail-input" placeholder="${detail}"></textarea>
+            <textarea class="item-edit-detail-input" placeholder="${details}"></textarea>
           </div>
         </div>
         <div class="item-editBtn-wrapper">

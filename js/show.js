@@ -17,7 +17,7 @@ const showItems = async () => {
   sortedData.map((item) => {
     const card = makeListCard({
       title: item.title,
-      detail: item.details,
+      details: item.details,
       id: item.id,
     });
     //prettier-ignore

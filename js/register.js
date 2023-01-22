@@ -38,7 +38,7 @@ const registerItem = async (index) => {
     const newDetail = detailInputBox[index].value;
     const newStatus = condition[index];
     const newIndex = await makeItemIndex(newStatus);
-
+    console.log(newDetail);
     const newItemObj = {
       title: newTitle,
       details: newDetail,
