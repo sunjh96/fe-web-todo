@@ -43,7 +43,7 @@ const StatusView = () => {
                     <div data-viewmodel="statusCount">count</div>
                   </div>
                   <div class="todo-svg">
-                    <span id="add-task">
+                    <span id="add-task" data-viewmodel="addTask">
                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
                         <path
                           d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
@@ -62,17 +62,19 @@ const StatusView = () => {
                   </div>
                 </section>
                 <section class="todo-task-list" data-viewmodel="taskList" data-statusName>
-                  <section class="todo-task" data-template="task">
+                  <section class="todo-task" data-template="task" data-viewmodel="task">
                     <form data-type="input-task">
                       <div class="task-title">
                         <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="taskTitle"></textarea>
-                        <svg class="edit-btn" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
-                            <path
-                              d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
-                              fill="#010101"
-                            />
-                        </svg>
-                        <span id="delete-todo">
+                        <span class="edit-btn active" data-viewmodel="taskButton" >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                              <path
+                                d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
+                                fill="#010101"
+                              />
+                          </svg>
+                        </span>
+                        <span class="delete-todo active" data-viewmodel="taskButton">
                           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
                             <path
                               d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
@@ -81,9 +83,11 @@ const StatusView = () => {
                           </svg>
                         </span>
                       </div>
-                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required></textarea>
-                      <span class="task-author"></span>
-                      <div class="button">
+                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="taskContent"></textarea>
+                      <span class="task-author" data-viewmodel="taskAuthor"></span>
+                      <div class="button" data-viewmodel="taskButton">
+                        <button class="btn-cancel" type="button">취소</button>
+                        <button class="btn-ok" type="submit">등록</button>
                       </div>
                     </form>
                   </section>
@@ -38441,68 +38445,13 @@ async function getTaskList() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "MainViewModel": () => (/* reexport safe */ _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "TodoViewModel": () => (/* reexport safe */ _TodoViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
+/* harmony import */ var _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _TodoViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
 
 
-
-/**
- * @param { HTMLElment } target - HTMLElment Type, 하위에 append할 타겟
- * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
- *
- * @summary -
- */
-
-const StatusViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
-  #statusList;
-
-  constructor(target, statusList, _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(statusList, 'object')) {
-    super(target);
-    this.#statusList = statusList;
-    this.setInlineProperties();
-  }
-
-  setInlineProperties() {
-    const { createViewModel } = this;
-
-    const statusTitle = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
-    const statusCount = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
-    const taskList = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
-
-    const main = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-      template: {
-        name: 'status',
-        data: Object.values(this.#statusList).map((v) =>
-          _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-            statusTitle: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-              properties: { innerHTML: v },
-            }),
-            statusCount: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-              properties: { innerHTML: 0 },
-            }),
-            taskList: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-              attributes: { 'data-statusName': v },
-            }),
-          }),
-        ),
-      },
-    });
-
-    this.rootViewModel = createViewModel({
-      main,
-      statusTitle,
-      statusCount,
-      taskList,
-    });
-
-    this.watchRootViewModel(this.rootViewModel);
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatusViewModel);
 
 
 /***/ }),
@@ -38511,20 +38460,142 @@ const StatusViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.M
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
+/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(46);
+/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
+/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(47);
+
+// import { Binder, DomVisitor, DomScanner, Processor, ViewModel } from '@/core';
+
+
+
+
+
+
+const MainViewModel = class {
+  rootViewModel;
+
+  constructor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, 'string')) {
+    this.rootViewModel;
+    this.visitor = new _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    this.scanner = new _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.visitor);
+    this.binder = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(this.scanner.scan(document.body), _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    this.bindProcessor(this.visitor, this.scanner);
+  }
+
+  bindProcessor(visitor, scanner) {
+    const processor = new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+      _process(viewModel, elem, key, val) {
+        elem.style[key] = val;
+      }
+    })('styles');
+
+    processor
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem.setAttribute(key, val);
+          }
+        })('attributes'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem[key] = val;
+          }
+        })('properties'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem.classList[key](val);
+          }
+        })('classLists'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            elem.addEventListener(`${key}`, val);
+          }
+        })('events'),
+      )
+      .next(
+        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+          _process(viewModel, elem, key, val) {
+            const err = (v) => {
+              throw v;
+            };
+            const { name = err('이름이 없습니다'), data = err('데이터가 없습니다') } = viewModel.template;
+            const template = _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"].get(name) || err('name에러 : ' + name);
+
+            if (!(data instanceof Array)) err('data에러 :' + data);
+
+            data.forEach((viewModel) => {
+              if (!(viewModel instanceof _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])) err(`viewModel에러 : ${viewModel}`);
+            });
+
+            Object.freeze(data);
+
+            visitor.visit((elem) => {
+              if (elem.binder) {
+                const [binder, viewModel] = elem.binder;
+                binder.unwatch(viewModel);
+                delete elem.binder;
+              }
+            }, elem);
+            elem.innerHTML = '';
+            data.forEach((viewModel) => {
+              const child = template.cloneNode(true);
+              const binder = scanner.scan(child);
+
+              binder.processor = processor;
+              elem.binders = [binder, viewModel];
+              binder.watch(viewModel);
+              elem.appendChild(child);
+            });
+          }
+        })('template'),
+      );
+
+    this.binder.processor = processor;
+  }
+
+  createViewModel(inLineData) {
+    return _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(inLineData);
+  }
+
+  watchRootViewModel(rootViewModel) {
+    this.binder.watch(rootViewModel);
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MainViewModel);
+
+
+/***/ }),
+/* 32 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "drag": () => (/* reexport safe */ _drag_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   "holdDownTask": () => (/* reexport safe */ _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "typeCheck": () => (/* reexport safe */ _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
-/* harmony import */ var _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
+/* harmony import */ var _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34);
+/* harmony import */ var _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
 
 
 
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38551,7 +38622,7 @@ const typeCheck = (target, type) => {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38595,14 +38666,14 @@ function drag(event, elementToDrag = event.target) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ holdDownTask)
 /* harmony export */ });
-/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
 
 
 function holdDownTask(e) {
@@ -38681,24 +38752,6 @@ function holdDownTask(e) {
 
 
 /***/ }),
-/* 35 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MainViewModel": () => (/* reexport safe */ _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "StatusViewModel": () => (/* reexport safe */ _StatusViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "TaskViewModel": () => (/* reexport safe */ _TaskViewModel_js__WEBPACK_IMPORTED_MODULE_2__["default"])
-/* harmony export */ });
-/* harmony import */ var _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
-/* harmony import */ var _StatusViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
-/* harmony import */ var _TaskViewModel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50);
-
-
-
-
-
-/***/ }),
 /* 36 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -38706,121 +38759,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(43);
-/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(47);
-/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
-/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(48);
-
-// import { Binder, DomVisitor, DomScanner, Processor, ViewModel } from '@/core';
-
-
-
-
-
-
-const MainViewModel = class {
-  rootViewModel;
-
-  constructor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, 'string')) {
-    this.rootViewModel;
-    this.visitor = new _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
-    this.scanner = new _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.visitor);
-    this.binder = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(this.scanner.scan(document.body), _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
-    this.bindProcessor(this.visitor, this.scanner);
-  }
-
-  bindProcessor(visitor, scanner) {
-    const processor = new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-      _process(viewModel, elem, key, val) {
-        elem.style[key] = val;
-      }
-    })('styles');
-
-    processor
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem.setAttribute(key, val);
-          }
-        })('attributes'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem[key] = val;
-          }
-        })('properties'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem.addEventListener(`${key}`, val(viewModel));
-          }
-        })('events'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            const { name = err('no name'), data = err('no data') } = viewModel.template;
-            const template = _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"].get(name) || err('no template' + name);
-
-            if (!(data instanceof Array)) err('invalid data:' + data);
-
-            data.forEach((viewModel, i) => {
-              if (!(viewModel instanceof _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])) err(`invalid Viewmodel: ${i} - ${viewModel}`);
-            });
-
-            Object.freeze(data);
-
-            visitor.visit((elem) => {
-              if (elem.binder) {
-                const [binder, viewModel] = elem.binder;
-                binder.unwatch(viewModel);
-                delete elem.binder;
-              }
-            }, elem);
-
-            elem.innerHTML = '';
-            data.forEach((viewModel) => {
-              const child = template.cloneNode(true);
-              const binder = scanner.scan(child);
-
-              binder.processor = processor;
-              elem.binders = [binder, viewModel];
-              binder.watch(viewModel);
-              elem.appendChild(child);
-            });
-          }
-        })('template'),
-      );
-
-    this.binder.processor = processor;
-  }
-
-  createViewModel(inLineData) {
-    return _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(inLineData);
-  }
-
-  watchRootViewModel(rootViewModel) {
-    this.binder.watch(rootViewModel);
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MainViewModel);
-
-
-/***/ }),
-/* 37 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 
 
 
@@ -38834,6 +38774,7 @@ const ViewModel = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelSubj
   styles = {};
   attributes = {};
   properties = {};
+  classLists = {};
   events = {};
   #subKey = '';
   #parent = null;
@@ -38906,7 +38847,7 @@ const ViewModel = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelSubj
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -38924,18 +38865,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ViewModelValue": () => (/* reexport safe */ _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
 /* harmony export */   "Visitor": () => (/* reexport safe */ _Visitor_js__WEBPACK_IMPORTED_MODULE_8__["default"])
 /* harmony export */ });
-/* harmony import */ var _Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
-/* harmony import */ var _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-/* harmony import */ var _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
-/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41);
-/* harmony import */ var _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42);
-/* harmony import */ var _Binder_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(43);
-/* harmony import */ var _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(44);
-/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(45);
-/* harmony import */ var _Visitor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(46);
-/* harmony import */ var _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(47);
-/* harmony import */ var _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(48);
-/* harmony import */ var _Processor_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(49);
+/* harmony import */ var _Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(38);
+/* harmony import */ var _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
+/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(40);
+/* harmony import */ var _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
+/* harmony import */ var _Binder_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(42);
+/* harmony import */ var _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(43);
+/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(44);
+/* harmony import */ var _Visitor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(45);
+/* harmony import */ var _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(46);
+/* harmony import */ var _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(47);
+/* harmony import */ var _Processor_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(48);
 
 
 
@@ -38955,7 +38896,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -39023,7 +38964,7 @@ class Component {
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -39041,7 +38982,7 @@ const ViewModelValue = class {
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -39064,16 +39005,16 @@ const ViewModelListener = class {
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
-/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
+/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
 
 
 
@@ -39145,21 +39086,21 @@ const ViewModelSubject = class extends _ViewModelListener_js__WEBPACK_IMPORTED_M
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 
 
 
 /**
  * @param none
- * 
+ *
  * @summary ViewModel을 감지하여 View에 반영함으로써 View에 대한 제어는 Binder에게 위임
  */
 
@@ -39183,20 +39124,20 @@ const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListene
     });
   }
 
-  add(binderItem, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(binderItem, _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem)) {
+  add(binderItem, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(binderItem, _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem)) {
     this.#items.add(binderItem);
   }
 
-  watch(viewmodel, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
+  watch(viewmodel, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
     viewmodel.addListener(this);
     this.render(viewmodel);
   }
 
-  unwatch(viewmodel, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
+  unwatch(viewmodel, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
     viewmodel.removeListener(this);
   }
 
-  viewmodelUpdated(target, updated) {
+  viewmodelUpdated(target, updated, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
     const items = {};
 
     this.#items.forEach(({ dataTypeValue, elem }) => {
@@ -39220,16 +39161,23 @@ const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListene
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
 
 
+/**
+ * 
+ * @param {HTMLElement} elem 
+ * @param {string} dataTypeValue 
+ * 
+ * @summary data hook에 해당되는 이름인 viewModel과 해당 HTMLelement를 가지는 데이터만 가지는 객체
+ */
 const BinderItem = class {
   constructor(elem, dataTypeValue, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(dataTypeValue, 'string')) {
     this.elem = elem;
@@ -39242,15 +39190,15 @@ const BinderItem = class {
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 
 
 
@@ -39280,20 +39228,20 @@ const Scanner = class {
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
 
 
 /**
  * @param none
  *
- * @summary target이 HTML인지 Canvas인지 알 수없기 때문에 만든 추상 클래스
+ * @summary target이 HTML인지 JSON 객체인지 알 수없기 때문에 만든 추상 클래스
  */
 const Visitor = class {
   visit(action, target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function')) {
@@ -39305,15 +39253,15 @@ const Visitor = class {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 
 
 
@@ -39342,15 +39290,15 @@ const DomVisitor = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Visitor {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 
 
 
@@ -39391,7 +39339,6 @@ const DomScanner = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Scanner {
     };
 
     checkDataType(target);
-
     this.visit(checkDataType, target);
 
     return binder;
@@ -39402,15 +39349,15 @@ const DomScanner = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Scanner {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 
 
 
@@ -39452,62 +39399,154 @@ const Processor = class {
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
-
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
 
 
 /**
  * @param { HTMLElment } target - HTMLElment Type, 하위에 append할 타겟
- * @param { object } taskList - Model에서 불러온 Status 종류
- * @summary -
+ * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
+ * @param { Array } taskList - Model에서 불러온 Task 정보를 가진 배열
+ *
+ * @summary - Model에서 불러온 데이터를 view에 그리는 객체
  */
 
-const TaskViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
+const TodoViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
+  #statusList;
   #taskList;
 
-  constructor(target, statusList, taskList, _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(taskList, 'object')) {
-    super(target, statusList);
+  constructor(target, statusList, taskList, _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(statusList, 'object'), _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(taskList, 'object')) {
+    super(target);
+    this.#statusList = statusList;
     this.#taskList = taskList;
     this.setInlineProperties();
   }
 
   setInlineProperties() {
     const { createViewModel } = this;
-    // console.log(rootViewModel);
-    const taskTitle = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({});
+    const taskListData = Object.entries(this.#taskList);
+    console.log(taskListData[0]);
+    const statusTitle = (name) => {
+      return createViewModel({
+        properties: { innerHTML: name },
+      });
+    };
 
-    const taskList = _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
+    const statusCount = (name) => {
+      const count = taskListData.filter(([statusName, val]) => statusName === name)[0][1].length;
+
+      return createViewModel({
+        properties: { innerHTML: count },
+      });
+    };
+
+    const task = (isActive) => {
+      if (isActive) {
+        return createViewModel({
+          classLists: { add: 'active-bg' },
+        });
+      }
+
+      return createViewModel({});
+    };
+
+    const taskInputData = (isActive, data) => {
+      return createViewModel({
+        properties: { innerHTML: data, disabled: !isActive },
+      });
+    };
+
+    const addTask = (name) => {
+      return createViewModel({
+        events: {
+          click: () => {},
+        },
+      });
+    };
+
+    const taskAuthor = (isActive) => {
+      if (!isActive) {
+        return createViewModel({ properties: { innerHTML: 'author by JangOh' } });
+      }
+
+      return createViewModel({});
+    };
+
+    const taskButton = (isActive) => {
+      if (!isActive) {
+        return createViewModel({
+          classLists: { toggle: 'active' },
+        });
+      }
+
+      return createViewModel({});
+    };
+
+    const taskList = (name) => {
+      if (!name) return;
+
+      return createViewModel({
+        attributes: { 'data-statusName': name },
+        template: {
+          name: 'task',
+          data: taskListData
+            .filter(([statusName, val]) => statusName === name)[0][1]
+            .map((taskData) =>
+              createViewModel({
+                task: task(taskData.active),
+                taskTitle: taskInputData(taskData.active, taskData.title),
+                taskContent: taskInputData(taskData.active, taskData.content),
+                taskAuthor: taskAuthor(taskData.active),
+                taskButton: taskButton(taskData.active),
+              }),
+            ),
+        },
+      });
+    };
+
+    const main = createViewModel({
       template: {
-        name: 'task',
-        data: Object.values(this.#taskList).map((v) =>
-          _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-            taskTitle: _core__WEBPACK_IMPORTED_MODULE_2__.ViewModel.get({
-              properties: { innerHTML: v[0].title },
-            }),
+        name: 'status',
+        data: Object.values(this.#statusList).map((name) =>
+          createViewModel({
+            statusTitle: statusTitle(name),
+            statusCount: statusCount(name),
+            addTask: addTask(name),
+            taskList: taskList(name),
           }),
         ),
       },
     });
 
-    // rootViewModel = createViewModel({
-    //   taskList,
-    //   taskTitle,
-    // });
+    this.rootViewModel = createViewModel({
+      main,
+      // changeContents() {
+      //   this.contents.properties.innerHTML = Math.random().toString(16).replace('.', '');
+      //   this.list.template.data.forEach(({ item: { styles, properties } }) => {
+      //     properties.innerHTML = Math.random().toString(16).replace('.', '');
+      //     styles.background = `rgb(${getRandom()},${getRandom()},${getRandom()})`;
+      //   });
+      // },
+    });
 
-    // this.watchRootViewModel(rootViewModel);
+    this.watchRootViewModel(this.rootViewModel);
+
+    // const f = () => {
+    //   this.rootViewModel.changeContents();
+    //   if (!rootViewModel.isStop) requestAnimationFrame(f);
+    // };
+    // f();
   }
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskViewModel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TodoViewModel);
 
 
 /***/ })
@@ -39586,9 +39625,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _viewModels_StatusViewModel_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
-/* harmony import */ var _viewModels_TaskViewModel_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
-
+/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
 
 
 
@@ -39598,12 +39635,11 @@ async function init() {
   const statusList = await new _models__WEBPACK_IMPORTED_MODULE_2__.StatusModel().statusData;
   const taskList = await new _models__WEBPACK_IMPORTED_MODULE_2__.TaskModel().taskData;
 
-  (0,_views__WEBPACK_IMPORTED_MODULE_1__.StatusView)();
-  debugger;
-  new _viewModels_StatusViewModel_js__WEBPACK_IMPORTED_MODULE_3__["default"]('.todo-main', statusList);
+  // const statusList = ['해야할일', '완료'];
+  // const taskList = ['1', '2'];
 
-  // TaskView();
-  // new TaskViewModel('.todo-main', statusList, taskList);
+  (0,_views__WEBPACK_IMPORTED_MODULE_1__.StatusView)();
+  new _viewModels__WEBPACK_IMPORTED_MODULE_3__.TodoViewModel('.todo-main', statusList, taskList);
 }
 
 init();

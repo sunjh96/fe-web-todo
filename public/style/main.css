@@ -263,10 +263,10 @@
   right: 1rem;
   top: 3rem;
 }
-.todo-task #delete-todo svg {
+.todo-task .delete-todo svg {
   cursor: pointer;
 }
-.todo-task #delete-todo svg:hover path {
+.todo-task .delete-todo svg:hover path {
   fill: red;
 }
 .todo-task:hover .edit-btn {
@@ -309,7 +309,7 @@
   background-color: #ffffff;
 }
 .todo-task form .active {
-  display: none;
+  display: none !important;
 }
 .todo-task form textarea.active {
   display: block;

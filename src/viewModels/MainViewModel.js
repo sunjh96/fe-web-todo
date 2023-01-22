@@ -42,20 +42,30 @@ const MainViewModel = class {
       .next(
         new (class extends Processor {
           _process(viewModel, elem, key, val) {
-            elem.addEventListener(`${key}`, val(viewModel));
+            elem.classList[key](val);
+          }
+        })('classLists'),
+      )
+      .next(
+        new (class extends Processor {
+          _process(viewModel, elem, key, val) {
+            elem.addEventListener(`${key}`, val);
           }
         })('events'),
       )
       .next(
         new (class extends Processor {
           _process(viewModel, elem, key, val) {
+            const err = (v) => {
+              throw v;
+            };
             const { name = err('이름이 없습니다'), data = err('데이터가 없습니다') } = viewModel.template;
-            const template = DomScanner.get(name) || err('에러 : ' + name);
+            const template = DomScanner.get(name) || err('name에러 : ' + name);
 
-            if (!(data instanceof Array)) err('에러 :' + data);
+            if (!(data instanceof Array)) err('data에러 :' + data);
 
-            data.forEach((viewModel, i) => {
-              if (!(viewModel instanceof ViewModel)) err(`에레 : ${viewModel}`);
+            data.forEach((viewModel) => {
+              if (!(viewModel instanceof ViewModel)) err(`viewModel에러 : ${viewModel}`);
             });
 
             Object.freeze(data);
@@ -67,7 +77,6 @@ const MainViewModel = class {
                 delete elem.binder;
               }
             }, elem);
-
             elem.innerHTML = '';
             data.forEach((viewModel) => {
               const child = template.cloneNode(true);

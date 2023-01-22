@@ -38,7 +38,6 @@ const DomScanner = class extends Scanner {
     };
 
     checkDataType(target);
-
     this.visit(checkDataType, target);
 
     return binder;
