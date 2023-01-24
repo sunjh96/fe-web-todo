@@ -1,7 +1,7 @@
 import './styles/main.scss';
-import { StatusView } from '@/views';
+import { todoView } from '@/views';
 import { StatusModel, TaskModel } from '@/models';
-import { TodoViewModel } from '@/viewModels';
+import { TodoViewModel, bindProcessor, setInlineProperties } from '@/clients';
 
 async function init() {
   const statusList = await new StatusModel().statusData;
@@ -10,8 +10,12 @@ async function init() {
   // const statusList = ['해야할일', '완료'];
   // const taskList = ['1', '2'];
 
-  StatusView();
-  new TodoViewModel('.todo-main', statusList, taskList);
+  todoView();
+  const binder = bindProcessor('.todo-main');
+  const rootViewModel = setInlineProperties(statusList, taskList);
+
+  binder.watch(rootViewModel);
+  // new TodoViewModel('.todo-main', statusList, taskList);
 }
 
 init();

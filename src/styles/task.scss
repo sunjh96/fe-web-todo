@@ -22,7 +22,7 @@
     border: 1px solid $svg-hover-color;
   }
 
-  .edit-btn {
+  .edit-button {
     display: none;
     position: absolute;
     right: 1rem;
@@ -42,7 +42,7 @@
   }
 
   &:hover {
-    .edit-btn {
+    .edit-button {
       display: flex;
       cursor: pointer;
 

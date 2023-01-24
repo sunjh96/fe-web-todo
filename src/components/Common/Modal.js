@@ -14,8 +14,8 @@ export default class Modal extends Component {
   mounted() {
     let $button = this.$target.querySelector('[data-component=modal]');
 
-    new Button($button, { content: '취소', className: 'btn-cancel', disabled: false, type: 'button' });
-    new Button($button, { content: '등록', className: 'btn-ok', disabled: false, type: 'submit' });
+    new Button($button, { content: '취소', className: 'cancel-button', disabled: false, type: 'button' });
+    new Button($button, { content: '등록', className: 'submit-button', disabled: false, type: 'submit' });
   }
 
   setEvent() {
@@ -31,7 +31,7 @@ export default class Modal extends Component {
       e.target.reset();
     });
 
-    this.addEvent('click', '.btn-cancel', (e) => {
+    this.addEvent('click', '.cancel-button', (e) => {
       const $input = document.querySelector('input[name="title"]');
 
       $input.value = $input.defaultValue;

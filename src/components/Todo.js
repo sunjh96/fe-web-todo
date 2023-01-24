@@ -39,7 +39,7 @@ export default class Todo extends Component {
     const { addTask, deleteTask, deleteStatus, setTaskContent, openModal } = this;
 
     this.addEvent('mousedown', '[data-task]', holdDownTask);
-    this.addEvent('click', '.edit-btn', setTaskContent);
+    this.addEvent('click', '.edit-button', setTaskContent);
     this.addEvent('click', '#delete-todo', deleteTask);
     this.addEvent('click', '#delete-status', deleteStatus);
     this.addEvent('click', '[data-status]', addTask.bind(this));
@@ -81,7 +81,7 @@ export default class Todo extends Component {
 
     let data = { loginedUser: 'jangoh', statusName, taskId: parseInt(taskId) };
 
-    if (e.type === 'dblclick' || e.target.closest('.edit-btn')) {
+    if (e.type === 'dblclick' || e.target.closest('.edit-button')) {
       data = { ...data, taskActive: true };
     } else {
       const taskTitleInput = e.target['title'].value;

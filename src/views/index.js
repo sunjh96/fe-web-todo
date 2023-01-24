@@ -1,2 +1,1 @@
-export { default as StatusView } from './StatusView.js';
-export { default as TaskView } from './TaskView.js';
+export { default as todoView } from './todoView.js';

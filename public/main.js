@@ -15,137 +15,15 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "StatusView": () => (/* reexport safe */ _StatusView_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "TaskView": () => (/* reexport safe */ _TaskView_js__WEBPACK_IMPORTED_MODULE_1__["default"])
+/* harmony export */   "todoView": () => (/* reexport safe */ _todoView_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _StatusView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _TaskView_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-
+/* harmony import */ var _todoView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
 
 
 
 /***/ }),
-/* 3 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const StatusView = () => {
-  const $statusTarget = document.querySelector('.todo-main');
-
-  const template = `
-              <article class="todo-article" data-template="status">
-                <section class="todo-header">
-                  <div class="todo-title">
-                    <h3 data-viewmodel="statusTitle"></h3>
-                    <div data-viewmodel="statusCount">count</div>
-                  </div>
-                  <div class="todo-svg">
-                    <span id="add-task" data-viewmodel="addTask">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
-                        <path
-                          d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                    <span id="delete-status">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                        <path
-                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </section>
-                <section class="todo-task-list" data-viewmodel="taskList" data-statusName>
-                  <section class="todo-task" data-template="task" data-viewmodel="task">
-                    <form data-type="input-task">
-                      <div class="task-title">
-                        <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="taskTitle"></textarea>
-                        <span class="edit-btn active" data-viewmodel="taskButton" >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
-                              <path
-                                d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
-                                fill="#010101"
-                              />
-                          </svg>
-                        </span>
-                        <span class="delete-todo active" data-viewmodel="taskButton">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                            <path
-                              d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                              fill="#BDBDBD"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="taskContent"></textarea>
-                      <span class="task-author" data-viewmodel="taskAuthor"></span>
-                      <div class="button" data-viewmodel="taskButton">
-                        <button class="btn-cancel" type="button">취소</button>
-                        <button class="btn-ok" type="submit">등록</button>
-                      </div>
-                    </form>
-                  </section>
-                </section>
-              </article>
-            `;
-
-  $statusTarget.innerHTML = template;
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatusView);
-
-
-/***/ }),
-/* 4 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const TaskView = () => {
-  const $taskTarget = document.querySelector('.todo-task-list');
-
-  const template = `
-              <section class="todo-task" data-template="task">
-                <form data-type="input-task">
-                  <div class="task-title">
-                    <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="task_title"></textarea>
-                    <svg class="edit-btn" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
-                        <path
-                          d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
-                          fill="#010101"
-                        />
-                    </svg>
-                    <span id="delete-todo">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                        <path
-                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required></textarea>
-                  <span class="task-author"></span>
-                  <div class="button"></div>
-                </form>
-              </section>
-            `;
-
-  $taskTarget.innerHTML = template;
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskView);
-
-
-/***/ }),
+/* 3 */,
+/* 4 */,
 /* 5 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -38445,138 +38323,17 @@ async function getTaskList() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MainViewModel": () => (/* reexport safe */ _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "TodoViewModel": () => (/* reexport safe */ _TodoViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])
+/* harmony export */   "bindProcessor": () => (/* reexport safe */ _bindingProcessor_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "setInlineProperties": () => (/* reexport safe */ _inlineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
-/* harmony import */ var _MainViewModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
-/* harmony import */ var _TodoViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
+/* harmony import */ var _bindingProcessor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
+/* harmony import */ var _inlineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51);
 
 
 
 
 /***/ }),
-/* 31 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
-/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(46);
-/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
-/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(47);
-
-// import { Binder, DomVisitor, DomScanner, Processor, ViewModel } from '@/core';
-
-
-
-
-
-
-const MainViewModel = class {
-  rootViewModel;
-
-  constructor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, 'string')) {
-    this.rootViewModel;
-    this.visitor = new _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
-    this.scanner = new _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"](this.visitor);
-    this.binder = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(this.scanner.scan(document.body), _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
-    this.bindProcessor(this.visitor, this.scanner);
-  }
-
-  bindProcessor(visitor, scanner) {
-    const processor = new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-      _process(viewModel, elem, key, val) {
-        elem.style[key] = val;
-      }
-    })('styles');
-
-    processor
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem.setAttribute(key, val);
-          }
-        })('attributes'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem[key] = val;
-          }
-        })('properties'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem.classList[key](val);
-          }
-        })('classLists'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            elem.addEventListener(`${key}`, val);
-          }
-        })('events'),
-      )
-      .next(
-        new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
-          _process(viewModel, elem, key, val) {
-            const err = (v) => {
-              throw v;
-            };
-            const { name = err('이름이 없습니다'), data = err('데이터가 없습니다') } = viewModel.template;
-            const template = _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"].get(name) || err('name에러 : ' + name);
-
-            if (!(data instanceof Array)) err('data에러 :' + data);
-
-            data.forEach((viewModel) => {
-              if (!(viewModel instanceof _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])) err(`viewModel에러 : ${viewModel}`);
-            });
-
-            Object.freeze(data);
-
-            visitor.visit((elem) => {
-              if (elem.binder) {
-                const [binder, viewModel] = elem.binder;
-                binder.unwatch(viewModel);
-                delete elem.binder;
-              }
-            }, elem);
-            elem.innerHTML = '';
-            data.forEach((viewModel) => {
-              const child = template.cloneNode(true);
-              const binder = scanner.scan(child);
-
-              binder.processor = processor;
-              elem.binders = [binder, viewModel];
-              binder.watch(viewModel);
-              elem.appendChild(child);
-            });
-          }
-        })('template'),
-      );
-
-    this.binder.processor = processor;
-  }
-
-  createViewModel(inLineData) {
-    return _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"].get(inLineData);
-  }
-
-  watchRootViewModel(rootViewModel) {
-    this.binder.watch(rootViewModel);
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MainViewModel);
-
-
-/***/ }),
+/* 31 */,
 /* 32 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -38605,6 +38362,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * @param {*} target
  * @param {*} type
+ * 
  * @returns typeof target === type ? target : error
  */
 
@@ -39399,154 +39157,383 @@ const Processor = class {
 
 
 /***/ }),
-/* 49 */
+/* 49 */,
+/* 50 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ bindProcessor)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
+/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(46);
+/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
+/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(47);
+
+
+
+
+
+
+
+/**
+ * @param {HTMLElment} target - HTMLElment Type, scan을 시작 할 Element
+
+ * @returns binding을 완료한 binder
+ */
+
+function bindProcessor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, 'string')) {
+  const visitor = new _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+  const scanner = new _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"](visitor);
+  const binder = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(scanner.scan(document.querySelector(target)), _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+  const processor = new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+    _process(viewModel, elem, key, val) {
+      elem.style[key] = val;
+    }
+  })('styles');
+
+  processor
+    .next(
+      new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+        _process(viewModel, elem, key, val) {
+          elem.setAttribute(key, val);
+        }
+      })('attributes'),
+    )
+    .next(
+      new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+        _process(viewModel, elem, key, val) {
+          elem[key] = val;
+        }
+      })('properties'),
+    )
+    .next(
+      new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+        _process(viewModel, elem, key, val) {
+          elem.classList[key](val);
+        }
+      })('classLists'),
+    )
+    .next(
+      new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+        _process(viewModel, elem, key, val) {
+          elem.addEventListener(`${key}`, val(viewModel));
+        }
+      })('events'),
+    )
+    .next(
+      new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
+        _process(viewModel, elem, key, val) {
+          const err = (v) => {
+            throw v;
+          };
+          const { name = err('이름이 없습니다'), data = err('데이터가 없습니다') } = viewModel.template;
+          const template = _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__["default"].get(name) || err('name에러 : ' + name);
+
+          if (!(data instanceof Array)) err('data에러 :' + data);
+
+          data.forEach((viewModel) => {
+            if (!(viewModel instanceof _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])) err(`viewModel에러 : ${viewModel}`);
+          });
+
+          Object.freeze(data);
+
+          visitor.visit((elem) => {
+            if (elem.binder) {
+              const [binder, viewModel] = elem.binder;
+              binder.unwatch(viewModel);
+              delete elem.binder;
+            }
+          }, elem);
+          elem.innerHTML = '';
+          data.forEach((viewModel) => {
+            const child = template.cloneNode(true);
+            const binder = scanner.scan(child);
+
+            binder.processor = processor;
+            elem.binders = [binder, viewModel];
+            binder.watch(viewModel);
+            elem.appendChild(child);
+          });
+        }
+      })('template'),
+    );
+
+  binder.processor = processor;
+
+  return binder;
+}
+
+
+/***/ }),
+/* 51 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ setInlineProperties)
+/* harmony export */ });
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
+/* harmony import */ var _clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
+/* harmony import */ var _clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(52);
+
+
+
+
+
+/**
+ * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
+ * @param { Array } taskList - Model에서 불러온 Task 정보를 가진 배열
+ * 
+ * @returns rootViewModel - Model에서 불러온 데이터를 view에 그리는 객체
+ */
+
+function setInlineProperties(statusList, taskList, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.typeCheck)(statusList, 'object'), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.typeCheck)(taskList, 'object')) {
+  const rootViewModel = _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    statusTemplate: statusTemplate(statusList, taskList),
+    statusTitle: statusTitle(),
+    statusCount: statusCount(),
+    addTask: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+
+    taskTemplate: taskTemplate(),
+    taskCard: taskCard(),
+    taskTitle: taskInputData(),
+    taskContent: taskInputData(),
+    taskAuthor: taskAuthor(),
+
+    taskButton: buttonActive(),
+    editTaskButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    deleteTaskButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    submitButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickEditTaskButton)(),
+  });
+
+  return rootViewModel;
+}
+
+function statusTemplate(statusList, taskList) {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    template: {
+      name: 'status',
+      data: Object.values(statusList).map((statusName) =>
+        _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+          statusTitle: statusTitle(statusName),
+          statusCount: statusCount(statusName, taskList),
+          addTask: (0,_clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__.addTask)(statusName),
+          taskTemplate: taskTemplate(statusName, taskList),
+          // taskTemplate: taskTemplate.bind({ ...bindName, taskList: taskList })(),
+        }),
+      ),
+    },
+  });
+}
+
+function taskTemplate(statusName, taskList) {
+  if (!statusName) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    attributes: { 'data-statusName': statusName },
+    template: {
+      name: 'task',
+      data: Object.entries(taskList)
+        .filter(([key, val]) => key === statusName)[0][1]
+        .map((taskData) => {
+          const { active, title, content } = taskData;
+
+          return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+            taskCard: taskCard(active),
+            taskTitle: taskInputData(active, title),
+            taskContent: taskInputData(active, content),
+            taskAuthor: taskAuthor(active),
+
+            taskButton: buttonActive(active),
+            editTaskButton: buttonActive(active),
+            deleteTaskButton: buttonActive(active),
+            submitButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+            cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickEditTaskButton)(),
+          });
+        }),
+    },
+  });
+}
+
+function statusTitle(statusName) {
+  if (!statusName) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    properties: { innerHTML: statusName },
+  });
+}
+
+function statusCount(statusName, taskList) {
+  if (!statusName) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+  const count = Object.entries(taskList).filter(([key, val]) => key === statusName)[0][1].length;
+
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    properties: { innerHTML: count },
+  });
+}
+
+function taskCard(isActive) {
+  if (!isActive) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    classLists: { toggle: 'active-bg' },
+  });
+}
+
+function taskInputData(isActive, data) {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    properties: { innerHTML: data, disabled: !isActive },
+    events: {
+      change: (viewModel) => (e) => {
+        viewModel.properties.innerHTML = e.target.value;
+      },
+    },
+  });
+}
+
+function taskAuthor(isActive) {
+  if (isActive) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ properties: { innerHTML: '' } });
+
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ properties: { innerHTML: 'author by JangOh' } });
+}
+
+function buttonActive(isActive) {
+  if (!isActive) {
+    return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+      classLists: { toggle: 'active' },
+    });
+  }
+
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ classLists: { toggle: 'test' } });
+}
+
+
+/***/ }),
+/* 52 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "onClickEditTaskButton": () => (/* binding */ onClickEditTaskButton)
+/* harmony export */ });
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+
+
+function onClickEditTaskButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        console.log(viewModel);
+        viewModel.parent.taskCard.classLists.toggle = 'active-bg';
+        viewModel.parent.taskTitle.properties.disabled = true;
+        viewModel.parent.taskContent.properties.disabled = true;
+        viewModel.parent.taskAuthor.properties.innerHTML = 'author by JangOh';
+        viewModel.parent.taskButton.classLists.toggle = 'active';
+        viewModel.parent.editTaskButton.classLists.toggle = 'active';
+        viewModel.parent.deleteTaskButton.classLists.toggle = 'active';
+      },
+    },
+  });
+}
+
+
+/***/ }),
+/* 53 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addTask": () => (/* binding */ addTask)
+/* harmony export */ });
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+
+
+function addTask() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+}
+
+
+/***/ }),
+/* 54 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+const todoView = () => {
+  const $todoTarget = document.querySelector('.todo-main');
 
+  const template = `
+              <article class="todo-article" data-template="status">
+                <section class="todo-header">
+                  <div class="todo-title">
+                    <h3 data-viewmodel="statusTitle"></h3>
+                    <div data-viewmodel="statusCount">count</div>
+                  </div>
+                  <div class="todo-svg">
+                    <span id="add-task" data-viewmodel="addTask">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
+                        <path
+                          d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                    <span id="delete-status">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                        <path
+                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </section>
+                <section class="todo-task-list" data-viewmodel="taskTemplate" data-statusName>
+                  <section class="todo-task" data-template="task" data-viewmodel="taskCard">
+                    <form data-type="input-task">
+                      <div class="task-title">
+                        <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="taskTitle"></textarea>
+                        <span class="edit-button active" data-viewmodel="editTaskButton" >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                              <path
+                                d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
+                                fill="#010101"
+                              />
+                          </svg>
+                        </span>
+                        <span class="delete-todo active" data-viewmodel="deleteTaskButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                            <path
+                              d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                              fill="#BDBDBD"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="taskContent"></textarea>
+                      <span class="task-author" data-viewmodel="taskAuthor"></span>
+                      <div class="button" data-viewmodel="taskButton">
+                        <button class="cancel-button" type="button" data-viewmodel="cancelButton">취소</button>
+                        <button class="submit-button" type="submit" data-viewmodel="submitButton">등록</button>
+                      </div>
+                    </form>
+                  </section>
+                </section>
+              </article>
+            `;
 
-/**
- * @param { HTMLElment } target - HTMLElment Type, 하위에 append할 타겟
- * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
- * @param { Array } taskList - Model에서 불러온 Task 정보를 가진 배열
- *
- * @summary - Model에서 불러온 데이터를 view에 그리는 객체
- */
-
-const TodoViewModel = class extends _viewModels__WEBPACK_IMPORTED_MODULE_1__.MainViewModel {
-  #statusList;
-  #taskList;
-
-  constructor(target, statusList, taskList, _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(statusList, 'object'), _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(taskList, 'object')) {
-    super(target);
-    this.#statusList = statusList;
-    this.#taskList = taskList;
-    this.setInlineProperties();
-  }
-
-  setInlineProperties() {
-    const { createViewModel } = this;
-    const taskListData = Object.entries(this.#taskList);
-    console.log(taskListData[0]);
-    const statusTitle = (name) => {
-      return createViewModel({
-        properties: { innerHTML: name },
-      });
-    };
-
-    const statusCount = (name) => {
-      const count = taskListData.filter(([statusName, val]) => statusName === name)[0][1].length;
-
-      return createViewModel({
-        properties: { innerHTML: count },
-      });
-    };
-
-    const task = (isActive) => {
-      if (isActive) {
-        return createViewModel({
-          classLists: { add: 'active-bg' },
-        });
-      }
-
-      return createViewModel({});
-    };
-
-    const taskInputData = (isActive, data) => {
-      return createViewModel({
-        properties: { innerHTML: data, disabled: !isActive },
-      });
-    };
-
-    const addTask = (name) => {
-      return createViewModel({
-        events: {
-          click: () => {},
-        },
-      });
-    };
-
-    const taskAuthor = (isActive) => {
-      if (!isActive) {
-        return createViewModel({ properties: { innerHTML: 'author by JangOh' } });
-      }
-
-      return createViewModel({});
-    };
-
-    const taskButton = (isActive) => {
-      if (!isActive) {
-        return createViewModel({
-          classLists: { toggle: 'active' },
-        });
-      }
-
-      return createViewModel({});
-    };
-
-    const taskList = (name) => {
-      if (!name) return;
-
-      return createViewModel({
-        attributes: { 'data-statusName': name },
-        template: {
-          name: 'task',
-          data: taskListData
-            .filter(([statusName, val]) => statusName === name)[0][1]
-            .map((taskData) =>
-              createViewModel({
-                task: task(taskData.active),
-                taskTitle: taskInputData(taskData.active, taskData.title),
-                taskContent: taskInputData(taskData.active, taskData.content),
-                taskAuthor: taskAuthor(taskData.active),
-                taskButton: taskButton(taskData.active),
-              }),
-            ),
-        },
-      });
-    };
-
-    const main = createViewModel({
-      template: {
-        name: 'status',
-        data: Object.values(this.#statusList).map((name) =>
-          createViewModel({
-            statusTitle: statusTitle(name),
-            statusCount: statusCount(name),
-            addTask: addTask(name),
-            taskList: taskList(name),
-          }),
-        ),
-      },
-    });
-
-    this.rootViewModel = createViewModel({
-      main,
-      // changeContents() {
-      //   this.contents.properties.innerHTML = Math.random().toString(16).replace('.', '');
-      //   this.list.template.data.forEach(({ item: { styles, properties } }) => {
-      //     properties.innerHTML = Math.random().toString(16).replace('.', '');
-      //     styles.background = `rgb(${getRandom()},${getRandom()},${getRandom()})`;
-      //   });
-      // },
-    });
-
-    this.watchRootViewModel(this.rootViewModel);
-
-    // const f = () => {
-    //   this.rootViewModel.changeContents();
-    //   if (!rootViewModel.isStop) requestAnimationFrame(f);
-    // };
-    // f();
-  }
+  $todoTarget.innerHTML = template;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TodoViewModel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (todoView);
 
 
 /***/ })
@@ -39625,7 +39612,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _viewModels__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
+/* harmony import */ var _clients__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
 
 
 
@@ -39638,8 +39625,12 @@ async function init() {
   // const statusList = ['해야할일', '완료'];
   // const taskList = ['1', '2'];
 
-  (0,_views__WEBPACK_IMPORTED_MODULE_1__.StatusView)();
-  new _viewModels__WEBPACK_IMPORTED_MODULE_3__.TodoViewModel('.todo-main', statusList, taskList);
+  (0,_views__WEBPACK_IMPORTED_MODULE_1__.todoView)();
+  const binder = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.bindProcessor)('.todo-main');
+  const rootViewModel = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.setInlineProperties)(statusList, taskList);
+
+  binder.watch(rootViewModel);
+  // new TodoViewModel('.todo-main', statusList, taskList);
 }
 
 init();

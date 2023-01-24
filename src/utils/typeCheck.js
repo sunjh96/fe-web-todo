@@ -1,6 +1,7 @@
 /**
  * @param {*} target
  * @param {*} type
+ * 
  * @returns typeof target === type ? target : error
  */
 

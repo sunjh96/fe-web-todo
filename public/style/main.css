@@ -12,16 +12,16 @@
   cursor: pointer;
 }
 
-.btn-cancel {
+.cancel-button {
   background-color: #e0e0e0;
   color: #828282;
 }
 
-.btn-ok {
+.submit-button {
   background-color: #0075de;
   color: white;
 }
-.btn-ok:disabled {
+.submit-button:disabled {
   background-color: #86c6ff;
   color: white;
   cursor: not-allowed;
@@ -257,7 +257,7 @@
 .todo-task.active-bg {
   border: 1px solid #0075de;
 }
-.todo-task .edit-btn {
+.todo-task .edit-button {
   display: none;
   position: absolute;
   right: 1rem;
@@ -269,11 +269,11 @@
 .todo-task .delete-todo svg:hover path {
   fill: red;
 }
-.todo-task:hover .edit-btn {
+.todo-task:hover .edit-button {
   display: flex;
   cursor: pointer;
 }
-.todo-task:hover .edit-btn:hover path {
+.todo-task:hover .edit-button:hover path {
   fill: #0075de;
 }
 .todo-task form {
