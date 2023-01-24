@@ -1,9 +1,6 @@
 import { ViewModel } from '@/core';
 import { TaskModel } from '@/models';
 
-import db from '@/store/firebase';
-import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-
 export function onClickEditTaskButton() {
   return ViewModel.get({
     events: {
@@ -37,14 +34,7 @@ export function onClickCancelButton() {
         const taskContent = viewModelParent.taskContent.properties.value;
 
         toggleActive(viewModelParent);
-
-        viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
-        viewModelParent.taskTitle.properties.innerHTML = taskTitle;
-        viewModelParent.taskContent.properties.innerHTML = taskContent;
-        viewModelParent.taskTitle.properties.value = taskTitle;
-        viewModelParent.taskContent.properties.value = taskContent;
-        viewModelParent.taskTitle.properties.disabled = true;
-        viewModelParent.taskContent.properties.disabled = true;
+        inputTaskCard(viewModelParent, taskTitle, taskContent);
       },
     },
   });
@@ -57,19 +47,14 @@ export function onClickSubmitButton() {
         e.preventDefault();
 
         const viewModelParent = viewModel.parent;
-        const taskTitle = viewModelParent.taskTitle.properties.value;
-        const taskContent = viewModelParent.taskContent.properties.value;
+        const taskTitle = viewModelParent.taskTitle.properties.innerHTML;
+        const taskContent = viewModelParent.taskContent.properties.innerHTML;
+        const statusName = viewModelParent.parent.attributes['data-statusName'];
+        const taskId = viewModelParent.taskCard.attributes['data-taskId'];
 
         toggleActive(viewModelParent);
-        TaskModel.modifyTaskCard();
-
-        viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
-        // viewModelParent.taskTitle.properties.innerHTML = taskTitle;
-        // viewModelParent.taskContent.properties.innerHTML = taskContent;
-        // viewModelParent.taskTitle.properties.value = taskTitle;
-        // viewModelParent.taskContent.properties.value = taskContent;
-        viewModelParent.taskTitle.properties.disabled = true;
-        viewModelParent.taskContent.properties.disabled = true;
+        inputTaskCard(viewModelParent, taskTitle, taskContent);
+        TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
       },
     },
   });
@@ -80,4 +65,14 @@ function toggleActive(viewModelParent) {
   viewModelParent.taskButton.classLists.toggle = 'active';
   viewModelParent.editTaskButton.classLists.toggle = 'active';
   viewModelParent.deleteTaskButton.classLists.toggle = 'active';
+}
+
+function inputTaskCard(viewModelParent, taskTitle, taskContent) {
+  viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
+  viewModelParent.taskTitle.properties.innerHTML = taskTitle;
+  viewModelParent.taskContent.properties.innerHTML = taskContent;
+  viewModelParent.taskTitle.properties.value = taskTitle;
+  viewModelParent.taskContent.properties.value = taskContent;
+  viewModelParent.taskTitle.properties.disabled = true;
+  viewModelParent.taskContent.properties.disabled = true;
 }

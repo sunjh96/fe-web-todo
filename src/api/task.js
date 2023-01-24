@@ -21,6 +21,13 @@ export async function getTaskList() {
 }
 
 export async function updateTaskCard(data) {
+  const { statusName, taskId, taskTitle, taskContent } = data;
   const docRef = doc(db, 'user', 'jangoh');
-  await updateDoc(docRef, { 'tasks.완료': arrayUnion('값변경') });
+  const updateData = {};
+
+  taskTitle && (updateData[`todo.${statusName}.${taskId}.title`] = taskTitle);
+  taskContent && (updateData[`todo.${statusName}.${taskId}.content`] = taskContent);
+  updateData[`todo.${statusName}.${taskId}.active`] = false;
+
+  await updateDoc(docRef, updateData);
 }

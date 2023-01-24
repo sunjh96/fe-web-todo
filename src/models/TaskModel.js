@@ -31,8 +31,8 @@ const TaskModel = class {
   addTaskCard() {}
   deleteTaskCard() {}
 
-  static modifyTaskCard(taskTitle, taskContent) {
-    updateTaskCard();
+  static modifyTaskCard(statusName = undefined, taskId = undefined, taskTitle = undefined, taskContent = undefined) {
+    updateTaskCard({ statusName, taskId, taskTitle, taskContent });
   }
 };
 

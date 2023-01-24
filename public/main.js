@@ -38361,8 +38361,8 @@ const TaskModel = class {
   addTaskCard() {}
   deleteTaskCard() {}
 
-  static modifyTaskCard(taskTitle, taskContent) {
-    (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.updateTaskCard)();
+  static modifyTaskCard(statusName = undefined, taskId = undefined, taskTitle = undefined, taskContent = undefined) {
+    (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.updateTaskCard)({ statusName, taskId, taskTitle, taskContent });
   }
 };
 
@@ -38403,8 +38403,15 @@ async function getTaskList() {
 }
 
 async function updateTaskCard(data) {
+  const { statusName, taskId, taskTitle, taskContent } = data;
   const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
-  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)(docRef, { 'tasks.완료': (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.arrayUnion)('값변경') });
+  const updateData = {};
+
+  taskTitle && (updateData[`todo.${statusName}.${taskId}.title`] = taskTitle);
+  taskContent && (updateData[`todo.${statusName}.${taskId}.content`] = taskContent);
+  updateData[`todo.${statusName}.${taskId}.active`] = false;
+
+  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)(docRef, updateData);
 }
 
 
@@ -39433,10 +39440,10 @@ function taskTemplate(statusName, taskList) {
     template: {
       name: 'task',
       data: taskList.map((taskData) => {
-        const { active, title, content } = taskData;
+        const { active, title, content, id } = taskData;
 
         return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
-          taskCard: taskCard(active),
+          taskCard: taskCard(active, id),
           taskTitle: taskInputData(active, title),
           taskContent: taskInputData(active, content),
           taskAuthor: taskAuthor(active),
@@ -39469,23 +39476,24 @@ function statusCount(statusName, taskList) {
   });
 }
 
-function taskCard(isActive) {
-  if (!isActive) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ classLists: { toggle: 'test' } });
+function taskCard(isActive, id) {
+  if (!isActive) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ classLists: { toggle: 'test' }, attributes: { 'data-taskId': id } });
 
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     classLists: { toggle: 'active-bg' },
+    attributes: { 'data-taskId': id },
   });
 }
 
 function taskInputData(isActive, data) {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     properties: { value: data, innerHTML: data, disabled: !isActive },
-    // attributes: { value: data },
-    // events: {
-    //   change: (viewModel) => (e) => {
-    //     viewModel.properties.innerHTML = e.target.value;
-    //   },
-    // },
+
+    events: {
+      change: (viewModel) => (e) => {
+        viewModel.properties.innerHTML = e.target.value;
+      },
+    },
   });
 }
 
@@ -39542,11 +39550,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
-
-
-
 
 
 
@@ -39583,14 +39586,7 @@ function onClickCancelButton() {
         const taskContent = viewModelParent.taskContent.properties.value;
 
         toggleActive(viewModelParent);
-
-        viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
-        viewModelParent.taskTitle.properties.innerHTML = taskTitle;
-        viewModelParent.taskContent.properties.innerHTML = taskContent;
-        viewModelParent.taskTitle.properties.value = taskTitle;
-        viewModelParent.taskContent.properties.value = taskContent;
-        viewModelParent.taskTitle.properties.disabled = true;
-        viewModelParent.taskContent.properties.disabled = true;
+        inputTaskCard(viewModelParent, taskTitle, taskContent);
       },
     },
   });
@@ -39603,19 +39599,14 @@ function onClickSubmitButton() {
         e.preventDefault();
 
         const viewModelParent = viewModel.parent;
-        const taskTitle = viewModelParent.taskTitle.properties.value;
-        const taskContent = viewModelParent.taskContent.properties.value;
+        const taskTitle = viewModelParent.taskTitle.properties.innerHTML;
+        const taskContent = viewModelParent.taskContent.properties.innerHTML;
+        const statusName = viewModelParent.parent.attributes['data-statusName'];
+        const taskId = viewModelParent.taskCard.attributes['data-taskId'];
 
         toggleActive(viewModelParent);
-        _models__WEBPACK_IMPORTED_MODULE_1__.TaskModel.modifyTaskCard();
-
-        viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
-        // viewModelParent.taskTitle.properties.innerHTML = taskTitle;
-        // viewModelParent.taskContent.properties.innerHTML = taskContent;
-        // viewModelParent.taskTitle.properties.value = taskTitle;
-        // viewModelParent.taskContent.properties.value = taskContent;
-        viewModelParent.taskTitle.properties.disabled = true;
-        viewModelParent.taskContent.properties.disabled = true;
+        inputTaskCard(viewModelParent, taskTitle, taskContent);
+        _models__WEBPACK_IMPORTED_MODULE_1__.TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
       },
     },
   });
@@ -39626,6 +39617,16 @@ function toggleActive(viewModelParent) {
   viewModelParent.taskButton.classLists.toggle = 'active';
   viewModelParent.editTaskButton.classLists.toggle = 'active';
   viewModelParent.deleteTaskButton.classLists.toggle = 'active';
+}
+
+function inputTaskCard(viewModelParent, taskTitle, taskContent) {
+  viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
+  viewModelParent.taskTitle.properties.innerHTML = taskTitle;
+  viewModelParent.taskContent.properties.innerHTML = taskContent;
+  viewModelParent.taskTitle.properties.value = taskTitle;
+  viewModelParent.taskContent.properties.value = taskContent;
+  viewModelParent.taskTitle.properties.disabled = true;
+  viewModelParent.taskContent.properties.disabled = true;
 }
 
 

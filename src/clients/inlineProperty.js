@@ -59,10 +59,10 @@ function taskTemplate(statusName, taskList) {
     template: {
       name: 'task',
       data: taskList.map((taskData) => {
-        const { active, title, content } = taskData;
+        const { active, title, content, id } = taskData;
 
         return ViewModel.get({
-          taskCard: taskCard(active),
+          taskCard: taskCard(active, id),
           taskTitle: taskInputData(active, title),
           taskContent: taskInputData(active, content),
           taskAuthor: taskAuthor(active),
@@ -95,23 +95,24 @@ function statusCount(statusName, taskList) {
   });
 }
 
-function taskCard(isActive) {
-  if (!isActive) return ViewModel.get({ classLists: { toggle: 'test' } });
+function taskCard(isActive, id) {
+  if (!isActive) return ViewModel.get({ classLists: { toggle: 'test' }, attributes: { 'data-taskId': id } });
 
   return ViewModel.get({
     classLists: { toggle: 'active-bg' },
+    attributes: { 'data-taskId': id },
   });
 }
 
 function taskInputData(isActive, data) {
   return ViewModel.get({
     properties: { value: data, innerHTML: data, disabled: !isActive },
-    // attributes: { value: data },
-    // events: {
-    //   change: (viewModel) => (e) => {
-    //     viewModel.properties.innerHTML = e.target.value;
-    //   },
-    // },
+
+    events: {
+      change: (viewModel) => (e) => {
+        viewModel.properties.innerHTML = e.target.value;
+      },
+    },
   });
 }
 
