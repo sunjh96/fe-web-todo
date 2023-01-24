@@ -17,14 +17,89 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "todoView": () => (/* reexport safe */ _todoView_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _todoView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
+/* harmony import */ var _todoView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
 
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const todoView = () => {
+  const $todoTarget = document.querySelector('.todo-main');
+
+  const template = `
+              <article class="todo-article" data-template="status">
+                <section class="todo-header">
+                  <div class="todo-title">
+                    <h3 data-viewmodel="statusTitle"></h3>
+                    <div data-viewmodel="statusCount">count</div>
+                  </div>
+                  <div class="todo-svg">
+                    <span id="add-task" data-viewmodel="addTask">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
+                        <path
+                          d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                    <span id="delete-status">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                        <path
+                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                          fill="#BDBDBD"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </section>
+                <section class="todo-task-list" data-viewmodel="taskTemplate" data-statusName>
+                  <section class="todo-task" data-template="task" data-viewmodel="taskCard">
+                    <form data-type="input-task">
+                      <div class="task-title">
+                        <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="taskTitle"></textarea>
+                        <span class="edit-button active" data-viewmodel="editTaskButton" >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                              <path
+                                d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
+                                fill="#010101"
+                              />
+                          </svg>
+                        </span>
+                        <span class="delete-todo active" data-viewmodel="deleteTaskButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
+                            <path
+                              d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                              fill="#BDBDBD"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="taskContent"></textarea>
+                      <span class="task-author" data-viewmodel="taskAuthor"></span>
+                      <div class="button" data-viewmodel="taskButton">
+                        <button class="cancel-button" type="button" data-viewmodel="cancelButton">취소</button>
+                        <button class="submit-button" type="submit" data-viewmodel="submitButton">등록</button>
+                      </div>
+                    </form>
+                  </section>
+                </section>
+              </article>
+            `;
+
+  $todoTarget.innerHTML = template;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (todoView);
+
+
+/***/ }),
+/* 4 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -32,21 +107,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "StatusModel": () => (/* reexport safe */ _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
 /* harmony export */   "TaskModel": () => (/* reexport safe */ _TaskModel_js__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
-/* harmony import */ var _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var _TaskModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
+/* harmony import */ var _StatusModel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _TaskModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
 
 
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _api_status__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var _api_status__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 
 
 /**
@@ -82,7 +157,7 @@ const StatusModel = class {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -90,8 +165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getStatusList": () => (/* binding */ getStatusList),
 /* harmony export */   "setStatusList": () => (/* binding */ setStatusList)
 /* harmony export */ });
-/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
 
 
 
@@ -100,7 +175,7 @@ async function getStatusList() {
   const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getDoc)(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data().status;
+    return Object.keys(docSnap.data().todo);
   } else {
     console.log('데이터가 없습니다.');
   }
@@ -108,23 +183,22 @@ async function getStatusList() {
 
 async function setStatusList() {
   const statusRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
-  console.log(statusRef);
 }
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var firebase_compat_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
-/* harmony import */ var firebase_compat_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(21);
-/* harmony import */ var firebase_compat_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
+/* harmony import */ var firebase_compat_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var firebase_compat_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20);
+/* harmony import */ var firebase_compat_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(25);
 
 
 
@@ -149,14 +223,14 @@ const db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getFirestore)(app)
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 
 
 
@@ -184,17 +258,17 @@ _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"].registerVersion(nam
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ firebase)
 /* harmony export */ });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
 
 
 
@@ -629,7 +703,7 @@ registerCoreComponents();
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2775,7 +2849,7 @@ function getModularInstance(service) {
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2784,7 +2858,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ComponentContainer": () => (/* binding */ ComponentContainer),
 /* harmony export */   "Provider": () => (/* binding */ Provider)
 /* harmony export */ });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
 
 
 /**
@@ -3197,7 +3271,7 @@ class ComponentContainer {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3221,10 +3295,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "registerVersion": () => (/* binding */ registerVersion),
 /* harmony export */   "setLogLevel": () => (/* binding */ setLogLevel)
 /* harmony export */ });
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
+/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 
 
 
@@ -4161,7 +4235,7 @@ registerCoreComponents('');
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4393,7 +4467,7 @@ function setUserLogHandler(logCallback, options) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4403,7 +4477,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "unwrap": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.u),
 /* harmony export */   "wrap": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)
 /* harmony export */ });
-/* harmony import */ var _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
 
 
 
@@ -4495,7 +4569,7 @@ function getMethod(target, prop) {
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4694,7 +4768,7 @@ const unwrap = (value) => reverseTransformCache.get(value);
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4793,13 +4867,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "where": () => (/* reexport safe */ _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.where),
 /* harmony export */   "writeBatch": () => (/* reexport safe */ _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.writeBatch)
 /* harmony export */ });
-/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
+/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
 
 //# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4898,11 +4972,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "where": () => (/* binding */ rl),
 /* harmony export */   "writeBatch": () => (/* binding */ af)
 /* harmony export */ });
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
-/* harmony import */ var _firebase_webchannel_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
+/* harmony import */ var _firebase_webchannel_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 
 
 
@@ -25427,7 +25501,7 @@ function lf(t, e) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -25554,7 +25628,7 @@ var FetchXmlHttpFactory = esm.FetchXmlHttpFactory=ed;var WebChannel = esm.WebCha
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -25578,7 +25652,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "registerVersion": () => (/* reexport safe */ _firebase_app__WEBPACK_IMPORTED_MODULE_0__.registerVersion),
 /* harmony export */   "setLogLevel": () => (/* reexport safe */ _firebase_app__WEBPACK_IMPORTED_MODULE_0__.setLogLevel)
 /* harmony export */ });
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 
 
 
@@ -25606,24 +25680,24 @@ var version = "9.15.0";
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_auth_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _firebase_auth_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
 
 //# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
-/* harmony import */ var _firebase_auth_internal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(23);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _firebase_auth_internal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(22);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
 
 
 
@@ -26630,7 +26704,7 @@ registerAuthCompat(_firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"])
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -26731,11 +26805,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "verifyBeforeUpdateEmail": () => (/* reexport safe */ _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__.ac),
 /* harmony export */   "verifyPasswordResetCode": () => (/* reexport safe */ _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__.a4)
 /* harmony export */ });
-/* harmony import */ var _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _index_c6def6da_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
 
 
 
@@ -27309,7 +27383,7 @@ function addFrameworkForLogging(auth, framework) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -27417,11 +27491,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "y": () => (/* binding */ signOut),
 /* harmony export */   "z": () => (/* binding */ deleteUser)
 /* harmony export */ });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(25);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 
 
 
@@ -36943,7 +37017,7 @@ registerAuth("Browser" /* ClientPlatform.BROWSER */);
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -37225,27 +37299,27 @@ function __classPrivateFieldIn(state, receiver) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_firestore_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _firebase_firestore_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
 
 //# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "registerFirestore": () => (/* binding */ registerFirestore)
 /* harmony export */ });
-/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
-/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+/* harmony import */ var _firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
+/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 
 
 
@@ -38246,14 +38320,14 @@ registerFirestore(_firebase_app_compat__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _api_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _api_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
 
 
 /**
@@ -38268,7 +38342,7 @@ const TaskModel = class {
     this.#taskData;
   }
 
-  async setTaskData() {
+  async getTaskData() {
     this.#taskData = await (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.getTaskList)();
 
     return this.#taskData;
@@ -38277,31 +38351,35 @@ const TaskModel = class {
   get taskData() {
     return (async () => {
       try {
-        return await this.setTaskData();
+        return await this.getTaskData();
       } catch (e) {
         throw `데이터 fetch 에러 => ${e} `;
       }
     })();
   }
 
-  addTask() {}
-  deleteTask() {}
-  modifyTaskName() {}
+  addTaskCard() {}
+  deleteTaskCard() {}
+
+  static modifyTaskCard(taskTitle, taskContent) {
+    (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.updateTaskCard)();
+  }
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskModel);
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getTaskList": () => (/* binding */ getTaskList)
+/* harmony export */   "getTaskList": () => (/* binding */ getTaskList),
+/* harmony export */   "updateTaskCard": () => (/* binding */ updateTaskCard)
 /* harmony export */ });
-/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
 
 
 
@@ -38310,11 +38388,39 @@ async function getTaskList() {
   const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getDoc)(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data().tasks;
+    let taskList = {};
+
+    const todoData = Object.entries(docSnap.data().todo);
+
+    todoData.map((data) => {
+      taskList[data[0]] = Object.values(data[1]);
+    });
+
+    return taskList;
   } else {
     console.log('데이터가 없습니다.');
   }
 }
+
+async function updateTaskCard(data) {
+  const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
+  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)(docRef, { 'tasks.완료': (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.arrayUnion)('값변경') });
+}
+
+
+/***/ }),
+/* 29 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "bindProcessor": () => (/* reexport safe */ _bindingProcessor_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "setInlineProperties": () => (/* reexport safe */ _inlineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])
+/* harmony export */ });
+/* harmony import */ var _bindingProcessor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
+/* harmony import */ var _inlineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(48);
+
+
 
 
 /***/ }),
@@ -38323,854 +38429,14 @@ async function getTaskList() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "bindProcessor": () => (/* reexport safe */ _bindingProcessor_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "setInlineProperties": () => (/* reexport safe */ _inlineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])
-/* harmony export */ });
-/* harmony import */ var _bindingProcessor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
-/* harmony import */ var _inlineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51);
-
-
-
-
-/***/ }),
-/* 31 */,
-/* 32 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "drag": () => (/* reexport safe */ _drag_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "holdDownTask": () => (/* reexport safe */ _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "typeCheck": () => (/* reexport safe */ _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
-/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34);
-/* harmony import */ var _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
-
-
-
-
-
-/***/ }),
-/* 33 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/**
- * @param {*} target
- * @param {*} type
- * 
- * @returns typeof target === type ? target : error
- */
-
-const typeCheck = (target, type) => {
-  if (typeof type == 'string') {
-    if (typeof target != type) throw `타입 에러 ${target} : ${type}`;
-  } else if (!(target instanceof type)) {
-    throw `타입 에러 ${target} : ${type}`;
-  }
-
-  return target;
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (typeCheck);
-
-
-/***/ }),
-/* 34 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ drag)
-/* harmony export */ });
-function drag(event, elementToDrag = event.target) {
-  elementToDrag = elementToDrag.closest('[data-task]');
-  elementToDrag.style.position = 'absolute';
-  elementToDrag.style.zIndex = '100';
-
-  let startX = event.clientX;
-  let startY = event.clientY;
-
-  let origX = elementToDrag.offsetLeft;
-  let origY = elementToDrag.offsetTop;
-
-  let deltaX = startX - origX;
-  let deltaY = startY - origY;
-
-  document.addEventListener('mousemove', moveHandler, true);
-  document.addEventListener('mouseup', upHandler, true);
-
-  event.stopPropagation();
-  event.preventDefault();
-
-  function moveHandler(e) {
-    elementToDrag.style.left = e.clientX - deltaX + 'px';
-    elementToDrag.style.top = e.clientY - deltaY + 'px';
-
-    e.stopPropagation();
-  }
-
-  function upHandler(e) {
-    document.removeEventListener('mouseup', upHandler, true);
-    document.removeEventListener('mousemove', moveHandler, true);
-
-    e.stopPropagation();
-  }
-}
-
-
-/***/ }),
-/* 35 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ holdDownTask)
-/* harmony export */ });
-/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
-
-
-function holdDownTask(e) {
-  const PRESS_HOLD_DURATION = 150;
-
-  const $taskTarget = e.target.closest('[data-task]');
-  const $taskTargets = [...document.querySelectorAll('[data-task]')];
-  const $eventFinishButtonTarget = document.querySelector('.finish-btn');
-  const $triggerTargets = [...document.querySelectorAll('.trigger-line')];
-  const pressHoldEvent = new CustomEvent('pressHold', { cancelable: true });
-
-  let timerID, rotateID, setTimeoutID;
-  let counter = 0;
-  let rotateDir = 0;
-  let dragCount = 0;
-
-  $taskTarget.addEventListener('mouseup', notPressingDown);
-  $taskTarget.addEventListener('pressHold', rotateX);
-  $eventFinishButtonTarget.addEventListener('click', stopRotate);
-  requestAnimationFrame(timer);
-
-  function timer() {
-    if (counter < PRESS_HOLD_DURATION) {
-      timerID = requestAnimationFrame(timer);
-      counter++;
-    } else {
-      $taskTarget.dispatchEvent(pressHoldEvent);
-      $eventFinishButtonTarget.style.display = 'flex';
-      $triggerTargets.forEach((elem) => (elem.style.display = 'none'));
-    }
-  }
-
-  function pressingDown(e) {
-    requestAnimationFrame(timer);
-    e.preventDefault();
-  }
-
-  function notPressingDown() {
-    cancelAnimationFrame(timerID);
-
-    $taskTarget.removeEventListener('mousedown', pressingDown);
-    $taskTarget.removeEventListener('mouseup', notPressingDown);
-    $taskTarget.removeEventListener('pressHold', rotateX);
-
-    counter = 0;
-  }
-  function rotateX() {
-    $taskTargets.forEach((task) => {
-      !dragCount && task.addEventListener('mousedown', _drag__WEBPACK_IMPORTED_MODULE_0__["default"]);
-      if (rotateDir === 0) {
-        task.style.transform = `rotate(0deg)`;
-      } else if (rotateDir === 1) {
-        task.style.transform = `rotate(-0.7deg)`;
-      } else {
-        rotateDir = 0;
-        task.style.transform = `rotate(0.7deg)`;
-      }
-    });
-    dragCount++;
-
-    setTimeoutID = setTimeout(() => {
-      rotateDir += 1;
-      rotateID = requestAnimationFrame(rotateX);
-    }, 120);
-  }
-
-  function stopRotate() {
-    cancelAnimationFrame(rotateID);
-    clearTimeout(setTimeoutID);
-    $taskTarget.removeEventListener('mousedown', _drag__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-    $eventFinishButtonTarget.style.display = 'none';
-    $triggerTargets.forEach((elem) => (elem.style.display = 'block'));
-  }
-}
-
-
-/***/ }),
-/* 36 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-
-
-
-/**
- * @param {object} data - object type
- *
- * @summary  물리적인 View를 대신하여 순수한 메모리 객체로서의 View를 만들어내는 객체 (인메모리 객체)
- */
-const ViewModel = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelSubject {
-  static KEY = Symbol(); //모든 Key를 Observer에게 보고
-  styles = {};
-  attributes = {};
-  properties = {};
-  classLists = {};
-  events = {};
-  #subKey = '';
-  #parent = null;
-
-  constructor(data, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(data, 'object')) {
-    super();
-    this[ViewModel.KEY] = 'root';
-    Object.entries(data).forEach(([k, v]) => this.define(this, k, v));
-    Object.seal(this);
-  }
-
-  define(target, k, v) {
-    if (v && typeof v == 'object' && !(v instanceof ViewModel)) {
-      if (v instanceof Array) {
-        target[k] = [];
-        target[k][ViewModel.KEY] = `${target[ViewModel.KEY]}.${k}`; // 상대적인 경로 표기. key의 확장
-        v.forEach((v, i) => this.define(target[k], i, v));
-      } else {
-        target[k] = { [ViewModel.KEY]: `${target[ViewModel.KEY]}.${k}` };
-        Object.entries(v).forEach(([ik, iv]) => this.define(target[k], ik, iv));
-      }
-
-      Object.defineProperty(target[k], 'subKey', {
-        get: () => target.subKey,
-      });
-    } else {
-      if (v instanceof ViewModel) v._setParent(this, k);
-
-      Object.defineProperties(target, {
-        [k]: {
-          enumerable: true,
-          get: (_) => v,
-          set: (newV) => {
-            v = newV;
-            this.add(new _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue(target.subKey, target[ViewModel.KEY], k, v));
-          },
-        },
-      });
-    }
-  }
-
-  static get(data) {
-    return new ViewModel(data);
-  }
-
-  get subKey() {
-    return this.#subKey;
-  }
-
-  get parent() {
-    return this.#parent;
-  }
-
-  get notifyTarget() {
-    return this;
-  }
-
-  _setParent(parent, subKey) {
-    this.#parent = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(parent, ViewModel);
-    this.#subKey = subKey;
-    this.addListener(parent);
-  }
-
-  viewmodelUpdated(target, updated) {
-    updated.forEach((v) => this.add(v));
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModel);
-
-
-/***/ }),
-/* 37 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Binder": () => (/* reexport safe */ _Binder_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   "BinderItem": () => (/* reexport safe */ _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   "Component": () => (/* reexport safe */ _Component_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "DomScanner": () => (/* reexport safe */ _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
-/* harmony export */   "DomVisitor": () => (/* reexport safe */ _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
-/* harmony export */   "Processor": () => (/* reexport safe */ _Processor_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
-/* harmony export */   "Scanner": () => (/* reexport safe */ _Scanner_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "ViewModel": () => (/* reexport safe */ _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "ViewModelListener": () => (/* reexport safe */ _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "ViewModelSubject": () => (/* reexport safe */ _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "ViewModelValue": () => (/* reexport safe */ _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "Visitor": () => (/* reexport safe */ _Visitor_js__WEBPACK_IMPORTED_MODULE_8__["default"])
-/* harmony export */ });
-/* harmony import */ var _Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(38);
-/* harmony import */ var _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
-/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(40);
-/* harmony import */ var _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
-/* harmony import */ var _Binder_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(42);
-/* harmony import */ var _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(43);
-/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(44);
-/* harmony import */ var _Visitor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(45);
-/* harmony import */ var _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(46);
-/* harmony import */ var _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(47);
-/* harmony import */ var _Processor_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(48);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-/* 38 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Component)
-/* harmony export */ });
-/**
- * Class Component
- *
- * Class Todo와 Class Status와 Class Task에게 상속 해주는 클래스
- *
- * state를 통한 데이터관리
- * 하위 컴포넌트에게 state를 전달해주는 props
- * 화면을 렌더링해주는 render()
- * event를 핸들링하는 setEvent()
- * state 상태를 변경한 후 재렌더링하는 setState()
- * render 후 추가 동작을 위한 mounted()
- */
-class Component {
-  $target;
-  props;
-  state;
-  innerType;
-  counter = 0;
-
-  constructor($target, props, innerType) {
-    this.$target = $target;
-    this.props = props;
-    this.innerType = innerType;
-    this.setup();
-    this.render();
-    this.setEvent();
-  }
-
-  setup() {}
-
-  template() {
-    return '';
-  }
-
-  mounted() {}
-
-  render() {
-    this.$target.insertAdjacentHTML('beforeend', this.template());
-    this.mounted();
-  }
-
-  setEvent() {}
-
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.render();
-  }
-
-  addEvent(eventType, selector, callback) {
-    const children = [...this.$target.querySelectorAll(selector)];
-    const isTarget = (target) => children.includes(target) || target.closest(selector);
-
-    this.$target.addEventListener(eventType, (event) => {
-      if (!isTarget(event.target)) return false;
-      callback(event);
-    });
-  }
-}
-
-
-/***/ }),
-/* 39 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const ViewModelValue = class {
-  constructor(subKey, category, key, val) {
-    Object.assign(this, { subKey, category, key, val });
-    Object.freeze(this);
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelValue);
-
-
-/***/ }),
-/* 40 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/**
- * @param none
- *
- * @summary 변화의 감지에 대한 내용을 수신하는 객체
- */
-
-const ViewModelListener = class {
-  viewmodelUpdated(updated) {
-    throw '상속 필요';
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelListener);
-
-
-/***/ }),
-/* 41 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
-
-
-
-
-const ViewModelSubject = class extends _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
-  static #subjects = new Set();
-  static #inited = false;
-  #info = new Set();
-  #listeners = new Set();
-
-  static notify() {
-    const f = () => {
-      this.#subjects.forEach((vm) => {
-        if (vm.#info.size) {
-          vm.notify();
-          vm.clear();
-        }
-      });
-
-      if (this.#inited) requestAnimationFrame(f);
-    };
-
-    requestAnimationFrame(f);
-  }
-
-  static watch(vm, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(vm, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
-    this.#subjects.add(vm);
-
-    if (!this.#inited) {
-      this.#inited = true;
-      this.notify();
-    }
-  }
-
-  static unwatch(vm, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(vm, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
-    this.#subjects.delete(vm);
-
-    if (!this.#subjects.size) this.#inited = false;
-  }
-
-  add(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue)) {
-    this.#info.add(v);
-  }
-
-  clear() {
-    this.#info.clear();
-  }
-
-  addListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
-    this.#listeners.add(v);
-    ViewModelSubject.watch(this);
-  }
-
-  removeListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
-    this.#listeners.delete(v);
-    if (!this.#listeners.size) ViewModelSubject.unwatch(this);
-  }
-
-  notify() {
-    this.#listeners.forEach((v) => v.viewmodelUpdated(this.notifyTarget, this.#info));
-  }
-
-  get notifyTarget() {
-    throw 'ViewModel에게 위임해야함';
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelSubject);
-
-
-/***/ }),
-/* 42 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-
-
-
-/**
- * @param none
- *
- * @summary ViewModel을 감지하여 View에 반영함으로써 View에 대한 제어는 Binder에게 위임
- */
-
-const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListener {
-  #items = new Set();
-  #processor = null;
-
-  set processor(binderItem) {
-    this.#processor = binderItem;
-  }
-
-  render(viewmodel, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
-    this.#items.forEach(({ dataTypeValue, elem }) => {
-      const viewModel = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel);
-
-      Object.entries(viewModel).forEach(([category, childViewModel]) => {
-        Object.entries(childViewModel).forEach(([key, val]) => {
-          this.#processor.process(category, viewModel, elem, key, val);
-        });
-      });
-    });
-  }
-
-  add(binderItem, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(binderItem, _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem)) {
-    this.#items.add(binderItem);
-  }
-
-  watch(viewmodel, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
-    viewmodel.addListener(this);
-    this.render(viewmodel);
-  }
-
-  unwatch(viewmodel, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
-    viewmodel.removeListener(this);
-  }
-
-  viewmodelUpdated(target, updated, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
-    const items = {};
-
-    this.#items.forEach(({ dataTypeValue, elem }) => {
-      items[dataTypeValue] = [(0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel), elem];
-    });
-
-    updated.forEach(({ subKey, category, key, val }) => {
-      if (!items[subKey]) return;
-
-      const [dataTypeValue, elem] = items[subKey];
-      const processor = this.#processor;
-
-      if (!elem || !processor) return;
-
-      processor.process(category.split('.').pop(), dataTypeValue, elem, key, val);
-    });
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Binder);
-
-
-/***/ }),
-/* 43 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-
-
-/**
- * 
- * @param {HTMLElement} elem 
- * @param {string} dataTypeValue 
- * 
- * @summary data hook에 해당되는 이름인 viewModel과 해당 HTMLelement를 가지는 데이터만 가지는 객체
- */
-const BinderItem = class {
-  constructor(elem, dataTypeValue, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(dataTypeValue, 'string')) {
-    this.elem = elem;
-    this.dataTypeValue = dataTypeValue;
-    Object.freeze(this);
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BinderItem);
-
-
-/***/ }),
-/* 44 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-
-
-
-/**
- * @param none
- *
- * @summary 구현 클래스 DomScanner의 추상 클래스
- */
-
-const Scanner = class {
-  #visitor;
-
-  constructor(visitor, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(visitor, _core__WEBPACK_IMPORTED_MODULE_1__.Visitor)) {
-    this.#visitor = visitor;
-  }
-
-  visit(f, target) {
-    this.#visitor.visit(f, target);
-  }
-
-  scan(target) {
-    throw `override`;
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Scanner);
-
-
-/***/ }),
-/* 45 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-
-
-/**
- * @param none
- *
- * @summary target이 HTML인지 JSON 객체인지 알 수없기 때문에 만든 추상 클래스
- */
-const Visitor = class {
-  visit(action, target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function')) {
-    throw '상속 필요';
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Visitor);
-
-
-/***/ }),
-/* 46 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-
-
-
-/**
- * @param {function} action - 전달받은 함수
- * @param {HTMLElement} startTarget - 탐색 시작할 Element
- *
- * @summary startTarget 지점으로부터 DOM Tree를 순회하는 객체
- */
-const DomVisitor = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Visitor {
-  visit(action, startTarget, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function'), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(startTarget, HTMLElement)) {
-    const stack = [];
-    let curr = startTarget.firstElementChild;
-
-    if (!curr) return;
-
-    do {
-      action(curr);
-      if (curr.firstElementChild) stack.push(curr.firstElementChild);
-      if (curr.nextElementSibling) stack.push(curr.nextElementSibling);
-    } while ((curr = stack.pop()));
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomVisitor);
-
-
-/***/ }),
-/* 47 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-
-
-
-/**
- * @param {DomVisitor} visitor - DomVisitor 객체
- *
- * @summary 추상 클래스 Scanner의 구현 클래스이며 전달받은 target이 설정한 data-type과 맞는 것들을 바인딩 하는 클래스
- */
-const DomScanner = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Scanner {
-  static #templates = new Map();
-
-  constructor(visitor, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(visitor, _core__WEBPACK_IMPORTED_MODULE_1__.DomVisitor)) {
-    super(visitor);
-  }
-
-  static get(key) {
-    return this.#templates.get(key);
-  }
-
-  scan(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, HTMLElement)) {
-    const binder = new _core__WEBPACK_IMPORTED_MODULE_1__.Binder();
-
-    const checkDataType = (elem) => {
-      const template = elem.getAttribute('data-template');
-
-      if (template) {
-        elem.removeAttribute('data-template');
-        DomScanner.#templates.set(template, elem);
-        elem.parentElement.removeChild(elem);
-      } else {
-        const targetElement = elem.getAttribute('data-viewmodel');
-
-        if (targetElement) {
-          // elem.removeAttribute('data-viewmodel');
-          binder.add(new _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem(elem, targetElement));
-        }
-      }
-    };
-
-    checkDataType(target);
-    this.visit(checkDataType, target);
-
-    return binder;
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomScanner);
-
-
-/***/ }),
-/* 48 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
-
-
-
-const Processor = class {
-  #category;
-  #next = null;
-
-  constructor(category) {
-    this.#category = category;
-    Object.freeze(this);
-  }
-
-  process(
-    category,
-    viewModel,
-    elem,
-    key,
-    val,
-    _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewModel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel),
-    _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement),
-    _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(key, 'string'),
-  ) {
-    if (this.#category === category) this._process(viewModel, elem, key, val);
-    if (this.#next !== null) this.#next.process(category, viewModel, elem, key, val);
-  }
-
-  _process(viewModel, elem, key, val) {
-    throw '상속 X';
-  }
-
-  next(processor) {
-    this.#next = processor;
-
-    return processor;
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Processor);
-
-
-/***/ }),
-/* 49 */,
-/* 50 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ bindProcessor)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
-/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(46);
-/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
-/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(47);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core_ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
+/* harmony import */ var _core_Binder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
+/* harmony import */ var _core_DomVisitor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45);
+/* harmony import */ var _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
+/* harmony import */ var _core_DomScanner_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(46);
 
 
 
@@ -39269,17 +38535,844 @@ function bindProcessor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeC
 
 
 /***/ }),
-/* 51 */
+/* 31 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "drag": () => (/* reexport safe */ _drag_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   "holdDownTask": () => (/* reexport safe */ _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "typeCheck": () => (/* reexport safe */ _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _typeCheck_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
+/* harmony import */ var _holdDownTask_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
+
+
+
+
+
+/***/ }),
+/* 32 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * @param {*} target
+ * @param {*} type
+ * 
+ * @returns typeof target === type ? target : error
+ */
+
+const typeCheck = (target, type) => {
+  if (typeof type == 'string') {
+    if (typeof target != type) throw `타입 에러 ${target} : ${type}`;
+  } else if (!(target instanceof type)) {
+    throw `타입 에러 ${target} : ${type}`;
+  }
+
+  return target;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (typeCheck);
+
+
+/***/ }),
+/* 33 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ drag)
+/* harmony export */ });
+function drag(event, elementToDrag = event.target) {
+  elementToDrag = elementToDrag.closest('[data-task]');
+  elementToDrag.style.position = 'absolute';
+  elementToDrag.style.zIndex = '100';
+
+  const startX = event.clientX;
+  const startY = event.clientY;
+
+  const origX = elementToDrag.offsetLeft;
+  const origY = elementToDrag.offsetTop;
+
+  const deltaX = startX - origX;
+  const deltaY = startY - origY;
+
+  document.addEventListener('mousemove', moveHandler, true);
+  document.addEventListener('mouseup', upHandler, true);
+
+  event.stopPropagation();
+  event.preventDefault();
+
+  function moveHandler(e) {
+    elementToDrag.style.left = e.clientX - deltaX + 'px';
+    elementToDrag.style.top = e.clientY - deltaY + 'px';
+
+    e.stopPropagation();
+  }
+
+  function upHandler(e) {
+    document.removeEventListener('mouseup', upHandler, true);
+    document.removeEventListener('mousemove', moveHandler, true);
+
+    e.stopPropagation();
+  }
+}
+
+
+/***/ }),
+/* 34 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ holdDownTask)
+/* harmony export */ });
+/* harmony import */ var _drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+
+
+function holdDownTask(e) {
+  const PRESS_HOLD_DURATION = 150;
+
+  const $taskTarget = e.target.closest('[data-task]');
+  const $taskTargets = [...document.querySelectorAll('[data-task]')];
+  const $eventFinishButtonTarget = document.querySelector('.finish-btn');
+  const $triggerTargets = [...document.querySelectorAll('.trigger-line')];
+  const pressHoldEvent = new CustomEvent('pressHold', { cancelable: true });
+
+  let timerID, rotateID, setTimeoutID;
+  let counter = 0;
+  let rotateDir = 0;
+  let dragCount = 0;
+
+  $taskTarget.addEventListener('mouseup', notPressingDown);
+  $taskTarget.addEventListener('pressHold', rotateX);
+  $eventFinishButtonTarget.addEventListener('click', stopRotate);
+  requestAnimationFrame(timer);
+
+  function timer() {
+    if (counter < PRESS_HOLD_DURATION) {
+      timerID = requestAnimationFrame(timer);
+      counter++;
+    } else {
+      $taskTarget.dispatchEvent(pressHoldEvent);
+      $eventFinishButtonTarget.style.display = 'flex';
+      $triggerTargets.forEach((elem) => (elem.style.display = 'none'));
+    }
+  }
+
+  function pressingDown(e) {
+    requestAnimationFrame(timer);
+    e.preventDefault();
+  }
+
+  function notPressingDown() {
+    cancelAnimationFrame(timerID);
+
+    $taskTarget.removeEventListener('mousedown', pressingDown);
+    $taskTarget.removeEventListener('mouseup', notPressingDown);
+    $taskTarget.removeEventListener('pressHold', rotateX);
+
+    counter = 0;
+  }
+
+  function rotateX() {
+    $taskTargets.forEach((task) => {
+      !dragCount && task.addEventListener('mousedown', _drag__WEBPACK_IMPORTED_MODULE_0__["default"]);
+      if (rotateDir === 0) {
+        task.style.transform = `rotate(0deg)`;
+      } else if (rotateDir === 1) {
+        task.style.transform = `rotate(-0.7deg)`;
+      } else {
+        rotateDir = 0;
+        task.style.transform = `rotate(0.7deg)`;
+      }
+    });
+
+    dragCount++;
+
+    setTimeoutID = setTimeout(() => {
+      rotateDir += 1;
+      rotateID = requestAnimationFrame(rotateX);
+    }, 120);
+  }
+
+  function stopRotate() {
+    cancelAnimationFrame(rotateID);
+    clearTimeout(setTimeoutID);
+    $taskTarget.removeEventListener('mousedown', _drag__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+    $eventFinishButtonTarget.style.display = 'none';
+    $triggerTargets.forEach((elem) => (elem.style.display = 'block'));
+  }
+}
+
+
+/***/ }),
+/* 35 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+
+
+
+/**
+ * @param {object} data - object type
+ *
+ * @summary  물리적인 View를 대신하여 순수한 메모리 객체로서의 View를 만들어내는 객체 (인메모리 객체)
+ */
+const ViewModel = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelSubject {
+  static KEY = Symbol(); //모든 Key를 Observer에게 보고
+  styles = {};
+  attributes = {};
+  properties = {};
+  classLists = {};
+  events = {};
+  #subKey = '';
+  #parent = null;
+
+  constructor(data, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(data, 'object')) {
+    super();
+    this[ViewModel.KEY] = 'root';
+    Object.entries(data).forEach(([k, v]) => this.define(this, k, v));
+    Object.seal(this);
+  }
+
+  define(target, k, v) {
+    if (v && typeof v == 'object' && !(v instanceof ViewModel)) {
+      if (v instanceof Array) {
+        target[k] = [];
+        target[k][ViewModel.KEY] = `${target[ViewModel.KEY]}.${k}`; // 상대적인 경로 표기. key의 확장
+        v.forEach((v, i) => this.define(target[k], i, v));
+      } else {
+        target[k] = { [ViewModel.KEY]: `${target[ViewModel.KEY]}.${k}` };
+        Object.entries(v).forEach(([ik, iv]) => this.define(target[k], ik, iv));
+      }
+
+      Object.defineProperty(target[k], 'subKey', {
+        get: () => target.subKey,
+      });
+    } else {
+      if (v instanceof ViewModel) v._setParent(this, k);
+
+      Object.defineProperties(target, {
+        [k]: {
+          enumerable: true,
+          get: (_) => v,
+          set: (newV) => {
+            v = newV;
+            this.add(new _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue(target.subKey, target[ViewModel.KEY], k, v));
+          },
+        },
+      });
+    }
+  }
+
+  static get(data) {
+    return new ViewModel(data);
+  }
+
+  get subKey() {
+    return this.#subKey;
+  }
+
+  get parent() {
+    return this.#parent;
+  }
+
+  get notifyTarget() {
+    return this;
+  }
+
+  _setParent(parent, subKey) {
+    this.#parent = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(parent, ViewModel);
+    this.#subKey = subKey;
+    this.addListener(parent);
+  }
+
+  viewmodelUpdated(target, updated) {
+    updated.forEach((v) => this.add(v));
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModel);
+
+
+/***/ }),
+/* 36 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Binder": () => (/* reexport safe */ _Binder_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "BinderItem": () => (/* reexport safe */ _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   "Component": () => (/* reexport safe */ _Component_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "DomScanner": () => (/* reexport safe */ _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   "DomVisitor": () => (/* reexport safe */ _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   "Processor": () => (/* reexport safe */ _Processor_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   "Scanner": () => (/* reexport safe */ _Scanner_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   "ViewModel": () => (/* reexport safe */ _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   "ViewModelListener": () => (/* reexport safe */ _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "ViewModelSubject": () => (/* reexport safe */ _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   "ViewModelValue": () => (/* reexport safe */ _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "Visitor": () => (/* reexport safe */ _Visitor_js__WEBPACK_IMPORTED_MODULE_8__["default"])
+/* harmony export */ });
+/* harmony import */ var _Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+/* harmony import */ var _ViewModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
+/* harmony import */ var _ViewModelValue_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
+/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(39);
+/* harmony import */ var _ViewModelSubject_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
+/* harmony import */ var _Binder_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
+/* harmony import */ var _BinderItem_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(42);
+/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(43);
+/* harmony import */ var _Visitor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(44);
+/* harmony import */ var _DomVisitor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(45);
+/* harmony import */ var _DomScanner_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(46);
+/* harmony import */ var _Processor_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(47);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 37 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Component)
+/* harmony export */ });
+/**
+ * Class Component
+ *
+ * Class Todo와 Class Status와 Class Task에게 상속 해주는 클래스
+ *
+ * state를 통한 데이터관리
+ * 하위 컴포넌트에게 state를 전달해주는 props
+ * 화면을 렌더링해주는 render()
+ * event를 핸들링하는 setEvent()
+ * state 상태를 변경한 후 재렌더링하는 setState()
+ * render 후 추가 동작을 위한 mounted()
+ */
+class Component {
+  $target;
+  props;
+  state;
+  innerType;
+  counter = 0;
+
+  constructor($target, props, innerType) {
+    this.$target = $target;
+    this.props = props;
+    this.innerType = innerType;
+    this.setup();
+    this.render();
+    this.setEvent();
+  }
+
+  setup() {}
+
+  template() {
+    return '';
+  }
+
+  mounted() {}
+
+  render() {
+    this.$target.insertAdjacentHTML('beforeend', this.template());
+    this.mounted();
+  }
+
+  setEvent() {}
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.render();
+  }
+
+  addEvent(eventType, selector, callback) {
+    const children = [...this.$target.querySelectorAll(selector)];
+    const isTarget = (target) => children.includes(target) || target.closest(selector);
+
+    this.$target.addEventListener(eventType, (event) => {
+      if (!isTarget(event.target)) return false;
+      callback(event);
+    });
+  }
+}
+
+
+/***/ }),
+/* 38 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const ViewModelValue = class {
+  constructor(subKey, category, key, val) {
+    Object.assign(this, { subKey, category, key, val });
+    Object.freeze(this);
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelValue);
+
+
+/***/ }),
+/* 39 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * @param none
+ *
+ * @summary 변화의 감지에 대한 내용을 수신하는 객체
+ */
+
+const ViewModelListener = class {
+  viewmodelUpdated(updated) {
+    throw '상속 필요';
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelListener);
+
+
+/***/ }),
+/* 40 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
+
+
+
+
+const ViewModelSubject = class extends _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  static #subjects = new Set();
+  static #inited = false;
+  #info = new Set();
+  #listeners = new Set();
+
+  static notify() {
+    const f = () => {
+      this.#subjects.forEach((vm) => {
+        if (vm.#info.size) {
+          vm.notify();
+          vm.clear();
+        }
+      });
+
+      if (this.#inited) requestAnimationFrame(f);
+    };
+
+    requestAnimationFrame(f);
+  }
+
+  static watch(vm, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(vm, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#subjects.add(vm);
+
+    if (!this.#inited) {
+      this.#inited = true;
+      this.notify();
+    }
+  }
+
+  static unwatch(vm, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(vm, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#subjects.delete(vm);
+
+    if (!this.#subjects.size) this.#inited = false;
+  }
+
+  add(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelValue)) {
+    this.#info.add(v);
+  }
+
+  clear() {
+    this.#info.clear();
+  }
+
+  addListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#listeners.add(v);
+    ViewModelSubject.watch(this);
+  }
+
+  removeListener(v, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(v, _ViewModelListener_js__WEBPACK_IMPORTED_MODULE_2__["default"])) {
+    this.#listeners.delete(v);
+    if (!this.#listeners.size) ViewModelSubject.unwatch(this);
+  }
+
+  notify() {
+    this.#listeners.forEach((v) => v.viewmodelUpdated(this.notifyTarget, this.#info));
+  }
+
+  get notifyTarget() {
+    throw 'ViewModel에게 위임해야함';
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ViewModelSubject);
+
+
+/***/ }),
+/* 41 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+
+
+
+/**
+ * @param none
+ *
+ * @summary ViewModel을 감지하여 View에 반영함으로써 View에 대한 제어는 Binder에게 위임
+ */
+
+const Binder = class extends _core__WEBPACK_IMPORTED_MODULE_1__.ViewModelListener {
+  #items = new Set();
+  #processor = null;
+
+  set processor(binderItem) {
+    this.#processor = binderItem;
+  }
+
+  render(viewmodel, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
+    this.#items.forEach(({ dataTypeValue, elem }) => {
+      const viewModel = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel);
+
+      Object.entries(viewModel).forEach(([category, childViewModel]) => {
+        Object.entries(childViewModel).forEach(([key, val]) => {
+          this.#processor.process(category, viewModel, elem, key, val);
+        });
+      });
+    });
+  }
+
+  add(binderItem, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(binderItem, _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem)) {
+    this.#items.add(binderItem);
+  }
+
+  watch(viewmodel, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
+    viewmodel.addListener(this);
+    this.render(viewmodel);
+  }
+
+  unwatch(viewmodel, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewmodel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
+    viewmodel.removeListener(this);
+  }
+
+  viewmodelUpdated(target, updated, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel)) {
+    const items = {};
+
+    this.#items.forEach(({ dataTypeValue, elem }) => {
+      items[dataTypeValue] = [(0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target[dataTypeValue], _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel), elem];
+    });
+
+    updated.forEach(({ subKey, category, key, val }) => {
+      if (!items[subKey]) return;
+
+      const [dataTypeValue, elem] = items[subKey];
+      const processor = this.#processor;
+
+      if (!elem || !processor) return;
+
+      processor.process(category.split('.').pop(), dataTypeValue, elem, key, val);
+    });
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Binder);
+
+
+/***/ }),
+/* 42 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+
+
+/**
+ * 
+ * @param {HTMLElement} elem 
+ * @param {string} dataTypeValue 
+ * 
+ * @summary data hook에 해당되는 이름인 viewModel과 해당 HTMLelement를 가지는 데이터만 가지는 객체
+ */
+const BinderItem = class {
+  constructor(elem, dataTypeValue, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(dataTypeValue, 'string')) {
+    this.elem = elem;
+    this.dataTypeValue = dataTypeValue;
+    Object.freeze(this);
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BinderItem);
+
+
+/***/ }),
+/* 43 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+
+
+
+/**
+ * @param none
+ *
+ * @summary 구현 클래스 DomScanner의 추상 클래스
+ */
+
+const Scanner = class {
+  #visitor;
+
+  constructor(visitor, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(visitor, _core__WEBPACK_IMPORTED_MODULE_1__.Visitor)) {
+    this.#visitor = visitor;
+  }
+
+  visit(f, target) {
+    this.#visitor.visit(f, target);
+  }
+
+  scan(target) {
+    throw `override`;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Scanner);
+
+
+/***/ }),
+/* 44 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+
+
+/**
+ * @param none
+ *
+ * @summary target이 HTML인지 JSON 객체인지 알 수없기 때문에 만든 추상 클래스
+ */
+const Visitor = class {
+  visit(action, target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function')) {
+    throw '상속 필요';
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Visitor);
+
+
+/***/ }),
+/* 45 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+
+
+
+/**
+ * @param {function} action - 전달받은 함수
+ * @param {HTMLElement} startTarget - 탐색 시작할 Element
+ *
+ * @summary startTarget 지점으로부터 DOM Tree를 순회하는 객체
+ */
+const DomVisitor = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Visitor {
+  visit(action, startTarget, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(action, 'function'), _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(startTarget, HTMLElement)) {
+    const stack = [];
+    let curr = startTarget.firstElementChild;
+
+    if (!curr) return;
+
+    do {
+      action(curr);
+      if (curr.firstElementChild) stack.push(curr.firstElementChild);
+      if (curr.nextElementSibling) stack.push(curr.nextElementSibling);
+    } while ((curr = stack.pop()));
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomVisitor);
+
+
+/***/ }),
+/* 46 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+
+
+
+/**
+ * @param {DomVisitor} visitor - DomVisitor 객체
+ *
+ * @summary 추상 클래스 Scanner의 구현 클래스이며 전달받은 target이 설정한 data-type과 맞는 것들을 바인딩 하는 클래스
+ */
+const DomScanner = class extends _core__WEBPACK_IMPORTED_MODULE_1__.Scanner {
+  static #templates = new Map();
+
+  constructor(visitor, _ = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(visitor, _core__WEBPACK_IMPORTED_MODULE_1__.DomVisitor)) {
+    super(visitor);
+  }
+
+  static get(key) {
+    return this.#templates.get(key);
+  }
+
+  scan(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(target, HTMLElement)) {
+    const binder = new _core__WEBPACK_IMPORTED_MODULE_1__.Binder();
+
+    const checkDataType = (elem) => {
+      const template = elem.getAttribute('data-template');
+
+      if (template) {
+        elem.removeAttribute('data-template');
+        DomScanner.#templates.set(template, elem);
+        elem.parentElement.removeChild(elem);
+      } else {
+        const targetElement = elem.getAttribute('data-viewmodel');
+
+        if (targetElement) {
+          // elem.removeAttribute('data-viewmodel');
+          binder.add(new _core__WEBPACK_IMPORTED_MODULE_1__.BinderItem(elem, targetElement));
+        }
+      }
+    };
+
+    checkDataType(target);
+    this.visit(checkDataType, target);
+
+    return binder;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomScanner);
+
+
+/***/ }),
+/* 47 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+
+
+
+const Processor = class {
+  #category;
+  #next = null;
+
+  constructor(category) {
+    this.#category = category;
+    Object.freeze(this);
+  }
+
+  process(
+    category,
+    viewModel,
+    elem,
+    key,
+    val,
+    _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(viewModel, _core__WEBPACK_IMPORTED_MODULE_1__.ViewModel),
+    _1 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(elem, HTMLElement),
+    _2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeCheck)(key, 'string'),
+  ) {
+    if (this.#category === category) this._process(viewModel, elem, key, val);
+    if (this.#next !== null) this.#next.process(category, viewModel, elem, key, val);
+  }
+
+  _process(viewModel, elem, key, val) {
+    throw '상속 X';
+  }
+
+  next(processor) {
+    this.#next = processor;
+
+    return processor;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Processor);
+
+
+/***/ }),
+/* 48 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ setInlineProperties)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
-/* harmony import */ var _clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
-/* harmony import */ var _clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(52);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var _clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(49);
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+/* harmony import */ var _clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
+
 
 
 
@@ -39288,7 +39381,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
  * @param { Array } taskList - Model에서 불러온 Task 정보를 가진 배열
- * 
+ *
  * @returns rootViewModel - Model에서 불러온 데이터를 view에 그리는 객체
  */
 
@@ -39306,10 +39399,10 @@ function setInlineProperties(statusList, taskList, _0 = (0,_utils__WEBPACK_IMPOR
     taskAuthor: taskAuthor(),
 
     taskButton: buttonActive(),
-    editTaskButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    editTaskButton: editTaskButton(),
     deleteTaskButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
-    submitButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
-    cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickEditTaskButton)(),
+    submitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickSubmitButton)(),
+    cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickCancelButton)(),
   });
 
   return rootViewModel;
@@ -39319,12 +39412,12 @@ function statusTemplate(statusList, taskList) {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     template: {
       name: 'status',
-      data: Object.values(statusList).map((statusName) =>
+      data: statusList.map((statusName) =>
         _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
           statusTitle: statusTitle(statusName),
-          statusCount: statusCount(statusName, taskList),
+          statusCount: statusCount(statusName, taskList[statusName]),
           addTask: (0,_clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__.addTask)(statusName),
-          taskTemplate: taskTemplate(statusName, taskList),
+          taskTemplate: taskTemplate(statusName, taskList[statusName]),
           // taskTemplate: taskTemplate.bind({ ...bindName, taskList: taskList })(),
         }),
       ),
@@ -39339,24 +39432,22 @@ function taskTemplate(statusName, taskList) {
     attributes: { 'data-statusName': statusName },
     template: {
       name: 'task',
-      data: Object.entries(taskList)
-        .filter(([key, val]) => key === statusName)[0][1]
-        .map((taskData) => {
-          const { active, title, content } = taskData;
+      data: taskList.map((taskData) => {
+        const { active, title, content } = taskData;
 
-          return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
-            taskCard: taskCard(active),
-            taskTitle: taskInputData(active, title),
-            taskContent: taskInputData(active, content),
-            taskAuthor: taskAuthor(active),
+        return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+          taskCard: taskCard(active),
+          taskTitle: taskInputData(active, title),
+          taskContent: taskInputData(active, content),
+          taskAuthor: taskAuthor(active),
 
-            taskButton: buttonActive(active),
-            editTaskButton: buttonActive(active),
-            deleteTaskButton: buttonActive(active),
-            submitButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
-            cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickEditTaskButton)(),
-          });
-        }),
+          taskButton: buttonActive(active),
+          editTaskButton: editTaskButton(active),
+          deleteTaskButton: buttonActive(active),
+          submitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickSubmitButton)(),
+          cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickCancelButton)(),
+        });
+      }),
     },
   });
 }
@@ -39371,7 +39462,7 @@ function statusTitle(statusName) {
 
 function statusCount(statusName, taskList) {
   if (!statusName) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
-  const count = Object.entries(taskList).filter(([key, val]) => key === statusName)[0][1].length;
+  const count = taskList.length;
 
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     properties: { innerHTML: count },
@@ -39379,7 +39470,7 @@ function statusCount(statusName, taskList) {
 }
 
 function taskCard(isActive) {
-  if (!isActive) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+  if (!isActive) return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ classLists: { toggle: 'test' } });
 
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     classLists: { toggle: 'active-bg' },
@@ -39388,12 +39479,13 @@ function taskCard(isActive) {
 
 function taskInputData(isActive, data) {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
-    properties: { innerHTML: data, disabled: !isActive },
-    events: {
-      change: (viewModel) => (e) => {
-        viewModel.properties.innerHTML = e.target.value;
-      },
-    },
+    properties: { value: data, innerHTML: data, disabled: !isActive },
+    // attributes: { value: data },
+    // events: {
+    //   change: (viewModel) => (e) => {
+    //     viewModel.properties.innerHTML = e.target.value;
+    //   },
+    // },
   });
 }
 
@@ -39413,45 +39505,23 @@ function buttonActive(isActive) {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ classLists: { toggle: 'test' } });
 }
 
+function editTaskButton(isActive) {
+  const { events } = { ...(0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickEditTaskButton)() };
+  const viewModel = _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ ...buttonActive(isActive), events });
 
-/***/ }),
-/* 52 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "onClickEditTaskButton": () => (/* binding */ onClickEditTaskButton)
-/* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
-
-
-function onClickEditTaskButton() {
-  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
-    events: {
-      click: (viewModel) => (e) => {
-        console.log(viewModel);
-        viewModel.parent.taskCard.classLists.toggle = 'active-bg';
-        viewModel.parent.taskTitle.properties.disabled = true;
-        viewModel.parent.taskContent.properties.disabled = true;
-        viewModel.parent.taskAuthor.properties.innerHTML = 'author by JangOh';
-        viewModel.parent.taskButton.classLists.toggle = 'active';
-        viewModel.parent.editTaskButton.classLists.toggle = 'active';
-        viewModel.parent.deleteTaskButton.classLists.toggle = 'active';
-      },
-    },
-  });
+  return viewModel;
 }
 
 
 /***/ }),
-/* 53 */
+/* 49 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addTask": () => (/* binding */ addTask)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 
 
 function addTask() {
@@ -39460,80 +39530,103 @@ function addTask() {
 
 
 /***/ }),
-/* 54 */
+/* 50 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "onClickCancelButton": () => (/* binding */ onClickCancelButton),
+/* harmony export */   "onClickDeleteTaskButton": () => (/* binding */ onClickDeleteTaskButton),
+/* harmony export */   "onClickEditTaskButton": () => (/* binding */ onClickEditTaskButton),
+/* harmony export */   "onClickSubmitButton": () => (/* binding */ onClickSubmitButton)
 /* harmony export */ });
-const todoView = () => {
-  const $todoTarget = document.querySelector('.todo-main');
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
 
-  const template = `
-              <article class="todo-article" data-template="status">
-                <section class="todo-header">
-                  <div class="todo-title">
-                    <h3 data-viewmodel="statusTitle"></h3>
-                    <div data-viewmodel="statusCount">count</div>
-                  </div>
-                  <div class="todo-svg">
-                    <span id="add-task" data-viewmodel="addTask">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
-                        <path
-                          d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                    <span id="delete-status">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                        <path
-                          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                          fill="#BDBDBD"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </section>
-                <section class="todo-task-list" data-viewmodel="taskTemplate" data-statusName>
-                  <section class="todo-task" data-template="task" data-viewmodel="taskCard">
-                    <form data-type="input-task">
-                      <div class="task-title">
-                        <textarea class="task-title-input" placeholder="제목을 입력하세요" name="title" rows="1" required autofocus data-viewmodel="taskTitle"></textarea>
-                        <span class="edit-button active" data-viewmodel="editTaskButton" >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
-                              <path
-                                d="M13.7619 2.8366L11.2012 0.262865C11.032 0.0945094 10.803 0 10.5643 0C10.3256 0 10.0967 0.0945094 9.92745 0.262865L0.849572 9.32765L0.0207413 12.9047C-0.00785061 13.0355 -0.00687046 13.171 0.02361 13.3013C0.0540905 13.4316 0.113301 13.5535 0.196917 13.658C0.280533 13.7626 0.386441 13.8471 0.506905 13.9054C0.62737 13.9638 0.759346 13.9945 0.893194 13.9953C0.955562 14.0016 1.0184 14.0016 1.08077 13.9953L4.69709 13.1664L13.7619 4.11038C13.9302 3.94117 14.0247 3.71219 14.0247 3.47349C14.0247 3.2348 13.9302 3.00581 13.7619 2.8366ZM4.26086 12.3812L0.871383 13.0923L1.6435 9.76824L8.43555 3.00237L11.0529 5.61973L4.26086 12.3812ZM11.6375 4.9872L9.02009 2.36984L10.5382 0.860495L13.1119 3.47785L11.6375 4.9872Z"
-                                fill="#010101"
-                              />
-                          </svg>
-                        </span>
-                        <span class="delete-todo active" data-viewmodel="deleteTaskButton">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none">
-                            <path
-                              d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                              fill="#BDBDBD"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="taskContent"></textarea>
-                      <span class="task-author" data-viewmodel="taskAuthor"></span>
-                      <div class="button" data-viewmodel="taskButton">
-                        <button class="cancel-button" type="button" data-viewmodel="cancelButton">취소</button>
-                        <button class="submit-button" type="submit" data-viewmodel="submitButton">등록</button>
-                      </div>
-                    </form>
-                  </section>
-                </section>
-              </article>
-            `;
 
-  $todoTarget.innerHTML = template;
-};
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (todoView);
+
+
+
+function onClickEditTaskButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        const viewModelParent = viewModel.parent;
+
+        toggleActive(viewModelParent);
+
+        viewModelParent.taskAuthor.properties.innerHTML = '';
+        viewModelParent.taskTitle.properties.disabled = false;
+        viewModelParent.taskContent.properties.disabled = false;
+      },
+    },
+  });
+}
+
+function onClickDeleteTaskButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {},
+    },
+  });
+}
+
+function onClickCancelButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        const viewModelParent = viewModel.parent;
+        const taskTitle = viewModelParent.taskTitle.properties.value;
+        const taskContent = viewModelParent.taskContent.properties.value;
+
+        toggleActive(viewModelParent);
+
+        viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
+        viewModelParent.taskTitle.properties.innerHTML = taskTitle;
+        viewModelParent.taskContent.properties.innerHTML = taskContent;
+        viewModelParent.taskTitle.properties.value = taskTitle;
+        viewModelParent.taskContent.properties.value = taskContent;
+        viewModelParent.taskTitle.properties.disabled = true;
+        viewModelParent.taskContent.properties.disabled = true;
+      },
+    },
+  });
+}
+
+function onClickSubmitButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        e.preventDefault();
+
+        const viewModelParent = viewModel.parent;
+        const taskTitle = viewModelParent.taskTitle.properties.value;
+        const taskContent = viewModelParent.taskContent.properties.value;
+
+        toggleActive(viewModelParent);
+        _models__WEBPACK_IMPORTED_MODULE_1__.TaskModel.modifyTaskCard();
+
+        viewModelParent.taskAuthor.properties.innerHTML = 'author by JangOh';
+        // viewModelParent.taskTitle.properties.innerHTML = taskTitle;
+        // viewModelParent.taskContent.properties.innerHTML = taskContent;
+        // viewModelParent.taskTitle.properties.value = taskTitle;
+        // viewModelParent.taskContent.properties.value = taskContent;
+        viewModelParent.taskTitle.properties.disabled = true;
+        viewModelParent.taskContent.properties.disabled = true;
+      },
+    },
+  });
+}
+
+function toggleActive(viewModelParent) {
+  viewModelParent.taskCard.classLists.toggle = 'active-bg';
+  viewModelParent.taskButton.classLists.toggle = 'active';
+  viewModelParent.editTaskButton.classLists.toggle = 'active';
+  viewModelParent.deleteTaskButton.classLists.toggle = 'active';
+}
 
 
 /***/ })
@@ -39611,8 +39704,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _clients__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _clients__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
 
 
 
@@ -39622,15 +39715,12 @@ async function init() {
   const statusList = await new _models__WEBPACK_IMPORTED_MODULE_2__.StatusModel().statusData;
   const taskList = await new _models__WEBPACK_IMPORTED_MODULE_2__.TaskModel().taskData;
 
-  // const statusList = ['해야할일', '완료'];
-  // const taskList = ['1', '2'];
-
   (0,_views__WEBPACK_IMPORTED_MODULE_1__.todoView)();
+
   const binder = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.bindProcessor)('.todo-main');
   const rootViewModel = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.setInlineProperties)(statusList, taskList);
 
   binder.watch(rootViewModel);
-  // new TodoViewModel('.todo-main', statusList, taskList);
 }
 
 init();

@@ -3,14 +3,14 @@ export default function drag(event, elementToDrag = event.target) {
   elementToDrag.style.position = 'absolute';
   elementToDrag.style.zIndex = '100';
 
-  let startX = event.clientX;
-  let startY = event.clientY;
+  const startX = event.clientX;
+  const startY = event.clientY;
 
-  let origX = elementToDrag.offsetLeft;
-  let origY = elementToDrag.offsetTop;
+  const origX = elementToDrag.offsetLeft;
+  const origY = elementToDrag.offsetTop;
 
-  let deltaX = startX - origX;
-  let deltaY = startY - origY;
+  const deltaX = startX - origX;
+  const deltaY = startY - origY;
 
   document.addEventListener('mousemove', moveHandler, true);
   document.addEventListener('mouseup', upHandler, true);

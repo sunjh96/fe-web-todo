@@ -44,6 +44,7 @@ export default function holdDownTask(e) {
 
     counter = 0;
   }
+
   function rotateX() {
     $taskTargets.forEach((task) => {
       !dragCount && task.addEventListener('mousedown', drag);
@@ -56,6 +57,7 @@ export default function holdDownTask(e) {
         task.style.transform = `rotate(0.7deg)`;
       }
     });
+
     dragCount++;
 
     setTimeoutID = setTimeout(() => {

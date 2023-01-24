@@ -1,4 +1,4 @@
-import { getTaskList } from '@/api/task';
+import { getTaskList, updateTaskCard } from '@/api/task';
 
 /**
  * @constructor
@@ -12,7 +12,7 @@ const TaskModel = class {
     this.#taskData;
   }
 
-  async setTaskData() {
+  async getTaskData() {
     this.#taskData = await getTaskList();
 
     return this.#taskData;
@@ -21,16 +21,19 @@ const TaskModel = class {
   get taskData() {
     return (async () => {
       try {
-        return await this.setTaskData();
+        return await this.getTaskData();
       } catch (e) {
         throw `데이터 fetch 에러 => ${e} `;
       }
     })();
   }
 
-  addTask() {}
-  deleteTask() {}
-  modifyTaskName() {}
+  addTaskCard() {}
+  deleteTaskCard() {}
+
+  static modifyTaskCard(taskTitle, taskContent) {
+    updateTaskCard();
+  }
 };
 
 export default TaskModel;

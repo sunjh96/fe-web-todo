@@ -1,12 +1,13 @@
 import { ViewModel } from '@/core';
 import { typeCheck } from '@/utils';
 import { addTask } from '@/clients/statusEvent';
-import { onClickEditTaskButton } from '@/clients/taskEvent';
+import { TaskModel } from '@/models';
+import { onClickEditTaskButton, onClickCancelButton, onClickSubmitButton } from '@/clients/taskEvent';
 
 /**
  * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
  * @param { Array } taskList - Model에서 불러온 Task 정보를 가진 배열
- * 
+ *
  * @returns rootViewModel - Model에서 불러온 데이터를 view에 그리는 객체
  */
 
@@ -24,10 +25,10 @@ export default function setInlineProperties(statusList, taskList, _0 = typeCheck
     taskAuthor: taskAuthor(),
 
     taskButton: buttonActive(),
-    editTaskButton: ViewModel.get({}),
+    editTaskButton: editTaskButton(),
     deleteTaskButton: ViewModel.get({}),
-    submitButton: ViewModel.get({}),
-    cancelButton: onClickEditTaskButton(),
+    submitButton: onClickSubmitButton(),
+    cancelButton: onClickCancelButton(),
   });
 
   return rootViewModel;
@@ -37,12 +38,12 @@ function statusTemplate(statusList, taskList) {
   return ViewModel.get({
     template: {
       name: 'status',
-      data: Object.values(statusList).map((statusName) =>
+      data: statusList.map((statusName) =>
         ViewModel.get({
           statusTitle: statusTitle(statusName),
-          statusCount: statusCount(statusName, taskList),
+          statusCount: statusCount(statusName, taskList[statusName]),
           addTask: addTask(statusName),
-          taskTemplate: taskTemplate(statusName, taskList),
+          taskTemplate: taskTemplate(statusName, taskList[statusName]),
           // taskTemplate: taskTemplate.bind({ ...bindName, taskList: taskList })(),
         }),
       ),
@@ -57,24 +58,22 @@ function taskTemplate(statusName, taskList) {
     attributes: { 'data-statusName': statusName },
     template: {
       name: 'task',
-      data: Object.entries(taskList)
-        .filter(([key, val]) => key === statusName)[0][1]
-        .map((taskData) => {
-          const { active, title, content } = taskData;
+      data: taskList.map((taskData) => {
+        const { active, title, content } = taskData;
 
-          return ViewModel.get({
-            taskCard: taskCard(active),
-            taskTitle: taskInputData(active, title),
-            taskContent: taskInputData(active, content),
-            taskAuthor: taskAuthor(active),
+        return ViewModel.get({
+          taskCard: taskCard(active),
+          taskTitle: taskInputData(active, title),
+          taskContent: taskInputData(active, content),
+          taskAuthor: taskAuthor(active),
 
-            taskButton: buttonActive(active),
-            editTaskButton: buttonActive(active),
-            deleteTaskButton: buttonActive(active),
-            submitButton: ViewModel.get({}),
-            cancelButton: onClickEditTaskButton(),
-          });
-        }),
+          taskButton: buttonActive(active),
+          editTaskButton: editTaskButton(active),
+          deleteTaskButton: buttonActive(active),
+          submitButton: onClickSubmitButton(),
+          cancelButton: onClickCancelButton(),
+        });
+      }),
     },
   });
 }
@@ -89,7 +88,7 @@ function statusTitle(statusName) {
 
 function statusCount(statusName, taskList) {
   if (!statusName) return ViewModel.get({});
-  const count = Object.entries(taskList).filter(([key, val]) => key === statusName)[0][1].length;
+  const count = taskList.length;
 
   return ViewModel.get({
     properties: { innerHTML: count },
@@ -97,7 +96,7 @@ function statusCount(statusName, taskList) {
 }
 
 function taskCard(isActive) {
-  if (!isActive) return ViewModel.get({});
+  if (!isActive) return ViewModel.get({ classLists: { toggle: 'test' } });
 
   return ViewModel.get({
     classLists: { toggle: 'active-bg' },
@@ -106,12 +105,13 @@ function taskCard(isActive) {
 
 function taskInputData(isActive, data) {
   return ViewModel.get({
-    properties: { innerHTML: data, disabled: !isActive },
-    events: {
-      change: (viewModel) => (e) => {
-        viewModel.properties.innerHTML = e.target.value;
-      },
-    },
+    properties: { value: data, innerHTML: data, disabled: !isActive },
+    // attributes: { value: data },
+    // events: {
+    //   change: (viewModel) => (e) => {
+    //     viewModel.properties.innerHTML = e.target.value;
+    //   },
+    // },
   });
 }
 
@@ -129,4 +129,11 @@ function buttonActive(isActive) {
   }
 
   return ViewModel.get({ classLists: { toggle: 'test' } });
+}
+
+function editTaskButton(isActive) {
+  const { events } = { ...onClickEditTaskButton() };
+  const viewModel = ViewModel.get({ ...buttonActive(isActive), events });
+
+  return viewModel;
 }
