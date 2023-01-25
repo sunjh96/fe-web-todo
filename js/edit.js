@@ -1,57 +1,63 @@
-import { listData } from "./data/listData.js";
-import { findColumnName } from "./ColumnIndex.js";
 import { addLogItem } from "./logItem.js";
+import { patchListData } from "./dataUtil.js";
 
-const logConditions = ["해야할 일", "하고 있는 일", "완료한 일"];
+let cardWrapper = null;
+let authorBox = null;
+let contentBox = null;
 
 const openItemEditForm = (e) => {
   if (e.target.className.includes("item-edit-btn")) {
-    const parentNode = e.target.parentNode.parentNode.parentNode;
-    parentNode.childNodes[1].classList.add("hidden");
-    parentNode.classList.add("edit-focus");
-    parentNode.childNodes[3].classList.remove("hidden");
+    cardWrapper = e.target.closest("li");
+    cardWrapper.classList.add("edit-focus");
+
+    contentBox = cardWrapper.childNodes[1];
+    contentBox.classList.add("hidden");
+
+    authorBox = cardWrapper.childNodes[3];
+    authorBox.classList.remove("hidden");
   }
 };
 
-const closeItemEditForm = (parentNode) => {
-  parentNode.childNodes[1].classList.remove("hidden");
-  parentNode.classList.remove("edit-focus");
-  parentNode.childNodes[3].classList.add("hidden");
+const closeItemEditForm = () => {
+  contentBox.classList.remove("hidden");
+  cardWrapper.classList.remove("edit-focus");
+  authorBox.classList.add("hidden");
 };
 
 const cancelItemEditForm = (e) => {
   if (e.target.className === "item-edit-cancel-btn") {
-    const parentNode = e.target.parentNode.parentNode.parentNode;
-    closeItemEditForm(parentNode);
+    closeItemEditForm();
   }
 };
 
-const editItemEditForm = (e) => {
+const editItemEditForm = async (e) => {
   if (e.target.className === "item-edit-active-btn") {
-    const targetNode = e.target.parentNode.parentNode;
-    const parentNode = targetNode.parentNode;
-    const ColumnName = findColumnName(parentNode.id);
-    const revisedTitle = targetNode.querySelector(
+    const editContent = e.target.parentNode.parentNode;
+    const revisedTitle = editContent.querySelector(
       ".item-edit-title-input"
     ).value;
-    const revisedDetail = targetNode.querySelector(
+    const revisedDetail = editContent.querySelector(
       ".item-edit-detail-input"
     ).value;
+
+    const parentNode = editContent.parentNode;
+    const ColumnName = editContent.closest("ul").id;
+
     const targetId = parentNode.getAttribute("id");
-    listData.filter((item) => {
-      item["id"] == targetId
-        ? (item["title"] = revisedTitle) && (item["details"] = revisedDetail)
-        : "";
-    });
+
+    const updateDataObj = { title: revisedTitle, details: revisedDetail };
+    patchListData(targetId, updateDataObj);
+
     parentNode.querySelector(".item-title").innerHTML = revisedTitle;
     parentNode.querySelector(".item-detail").innerHTML = revisedDetail;
+
     addLogItem({
       action: "Update",
       title: revisedTitle,
-      to: logConditions[ColumnName],
+      to: ColumnName,
       from: "",
     });
-    closeItemEditForm(parentNode);
+    closeItemEditForm();
   }
 };
 

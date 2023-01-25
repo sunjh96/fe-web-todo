@@ -2,6 +2,7 @@ body {
   background-color: #e5e5e5;
   margin-top: 0;
   padding-left: 33px;
+  user-select: none;
 }
 .container {
   display: flex;
@@ -12,6 +13,7 @@ body {
   width: 270px;
   margin-right: 10px;
 }
+
 .listTitleBox {
   display: flex;
   align-items: center;
@@ -62,12 +64,16 @@ body {
 .list-wrapper {
   height: 68vh;
   overflow-y: scroll;
+  justify-items: auto;
+
+  padding: 5px;
 }
 .list-wrapper::-webkit-scrollbar {
   visibility: hidden;
 }
-ul {
+.item-list {
   padding: 0;
+  height: 100%;
 }
 input {
   width: 85%;
@@ -94,4 +100,20 @@ textarea {
   width: fit-content;
   height: fit-content;
   cursor: pointer;
+}
+.hover {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+
+  transform: rotate(-5deg);
+}
+li.start {
+  height: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+}
+.temp {
+  opacity: 0.5;
 }

@@ -1,5 +1,5 @@
-import { logData } from "./data/logData.js";
 import { makeLogMsg } from "./template/logItem.js";
+import { getLogData } from "./dataUtil.js";
 
 const menuLogWrapper = document.querySelector(".menu-log-wrapper");
 
@@ -14,14 +14,15 @@ const closeMenu = (e) => {
     document.querySelector(".menu-wrapper").classList.remove("sidebar-show");
 };
 //로그보여주기
-const ShowLogs = () => {
-  logData.map((data) => {
+const ShowLogs = async () => {
+  const logData = await getLogData();
+  logData.map((item) => {
     const newLogItem = makeLogMsg({
-      action: data.Action,
-      title: data.Title,
-      from: data.From,
-      to: data.To,
-      time: data.time,
+      action: item.action,
+      title: item.title,
+      from: item.from,
+      to: item.to,
+      time: item.time,
     });
     menuLogWrapper.insertAdjacentHTML("afterbegin", newLogItem);
   });

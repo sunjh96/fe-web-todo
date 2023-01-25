@@ -14,6 +14,7 @@
   height: 138px;
   z-index: 100;
 }
+
 .modal-cancel-btn,
 .modal-column-cancel-btn {
   background: #e0e0e0;
@@ -46,7 +47,8 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.modal {
+.modal,
+.modal-column {
   position: fixed;
   top: 0;
   left: 0;
@@ -67,5 +69,4 @@
   width: 100%;
   border: none;
   height: 30px;
-  background-color: red;
 }

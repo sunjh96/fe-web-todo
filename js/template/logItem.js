@@ -1,4 +1,4 @@
-const makeLogMsg = ({ action, title, from, to, time }) => {
+const makeLogMsg = ({ action, title, from, to, id, time }) => {
   if (action == "Add") {
     const msg = `<strong>${to}</strong>에 <strong>${title}</strong>를 <strong>등록</strong>하였습니다.`;
     return makeLogItem(msg, time);
@@ -17,7 +17,7 @@ const makeLogMsg = ({ action, title, from, to, time }) => {
   }
 };
 
-const makeLogItem = (msg, time) => {
+const makeLogItem = (msg, id) => {
   return `
     <li class="menu-log-box">
       <div class="log-profile">
@@ -26,7 +26,7 @@ const makeLogItem = (msg, time) => {
       <div class="log-content-box">
         <div class="log-profile-name">@sam</div>
         <div class="log-content-text">${msg} </div>
-        <div class="log-content-time">${time}</div>
+        <div class="log-content-time">${id}</div>
       </div>
     </li>
     `;
