@@ -1,6 +1,6 @@
 const makeColumn = ({ title = "제목" }) => {
   return `
-  <div class="doingBox">
+  <div class='doingBox">
         <div class="listTitleBox">
           <h3>${title}</h3>
           <div class="count-box">

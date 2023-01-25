@@ -1,5 +1,6 @@
 import { patchListData, getListData } from "./dataUtil.js";
 import { addLogItem } from "./logItem.js";
+import { arrCounter } from "./util/arrCounter.js";
 
 let currentItem = null;
 let currentColumnArr = null;
@@ -20,7 +21,7 @@ function mousedown(e) {
     return;
   }
   currentItem = e.target.closest("li");
-  if (currentItem.classList.contains("edit-focus")) {
+  if (currentItem === null || currentItem.classList.contains("edit-focus")) {
     return;
   }
   hoverItem = currentItem.cloneNode(true);
@@ -49,7 +50,7 @@ function mousemove(e) {
     dropColumnArr = [...dropTargetColumn.children];
     nearItem = e.target.closest("li");
     nearItemIndex = dropColumnArr.indexOf(nearItem);
-
+    console.log(dropColumnArr.length);
     if (nearItemIndex === 0) {
       nearItem.before(currentItem);
     } else {
@@ -65,6 +66,8 @@ function mouseup(e) {
     readyForPatching();
     dropTargetColumn.appendChild(currentItem);
     currentItem.classList.remove("move");
+    arrCounter(currentColumnName);
+    arrCounter(dropTargetColumn.getAttribute("id"));
     hoverItem.remove();
     currentItem = null;
     hoverItem = null;

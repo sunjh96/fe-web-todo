@@ -21,10 +21,10 @@ const makeListCard = ({ title, details, id }) => {
       <div class="item-edit-content-wrapper hidden">
         <div class="item-content-box">
           <div class="item-title-box">
-            <input class="item-edit-title-input" placeholder="${title}">
+            <input class="item-edit-title-input" placeholder="${title}" value="${title}">
           </div>
           <div class="item-detail-box">
-            <textarea class="item-edit-detail-input" placeholder="${details}"></textarea>
+            <textarea class="item-edit-detail-input" placeholder="${details}" >${details}</textarea>
           </div>
         </div>
         <div class="item-editBtn-wrapper">

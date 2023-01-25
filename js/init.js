@@ -1,4 +1,4 @@
-import { arrCount } from "./util/arrCount.js";
+import { arrCounter } from "./util/arrCounter.js";
 import { openMenu, closeMenu, ShowLogs } from "./menu.js";
 import {
   openItemEditForm,
@@ -10,6 +10,7 @@ import { showItems } from "./show.js";
 import { openListAddForm, closeListAddForm } from "./view/itemForm.js";
 import { openAddColumn, closeAddColumn, addColumn } from "./column.js";
 import { mousedown, mouseup, mousemove } from "./dragEvent.js";
+import { addNewCardItem } from "./register.js";
 
 const container = document.querySelector(".container");
 const header = document.querySelector(".header-wrapper");
@@ -50,10 +51,11 @@ const clickDocument = () => {
 const init = () => {
   showItems();
   clickDocument();
-  arrCount(0);
-  arrCount(1);
-  arrCount(2);
+  arrCounter("해야할 일");
+  arrCounter("하고 있는 일");
+  arrCounter("완료한 일");
   ShowLogs();
+  addNewCardItem();
 };
 
 const checkInput = () => {

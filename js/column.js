@@ -1,5 +1,7 @@
 import { makeColumn } from "./template/columnItem.js";
 
+const columnNames = ["해야할 일", "하고 있는 일", "완료한 일"];
+
 const openAddColumn = (e) => {
   if (e.target.className.includes("column-add-btn")) {
     document.querySelector(".modal-column").classList.remove("hidden");
@@ -27,4 +29,4 @@ const addColumn = (e) => {
   }
 };
 
-export { openAddColumn, closeAddColumn, addColumn };
+export { openAddColumn, closeAddColumn, addColumn, columnNames };
