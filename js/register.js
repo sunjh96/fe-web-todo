@@ -20,9 +20,9 @@ const makeId = () => {
 };
 
 const makeItemIndex = async (status = "todo") => {
-  console.log("http://localhost:3001/lists?status=" + `${status}`);
+  console.log("http://localhost:3011/lists?status=" + `${status}`);
   const res = await axios.get(
-    "http://localhost:3001/lists?status=" + `${status}`
+    "http://localhost:3011/lists?status=" + `${status}`
   );
   return res.data.length;
 };
