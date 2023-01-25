@@ -1,6 +1,6 @@
 const makeColumn = ({ title = "제목" }) => {
   return `
-  <div class="doingBox">
+  <div class='Box'>
         <div class="listTitleBox">
           <h3>${title}</h3>
           <div class="count-box">
@@ -18,7 +18,7 @@ const makeColumn = ({ title = "제목" }) => {
               <button type='submit' class="register-btn registerTodoBtn">등록</button>
             </div>
           </form>
-          <ul class="item-list" id="item-doing-list"></ul>
+          <ul class="item-list"></ul>
         </div>
       </div>
   `;

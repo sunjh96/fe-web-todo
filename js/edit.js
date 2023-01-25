@@ -7,6 +7,7 @@ let contentBox = null;
 
 const openItemEditForm = (e) => {
   if (e.target.className.includes("item-edit-btn")) {
+    console.log(e.target.closest("input"));
     cardWrapper = e.target.closest("li");
     cardWrapper.classList.add("edit-focus");
 

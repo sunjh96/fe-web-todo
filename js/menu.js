@@ -1,4 +1,4 @@
-import { makeLogMsg } from "./template/logItem.js";
+import { makeLogMsg } from "./template/log.js";
 import { getLogData } from "./dataUtil.js";
 
 const menuLogWrapper = document.querySelector(".menu-log-wrapper");

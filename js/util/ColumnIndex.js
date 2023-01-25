@@ -1,11 +1,10 @@
 import { getListData } from "../dataUtil.js";
-
-const columnName = ["todo", "doing", "done"];
+import { columnNames } from "../column.js";
 
 const findColumnName = async (ID) => {
   const listData = await getListData();
   const index = listData.findIndex((obj) => obj.id == ID);
-  const columnIdx = columnName.findIndex(
+  const columnIdx = columnNames.findIndex(
     (obj) => obj === listData[index].status
   );
   return columnIdx;

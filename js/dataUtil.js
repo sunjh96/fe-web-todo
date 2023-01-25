@@ -1,4 +1,4 @@
-const url = "http://localhost:3001";
+const url = "http://localhost:3011";
 
 const getListData = async () => {
   try {
@@ -12,6 +12,15 @@ const getListData = async () => {
 const getLogData = async () => {
   try {
     const res = await axios.get(url + "/logs");
+    return res.status == 200 ? res.data : "error";
+  } catch (error) {
+    return error;
+  }
+};
+
+const getColumnData = async () => {
+  try {
+    const res = await axios.get(url + "/columns");
     return res.status == 200 ? res.data : "error";
   } catch (error) {
     return error;
@@ -39,6 +48,14 @@ const postLogData = async ({ action, title, to, from = "", time, id }) => {
   });
 };
 
+const postColumnData = async ({ title, id }) => {
+  console.log(title);
+  await axios.post(url + "/columns", {
+    title,
+    id,
+  });
+};
+
 const deleteListData = async (ID) => {
   await axios.delete(url + `/lists/${ID}`);
 };
@@ -50,8 +67,10 @@ const patchListData = async (ID, updateDataObj) => {
 export {
   getListData,
   getLogData,
+  getColumnData,
   postLogData,
   postListData,
+  postColumnData,
   deleteListData,
   patchListData,
 };

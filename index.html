@@ -67,11 +67,11 @@
     </header>
     <!--container-->
     <div class="container">
-      <div class="todoBox">
+      <div class="Box">
           <div class="listTitleBox">
               <h3>해야할 일</h3>
               <div class="count-box">
-                  <div class="count-num">0</div>
+                  <div class="count-num" id="count-num-해야할 일">0</div>
               </div>
               <span class="material-symbols-outlined add-card-btn" id="add-todo-btn">add</span>
               <span class="material-symbols-outlined close-card-btn" id="close-todo-btn">close</span>
@@ -81,18 +81,18 @@
                   <input type="text" class="title-input" placeholder="제목을 입력하세요">
                   <textarea type="text" class="detail-input" placeholder="내용을 입력하세요"></textarea>
                   <div class="btn-wrapper">
-                    <input type='button' value='취소'  class="cancel-btn"></input>
+                    <input type='button' value='취소' class="cancel-btn"></input>
                     <button type='submit' class="register-btn registerTodoBtn">등록</button>
                 </div>
               </form>
-              <ul class="item-list" id="todo"></ul>
+              <ul class="item-list" id="해야할 일"></ul>
           </div>
       </div>
-      <div class="doingBox">
+      <div class="Box">
           <div class="listTitleBox">
               <h3>하고 있는 일</h3>
               <div class="count-box">
-                  <div class="count-num">0</div>
+                  <div class="count-num" id="count-num-하고 있는 일">0</div>
               </div>
               <span class="material-symbols-outlined add-card-btn" id="addDoingBtn">add</span>
               <span class="material-symbols-outlined close-card-btn" id="closeDoingBtn">close</span>
@@ -106,14 +106,14 @@
                       <button type='submit' class="register-btn registerTodoBtn">등록</button>
                   </div>
               </form>
-              <ul class="item-list" id="doing"></ul>
+              <ul class="item-list" id="하고 있는 일"></ul>
           </div>
       </div>
-      <div class="doneBox">
+      <div class="Box">
           <div class="listTitleBox">
               <h3>완료한 일</h3>
               <div class="count-box">
-                  <div class="count-num">0</div>
+                  <div class="count-num" id="count-num-완료한 일">0</div>
               </div>
               <span class="material-symbols-outlined add-card-btn" id="addDoneBtn">add</span>
               <span class="material-symbols-outlined close-card-btn" id="closeDoneBtn">close</span>
@@ -127,9 +127,10 @@
                       <button type='submit' class="register-btn registerTodoBtn">등록</button>
                   </div>
               </form>
-              <ul class="item-list" id="done"></ul>
+              <ul class="item-list" id="완료한 일"></ul>
           </div>        
       </div>
+      
   </div>
   
 
@@ -141,6 +142,5 @@
     </div>
 
     <script type="module" src="js/init.js"></script>
-    <script type="module" src="js/register.js"></script>
   </body>
 </html>
