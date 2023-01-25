@@ -49,6 +49,12 @@ function mousemove(e) {
     dropColumnArr = [...dropTargetColumn.children];
     nearItem = e.target.closest("li");
     nearItemIndex = dropColumnArr.indexOf(nearItem);
+
+    if (nearItemIndex === 0) {
+      nearItem.before(currentItem);
+    } else {
+      nearItem.after(currentItem);
+    }
     dropColumnArr.splice(nearItemIndex, 0, hoverItem);
     moveItem(pageX, pageY);
   }
