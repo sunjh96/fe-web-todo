@@ -1,15 +1,15 @@
-const openListAddForm = (e) => {
-  if (e.target.className.includes("add-card-btn")) {
-    const column = e.target.parentNode.parentNode;
-    column.querySelector(".item-add-box").classList.remove("hidden");
-  }
+const openListAddForm = ({ target }) => {
+  if (!target.className.includes('add-card-btn')) return;
+
+  const columnTarget = target.closest('.Box');
+  columnTarget && columnTarget.querySelector('.item-add-box').classList.toggle('hidden');
 };
 
-const closeListAddForm = (e) => {
-  if (e.target.className.includes("cancel-btn")) {
-    const column = e.target.parentNode.parentNode.parentNode.parentNode;
-    column.querySelector(".item-add-box").classList.add("hidden");
-  }
+const closeListAddForm = ({ target }) => {
+  if (!target.className.includes('cancel-btn')) return;
+
+  const columnTarget = target.closest('.Box');
+  columnTarget && columnTarget.querySelector('.item-add-box').classList.toggle('hidden');
 };
 
 export { openListAddForm, closeListAddForm };

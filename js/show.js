@@ -9,7 +9,6 @@ const showItems = async () => {
   const sortedData = listData.sort(function (a, b) {
     return a.index - b.index;
   });
-  console.log(sortedData);
   sortedData.map((item) => {
     const card = makeListCard({
       title: item.title,

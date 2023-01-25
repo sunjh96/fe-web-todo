@@ -49,7 +49,6 @@ const postLogData = async ({ action, title, to, from = "", time, id }) => {
 };
 
 const postColumnData = async ({ title, id }) => {
-  console.log(title);
   await axios.post(url + "/columns", {
     title,
     id,

@@ -1,12 +1,12 @@
-import { makeListCard } from "./template/list.js";
-import { arrCounter } from "./util/arrCounter.js";
-import { postListData } from "./dataUtil.js";
-import { addLogItem } from "./logItem.js";
-import { columnNames } from "./column.js";
+import { makeListCard } from './template/list.js';
+import { itemCounter } from './util/itemCounter.js';
+import { postListData } from './dataUtil.js';
+import { addLogItem } from './logItem.js';
+import { columnNames } from './column.js';
 
-const titleInputBox = document.getElementsByClassName("title-input");
-const detailInputBox = document.getElementsByClassName("detail-input");
-const registerBtn = document.querySelectorAll(".register-btn");
+const titleInputBox = document.getElementsByClassName('title-input');
+const detailInputBox = document.getElementsByClassName('detail-input');
+const registerBtn = document.querySelectorAll('.register-btn');
 
 const makeId = () => {
   const timestamp = new Date().getUTCMilliseconds();
@@ -15,19 +15,15 @@ const makeId = () => {
 };
 
 const makeItemIndex = async (status) => {
-  console.log("http://localhost:3011/lists?status=" + `${status}`);
-  const res = await axios.get(
-    "http://localhost:3011/lists?status=" + `${status}`
-  );
+  const res = await axios.get('http://localhost:3011/lists?status=' + `${status}`);
   return res.data.length;
 };
 
 const registerItem = async (index) => {
   event.preventDefault();
-  if (!titleInputBox[index].value || !detailInputBox[index].value)
-    alert("내용을 입력해 주세요!");
+  if (!titleInputBox[index].value || !detailInputBox[index].value) alert('내용을 입력해 주세요!');
   else {
-    const putHere = document.querySelectorAll(".item-list")[index];
+    const putHere = document.querySelectorAll('.item-list')[index];
     const newTitle = titleInputBox[index].value;
     const newDetail = detailInputBox[index].value;
     const newStatus = columnNames[index];
@@ -42,28 +38,27 @@ const registerItem = async (index) => {
     };
 
     const newLogItem = {
-      action: "Add",
+      action: 'Add',
       title: newTitle,
       to: columnNames[index],
-      from: "",
+      from: '',
     };
 
     const newItemBox = makeListCard(newItemObj);
-    putHere.insertAdjacentHTML("afterbegin", newItemBox);
+    putHere.insertAdjacentHTML('afterbegin', newItemBox);
 
     postListData(newItemObj);
     addLogItem(newLogItem);
-    arrCounter(newStatus);
-    titleInputBox[index].value = "";
-    detailInputBox[index].value = "";
-    document.querySelectorAll(".item-add-box")[index].classList.add("hidden");
+    itemCounter(newStatus);
+    titleInputBox[index].value = '';
+    detailInputBox[index].value = '';
+    document.querySelectorAll('.item-add-box')[index].classList.add('hidden');
   }
 };
 
 const addNewCardItem = () => {
   registerBtn.forEach((el, index) => {
     el.onclick = () => {
-      console.log(el);
       registerItem(index);
     };
   });

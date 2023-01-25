@@ -1,48 +1,45 @@
-import { addLogItem } from "./logItem.js";
-import { deleteListData } from "./dataUtil.js";
-import { arrCounter } from "./util/arrCounter.js";
-import { patchListData } from "./dataUtil.js";
+import { addLogItem } from './logItem.js';
+import { deleteListData } from './dataUtil.js';
+import { itemCounter } from './util/itemCounter.js';
+import { patchListData } from './dataUtil.js';
 
 let targetItem = null;
 let targetItemId = null;
 
 const closeModal = () => {
-  document.querySelector(".modal").classList.add("hidden");
+  document.querySelector('.modal').classList.add('hidden');
   targetItem = null;
   targetItemId = null;
 };
 
-const cancelDeteleItem = (e) => {
-  if (
-    e.target.id === "modal-cancel-btn" ||
-    e.target.className === "modal-background"
-  ) {
+const cancelDeleteItem = ({ target }) => {
+  if (target.id === 'modal-cancel-btn' || target.className === 'modal-background') {
     closeModal();
-    document.querySelector(".focus").classList.remove("focus");
+    document.querySelector('.focus').classList.remove('focus');
   }
 };
 
-const openModal = (e) => {
-  if (e.target.id == "item-delete-btn") {
-    document.querySelector(".modal").classList.remove("hidden");
-    targetItem = e.target.closest("li");
-    targetItem.classList.add("focus");
-    targetItemId = parseInt(targetItem.getAttribute("id"));
+const openModal = ({ target }) => {
+  if (target.id == 'item-delete-btn') {
+    document.querySelector('.modal').classList.remove('hidden');
+    targetItem = target.closest('li');
+    targetItem.classList.add('focus');
+    targetItemId = parseInt(targetItem.getAttribute('id'));
   }
 };
 
-const deleteItem = async (e) => {
-  if (e.target.id === "modal-delete-btn") {
+const deleteItem = async ({ target }) => {
+  if (target.id === 'modal-delete-btn') {
     const targetTitle = targetItem.dataset.title;
-    const targetColumn = targetItem.closest("ul");
-    const targetColumnId = targetItem.closest("ul").id;
-    const focusItem = document.querySelector(".focus");
+    const targetColumn = targetItem.closest('ul');
+    const targetColumnId = targetItem.closest('ul').id;
+    const focusItem = document.querySelector('.focus');
     deleteListData(targetItemId);
     addLogItem({
-      action: "Delete",
+      action: 'Delete',
       title: targetTitle,
       to: targetColumnId,
-      from: "",
+      from: '',
     });
 
     focusItem.remove();
@@ -55,9 +52,9 @@ const deleteItem = async (e) => {
         patchListData(item.id, updateDataObj);
       });
     }
-    arrCounter(targetColumnId);
+    itemCounter(targetColumnId);
     closeModal();
   }
 };
 
-export { openModal, cancelDeteleItem, deleteItem };
+export { openModal, cancelDeleteItem, deleteItem };

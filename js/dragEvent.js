@@ -1,6 +1,6 @@
-import { patchListData } from "./dataUtil.js";
-import { addLogItem } from "./logItem.js";
-import { arrCounter } from "./util/arrCounter.js";
+import { patchListData } from './dataUtil.js';
+import { addLogItem } from './logItem.js';
+import { itemCounter } from './util/itemCounter.js';
 
 let currentItem = null;
 let currentColumnArr = null;
@@ -14,49 +14,43 @@ let nearItemIndex = null;
 let nearItem = null;
 
 function mousedown(e) {
-  if (
-    e.target.classList.contains("item-delete-btn") ||
-    e.target.classList.contains("item-edit-btn")
-  ) {
+  if (e.target.classList.contains('item-delete-btn') || e.target.classList.contains('item-edit-btn')) {
     return;
   }
-  currentItem = e.target.closest("li");
-  if (currentItem === null || currentItem.classList.contains("edit-focus")) {
+  currentItem = e.target.closest('li');
+  if (currentItem === null || currentItem.classList.contains('edit-focus')) {
     return;
   }
   hoverItem = currentItem.cloneNode(true);
-  const currentColumn = e.target.closest("ul");
-  currentColumnName = currentColumn.getAttribute("id");
+  const currentColumn = e.target.closest('ul');
+  currentColumnName = currentColumn.getAttribute('id');
   currentColumn.appendChild(hoverItem);
-  currentItem.classList.add("move");
+  currentItem.classList.add('move');
+
   const { pageX, pageY } = e;
   currentColumnArr = [...currentColumn.children];
   const currentIdx = currentColumnArr.indexOf(currentItem);
   currentColumnArr.splice(currentIdx, 1);
-  hoverItem.classList.add("blink");
+  hoverItem.classList.add('blink');
   moveItem(pageX, pageY);
 }
 
 function mousemove(e) {
-  if (
-    e.target.classList.contains("item-delete-btn") ||
-    e.target.classList.contains("item-edit-btn")
-  ) {
+  if (e.target.classList.contains('item-delete-btn') || e.target.classList.contains('item-edit-btn')) {
     return;
   }
   if (hoverItem) {
     const { pageX, pageY } = e;
-    dropTargetColumn = e.target.closest("ul");
+
+    dropTargetColumn = e.target.closest('ul');
     dropColumnArr = [...dropTargetColumn.children];
-    nearItem = e.target.closest("li");
+    nearItem = e.target.closest('li');
     nearItemIndex = dropColumnArr.indexOf(nearItem);
-    if (dropColumnArr.length === 0) {
-      dropTargetColumn.appendChild(currentItem);
-    } else if (nearItemIndex === 0) {
-      nearItem.before(currentItem);
-    } else {
-      nearItem.after(currentItem);
-    }
+
+    if (!dropColumnArr) dropTargetColumn.appendChild(currentItem);
+    else if (nearItemIndex === 0) nearItem.before(currentItem);
+    else nearItem.after(currentItem);
+
     dropColumnArr.splice(nearItemIndex, 0, hoverItem);
     moveItem(pageX, pageY);
   }
@@ -66,9 +60,9 @@ function mouseup(e) {
   if (dropTargetColumn) {
     readyForPatching();
     dropTargetColumn.appendChild(currentItem);
-    currentItem.classList.remove("move");
-    arrCounter(currentColumnName);
-    arrCounter(dropTargetColumn.getAttribute("id"));
+    currentItem.classList.remove('move');
+    itemCounter(currentColumnName);
+    itemCounter(dropTargetColumn.getAttribute('id'));
     hoverItem.remove();
     currentItem = null;
     hoverItem = null;
@@ -78,7 +72,8 @@ function mouseup(e) {
 
 const readyForPatching = async () => {
   const targetTitle = currentItem.dataset.title;
-  const columnStatus = dropTargetColumn.getAttribute("id");
+  const columnStatus = dropTargetColumn.getAttribute('id');
+
   if (currentColumnArr !== null) {
     currentColumnArr.map((item) => {
       const updateDataObj = {
@@ -87,6 +82,7 @@ const readyForPatching = async () => {
       patchListData(item.id, updateDataObj);
     });
   }
+
   dropColumnArr.map((el) => {
     const updateDataObj = {
       status: columnStatus,
@@ -96,7 +92,7 @@ const readyForPatching = async () => {
   });
 
   addLogItem({
-    action: "Move",
+    action: 'Move',
     title: targetTitle,
     to: columnStatus,
     from: currentColumnName,
@@ -104,8 +100,8 @@ const readyForPatching = async () => {
 };
 
 function moveItem(X, Y) {
-  hoverItem.style.left = X - hoverItem.offsetWidth / 2 + "px";
-  hoverItem.style.top = Y - hoverItem.offsetHeight / 2 + "px";
+  hoverItem.style.left = X - hoverItem.offsetWidth / 2 + 'px';
+  hoverItem.style.top = Y - hoverItem.offsetHeight / 2 + 'px';
 }
 
 export { mousedown, mouseup, mousemove };
