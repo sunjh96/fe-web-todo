@@ -1,5 +1,5 @@
 import { postLogData } from "./dataUtil.js";
-import { makeLogMsg } from "./template/logItem.js";
+import { makeLogMsg } from "./template/log.js";
 
 const addLogItem = ({ action, title, from, to }) => {
   let today = new Date();

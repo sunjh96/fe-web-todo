@@ -1,4 +1,4 @@
-import { makeListCard } from "./template/listItem.js";
+import { makeListCard } from "./template/list.js";
 import { getListData } from "./dataUtil.js";
 import { columnNames } from "./column.js";
 

@@ -47,7 +47,6 @@ const deleteItem = async (e) => {
 
     focusItem.remove();
     const currentColumnArr = [...targetColumn.children];
-    console.log(currentColumnArr);
     if (currentColumnArr !== null) {
       currentColumnArr.map((item) => {
         const updateDataObj = {

@@ -1,4 +1,4 @@
-import { patchListData, getListData } from "./dataUtil.js";
+import { patchListData } from "./dataUtil.js";
 import { addLogItem } from "./logItem.js";
 import { arrCounter } from "./util/arrCounter.js";
 
@@ -50,8 +50,9 @@ function mousemove(e) {
     dropColumnArr = [...dropTargetColumn.children];
     nearItem = e.target.closest("li");
     nearItemIndex = dropColumnArr.indexOf(nearItem);
-    console.log(dropColumnArr.length);
-    if (nearItemIndex === 0) {
+    if (dropColumnArr.length === 0) {
+      dropTargetColumn.appendChild(currentItem);
+    } else if (nearItemIndex === 0) {
       nearItem.before(currentItem);
     } else {
       nearItem.after(currentItem);
@@ -76,8 +77,6 @@ function mouseup(e) {
 }
 
 const readyForPatching = async () => {
-  console.log(currentColumnArr);
-  console.log(dropColumnArr);
   const targetTitle = currentItem.dataset.title;
   const columnStatus = dropTargetColumn.getAttribute("id");
   if (currentColumnArr !== null) {
@@ -106,7 +105,7 @@ const readyForPatching = async () => {
 
 function moveItem(X, Y) {
   hoverItem.style.left = X - hoverItem.offsetWidth / 2 + "px";
-  hoverItem.style.top = Y - hoverItem.offsetWidth / 2 + "px";
+  hoverItem.style.top = Y - hoverItem.offsetHeight / 2 + "px";
 }
 
 export { mousedown, mouseup, mousemove };
