@@ -6,6 +6,7 @@
 
 body {
   font-family: 'Noto Sans KR', sans-serif;
+  user-select: none;
   height: calc(100vh - 3.75rem);
   padding: 1.875rem 5rem 1.875rem 5rem;
   background-color: $main-bg-color;

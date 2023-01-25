@@ -19,6 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _todoView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
+// export { default as taskCardView } from './taskCardView';
 
 
 /***/ }),
@@ -29,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-const todoView = () => {
+const todoView = (taskId) => {
   const $todoTarget = document.querySelector('.todo-main');
 
   const template = `
@@ -40,7 +41,7 @@ const todoView = () => {
                     <div data-viewmodel="statusCount">count</div>
                   </div>
                   <div class="todo-svg">
-                    <span id="add-task" data-viewmodel="addTask">
+                    <span id="add-task" data-viewmodel="addTaskCard">
                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
                         <path
                           d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
@@ -57,6 +58,30 @@ const todoView = () => {
                       </svg>
                     </span>
                   </div>
+                </section>
+                <section class="todo-task active-bg active" data-viewmodel="newTaskCard" data-taskId="${taskId}">
+                  <form data-type="input-task">
+                    <div class="task-title">
+                      <textarea
+                        class="task-title-input"
+                        placeholder="제목을 입력하세요"
+                        name="title"
+                        rows="1"
+                        required
+                        autofocus
+                        data-viewmodel="newTaskTitle"
+                      ></textarea>
+                    </div>
+                    <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="newTaskContent"></textarea>
+                    <div class="button">
+                      <button class="cancel-button" type="button" data-viewmodel="newCancelButton">
+                        취소
+                      </button>
+                      <button class="submit-button" type="submit" data-viewmodel="newSubmitButton">
+                        등록
+                      </button>
+                    </div>
+                  </form>
                 </section>
                 <section class="todo-task-list" data-viewmodel="taskTemplate" data-statusName>
                   <section class="todo-task" data-template="task" data-viewmodel="taskCard">
@@ -84,7 +109,7 @@ const todoView = () => {
                       <span class="task-author" data-viewmodel="taskAuthor"></span>
                       <div class="button" data-viewmodel="taskButton">
                         <button class="cancel-button" type="button" data-viewmodel="cancelButton">취소</button>
-                        <button class="submit-button" type="submit" data-viewmodel="submitButton">등록</button>
+                        <button class="submit-button" type="submit" data-viewmodel="submitButton">수정</button>
                       </div>
                     </form>
                   </section>
@@ -38375,6 +38400,7 @@ const TaskModel = class {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTaskCount": () => (/* binding */ getTaskCount),
 /* harmony export */   "getTaskList": () => (/* binding */ getTaskList),
 /* harmony export */   "updateTaskCard": () => (/* binding */ updateTaskCard)
 /* harmony export */ });
@@ -38397,6 +38423,19 @@ async function getTaskList() {
     });
 
     return taskList;
+  } else {
+    console.log('데이터가 없습니다.');
+  }
+}
+
+async function getTaskCount() {
+  const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
+  const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getDoc)(docRef);
+
+  if (docSnap.exists()) {
+    const countTask = docSnap.data().countTask;
+
+    return countTask;
   } else {
     console.log('데이터가 없습니다.');
   }
@@ -39377,9 +39416,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
 /* harmony import */ var _clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(49);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
-
+/* harmony import */ var _clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(50);
 
 
 
@@ -39397,19 +39434,25 @@ function setInlineProperties(statusList, taskList, _0 = (0,_utils__WEBPACK_IMPOR
     statusTemplate: statusTemplate(statusList, taskList),
     statusTitle: statusTitle(),
     statusCount: statusCount(),
-    addTask: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    addTaskCard: (0,_clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__.addTaskCard)(),
 
     taskTemplate: taskTemplate(),
     taskCard: taskCard(),
-    taskTitle: taskInputData(),
-    taskContent: taskInputData(),
+    taskTitle: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onKeyupTaskData)(),
+    taskContent: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onKeyupTaskData)(),
     taskAuthor: taskAuthor(),
 
     taskButton: buttonActive(),
     editTaskButton: editTaskButton(),
     deleteTaskButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
-    submitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickSubmitButton)(),
-    cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickCancelButton)(),
+    submitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickSubmitButton)(),
+    cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickCancelButton)(),
+
+    newTaskCard: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    newTaskTitle: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    newTaskContent: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    newCancelButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
+    newSubmitButton: _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({}),
   });
 
   return rootViewModel;
@@ -39423,9 +39466,14 @@ function statusTemplate(statusList, taskList) {
         _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
           statusTitle: statusTitle(statusName),
           statusCount: statusCount(statusName, taskList[statusName]),
-          addTask: (0,_clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__.addTask)(statusName),
+          addTaskCard: (0,_clients_statusEvent__WEBPACK_IMPORTED_MODULE_2__.addTaskCard)(),
           taskTemplate: taskTemplate(statusName, taskList[statusName]),
-          // taskTemplate: taskTemplate.bind({ ...bindName, taskList: taskList })(),
+
+          newTaskCard: buttonActive(true),
+          newTaskTitle: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onKeyupTaskData)(true, ''),
+          newTaskContent: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onKeyupTaskData)(true, ''),
+          newSubmitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickNewSubmitButton)(),
+          newCancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickNewCancelButton)(),
         }),
       ),
     },
@@ -39437,6 +39485,7 @@ function taskTemplate(statusName, taskList) {
 
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     attributes: { 'data-statusName': statusName },
+
     template: {
       name: 'task',
       data: taskList.map((taskData) => {
@@ -39444,15 +39493,15 @@ function taskTemplate(statusName, taskList) {
 
         return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
           taskCard: taskCard(active, id),
-          taskTitle: taskInputData(active, title),
-          taskContent: taskInputData(active, content),
+          taskTitle: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onKeyupTaskData)(active, title),
+          taskContent: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onKeyupTaskData)(active, content),
           taskAuthor: taskAuthor(active),
 
           taskButton: buttonActive(active),
           editTaskButton: editTaskButton(active),
           deleteTaskButton: buttonActive(active),
-          submitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickSubmitButton)(),
-          cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickCancelButton)(),
+          submitButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickSubmitButton)(),
+          cancelButton: (0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickCancelButton)(),
         });
       }),
     },
@@ -39472,7 +39521,7 @@ function statusCount(statusName, taskList) {
   const count = taskList.length;
 
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
-    properties: { innerHTML: count },
+    properties: { innerHTML: count, name: count },
   });
 }
 
@@ -39482,18 +39531,6 @@ function taskCard(isActive, id) {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     classLists: { toggle: 'active-bg' },
     attributes: { 'data-taskId': id },
-  });
-}
-
-function taskInputData(isActive, data) {
-  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
-    properties: { value: data, innerHTML: data, disabled: !isActive },
-
-    events: {
-      change: (viewModel) => (e) => {
-        viewModel.properties.innerHTML = e.target.value;
-      },
-    },
   });
 }
 
@@ -39514,7 +39551,7 @@ function buttonActive(isActive) {
 }
 
 function editTaskButton(isActive) {
-  const { events } = { ...(0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_4__.onClickEditTaskButton)() };
+  const { events } = { ...(0,_clients_taskEvent__WEBPACK_IMPORTED_MODULE_3__.onClickEditTaskButton)() };
   const viewModel = _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({ ...buttonActive(isActive), events });
 
   return viewModel;
@@ -39527,13 +39564,30 @@ function editTaskButton(isActive) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addTask": () => (/* binding */ addTask)
+/* harmony export */   "addTaskCard": () => (/* binding */ addTaskCard)
 /* harmony export */ });
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 
 
-function addTask() {
-  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({});
+function addTaskCard() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        const viewModelParent = viewModel.parent;
+        const newCount = viewModelParent.statusCount.properties.innerHTML;
+        const oldCount = viewModelParent.statusCount.properties.name;
+
+        if (oldCount === newCount) viewModelParent.statusCount.properties.innerHTML = oldCount + 1;
+        else viewModelParent.statusCount.properties.innerHTML = oldCount;
+
+        viewModelParent.newTaskCard.classLists.toggle = 'active';
+        viewModelParent.newTaskTitle.properties.innerHTML = '';
+        viewModelParent.newTaskContent.properties.innerHTML = '';
+        viewModelParent.newTaskTitle.properties.value = '';
+        viewModelParent.newTaskContent.properties.value = '';
+      },
+    },
+  });
 }
 
 
@@ -39546,12 +39600,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "onClickCancelButton": () => (/* binding */ onClickCancelButton),
 /* harmony export */   "onClickDeleteTaskButton": () => (/* binding */ onClickDeleteTaskButton),
 /* harmony export */   "onClickEditTaskButton": () => (/* binding */ onClickEditTaskButton),
-/* harmony export */   "onClickSubmitButton": () => (/* binding */ onClickSubmitButton)
+/* harmony export */   "onClickNewCancelButton": () => (/* binding */ onClickNewCancelButton),
+/* harmony export */   "onClickNewSubmitButton": () => (/* binding */ onClickNewSubmitButton),
+/* harmony export */   "onClickSubmitButton": () => (/* binding */ onClickSubmitButton),
+/* harmony export */   "onKeyupTaskData": () => (/* binding */ onKeyupTaskData)
 /* harmony export */ });
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 
 
+
+function onKeyupTaskData(isActive, data) {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    properties: { value: data, innerHTML: data, disabled: !isActive },
+
+    events: {
+      keyup: (viewModel) => (e) => {
+        viewModel.properties.innerHTML = e.target.value;
+
+        const taskTitle = viewModel.parent.taskTitle?.properties.innerHTML ?? viewModel.parent.newTaskTitle.properties.innerHTML;
+        const taskContent = viewModel.parent.taskContent?.properties.innerHTML ?? viewModel.parent.newTaskContent.properties.innerHTML;
+        let submitButton = viewModel.parent?.submitButton ?? viewModel.parent.newSubmitButton;
+
+        if (!taskTitle || !taskContent) submitButton.properties.disabled = true;
+        else submitButton.properties.disabled = false;
+      },
+    },
+  });
+}
 
 function onClickEditTaskButton() {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
@@ -39594,6 +39670,7 @@ function onClickCancelButton() {
 
 function onClickSubmitButton() {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    properties: { disabled: false },
     events: {
       click: (viewModel) => (e) => {
         e.preventDefault();
@@ -39607,6 +39684,47 @@ function onClickSubmitButton() {
         toggleActive(viewModelParent);
         inputTaskCard(viewModelParent, taskTitle, taskContent);
         _models__WEBPACK_IMPORTED_MODULE_1__.TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
+      },
+    },
+  });
+}
+
+function onClickNewCancelButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        const viewModelParent = viewModel.parent;
+        const oldCount = viewModelParent.statusCount.properties.name;
+
+        viewModelParent.statusCount.properties.innerHTML = oldCount;
+        viewModelParent.newTaskCard.classLists.toggle = 'active';
+        viewModelParent.newTaskTitle.properties.innerHTML = '';
+        viewModelParent.newTaskContent.properties.innerHTML = '';
+        viewModelParent.newTaskTitle.properties.value = '';
+        viewModelParent.newTaskContent.properties.value = '';
+      },
+    },
+  });
+}
+
+function onClickNewSubmitButton() {
+  return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
+    properties: { disabled: true },
+    events: {
+      click: (viewModel) => (e) => {
+        e.preventDefault();
+
+        const viewModelParent = viewModel.parent;
+        const taskTitle = viewModelParent.newTaskTitle.properties.innerHTML;
+        const taskContent = viewModelParent.newTaskContent.properties.innerHTML;
+        const statusName = viewModelParent.statusTitle.properties.innerHTML;
+        console.log(viewModelParent, taskTitle, taskContent, statusName);
+
+        // const taskId = viewModelParent.taskCard.attributes['data-taskId'];
+
+        // toggleActive(viewModelParent);
+        // inputTaskCard(viewModelParent, taskTitle, taskContent);
+        // TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
       },
     },
   });
@@ -39707,6 +39825,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _clients__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
+/* harmony import */ var _api_task__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(28);
+
 
 
 
@@ -39715,11 +39835,12 @@ __webpack_require__.r(__webpack_exports__);
 async function init() {
   const statusList = await new _models__WEBPACK_IMPORTED_MODULE_2__.StatusModel().statusData;
   const taskList = await new _models__WEBPACK_IMPORTED_MODULE_2__.TaskModel().taskData;
-
-  (0,_views__WEBPACK_IMPORTED_MODULE_1__.todoView)();
+  const taskCount = await (0,_api_task__WEBPACK_IMPORTED_MODULE_4__.getTaskCount)();
+  console.log(taskCount);
+  (0,_views__WEBPACK_IMPORTED_MODULE_1__.todoView)(taskCount);
 
   const binder = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.bindProcessor)('.todo-main');
-  const rootViewModel = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.setInlineProperties)(statusList, taskList);
+  const rootViewModel = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.setInlineProperties)(statusList, taskList, binder);
 
   binder.watch(rootViewModel);
 }

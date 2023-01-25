@@ -1,8 +1,14 @@
 import { ViewModel } from '@/core';
 import { typeCheck } from '@/utils';
-import { addTask } from '@/clients/statusEvent';
-import { TaskModel } from '@/models';
-import { onClickEditTaskButton, onClickCancelButton, onClickSubmitButton } from '@/clients/taskEvent';
+import { addTaskCard } from '@/clients/statusEvent';
+import {
+  onKeyupTaskData,
+  onClickEditTaskButton,
+  onClickCancelButton,
+  onClickSubmitButton,
+  onClickNewCancelButton,
+  onClickNewSubmitButton,
+} from '@/clients/taskEvent';
 
 /**
  * @param { Array } statusList - Model에서 불러온 Status 종류를 가진 배열
@@ -16,12 +22,12 @@ export default function setInlineProperties(statusList, taskList, _0 = typeCheck
     statusTemplate: statusTemplate(statusList, taskList),
     statusTitle: statusTitle(),
     statusCount: statusCount(),
-    addTask: ViewModel.get({}),
+    addTaskCard: addTaskCard(),
 
     taskTemplate: taskTemplate(),
     taskCard: taskCard(),
-    taskTitle: taskInputData(),
-    taskContent: taskInputData(),
+    taskTitle: onKeyupTaskData(),
+    taskContent: onKeyupTaskData(),
     taskAuthor: taskAuthor(),
 
     taskButton: buttonActive(),
@@ -29,6 +35,12 @@ export default function setInlineProperties(statusList, taskList, _0 = typeCheck
     deleteTaskButton: ViewModel.get({}),
     submitButton: onClickSubmitButton(),
     cancelButton: onClickCancelButton(),
+
+    newTaskCard: ViewModel.get({}),
+    newTaskTitle: ViewModel.get({}),
+    newTaskContent: ViewModel.get({}),
+    newCancelButton: ViewModel.get({}),
+    newSubmitButton: ViewModel.get({}),
   });
 
   return rootViewModel;
@@ -42,9 +54,14 @@ function statusTemplate(statusList, taskList) {
         ViewModel.get({
           statusTitle: statusTitle(statusName),
           statusCount: statusCount(statusName, taskList[statusName]),
-          addTask: addTask(statusName),
+          addTaskCard: addTaskCard(),
           taskTemplate: taskTemplate(statusName, taskList[statusName]),
-          // taskTemplate: taskTemplate.bind({ ...bindName, taskList: taskList })(),
+
+          newTaskCard: buttonActive(true),
+          newTaskTitle: onKeyupTaskData(true, ''),
+          newTaskContent: onKeyupTaskData(true, ''),
+          newSubmitButton: onClickNewSubmitButton(),
+          newCancelButton: onClickNewCancelButton(),
         }),
       ),
     },
@@ -56,6 +73,7 @@ function taskTemplate(statusName, taskList) {
 
   return ViewModel.get({
     attributes: { 'data-statusName': statusName },
+
     template: {
       name: 'task',
       data: taskList.map((taskData) => {
@@ -63,8 +81,8 @@ function taskTemplate(statusName, taskList) {
 
         return ViewModel.get({
           taskCard: taskCard(active, id),
-          taskTitle: taskInputData(active, title),
-          taskContent: taskInputData(active, content),
+          taskTitle: onKeyupTaskData(active, title),
+          taskContent: onKeyupTaskData(active, content),
           taskAuthor: taskAuthor(active),
 
           taskButton: buttonActive(active),
@@ -91,7 +109,7 @@ function statusCount(statusName, taskList) {
   const count = taskList.length;
 
   return ViewModel.get({
-    properties: { innerHTML: count },
+    properties: { innerHTML: count, name: count },
   });
 }
 
@@ -101,18 +119,6 @@ function taskCard(isActive, id) {
   return ViewModel.get({
     classLists: { toggle: 'active-bg' },
     attributes: { 'data-taskId': id },
-  });
-}
-
-function taskInputData(isActive, data) {
-  return ViewModel.get({
-    properties: { value: data, innerHTML: data, disabled: !isActive },
-
-    events: {
-      change: (viewModel) => (e) => {
-        viewModel.properties.innerHTML = e.target.value;
-      },
-    },
   });
 }
 

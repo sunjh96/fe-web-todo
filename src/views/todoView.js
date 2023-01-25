@@ -1,4 +1,4 @@
-const todoView = () => {
+const todoView = (taskId) => {
   const $todoTarget = document.querySelector('.todo-main');
 
   const template = `
@@ -9,7 +9,7 @@ const todoView = () => {
                     <div data-viewmodel="statusCount">count</div>
                   </div>
                   <div class="todo-svg">
-                    <span id="add-task" data-viewmodel="addTask">
+                    <span id="add-task" data-viewmodel="addTaskCard">
                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14" fill="none">
                         <path
                           d="M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z"
@@ -26,6 +26,30 @@ const todoView = () => {
                       </svg>
                     </span>
                   </div>
+                </section>
+                <section class="todo-task active-bg active" data-viewmodel="newTaskCard" data-taskId="${taskId}">
+                  <form data-type="input-task">
+                    <div class="task-title">
+                      <textarea
+                        class="task-title-input"
+                        placeholder="제목을 입력하세요"
+                        name="title"
+                        rows="1"
+                        required
+                        autofocus
+                        data-viewmodel="newTaskTitle"
+                      ></textarea>
+                    </div>
+                    <textarea class="task-content-input" placeholder="내용을 입력하세요" name="content" rows="1" required data-viewmodel="newTaskContent"></textarea>
+                    <div class="button">
+                      <button class="cancel-button" type="button" data-viewmodel="newCancelButton">
+                        취소
+                      </button>
+                      <button class="submit-button" type="submit" data-viewmodel="newSubmitButton">
+                        등록
+                      </button>
+                    </div>
+                  </form>
                 </section>
                 <section class="todo-task-list" data-viewmodel="taskTemplate" data-statusName>
                   <section class="todo-task" data-template="task" data-viewmodel="taskCard">
@@ -53,7 +77,7 @@ const todoView = () => {
                       <span class="task-author" data-viewmodel="taskAuthor"></span>
                       <div class="button" data-viewmodel="taskButton">
                         <button class="cancel-button" type="button" data-viewmodel="cancelButton">취소</button>
-                        <button class="submit-button" type="submit" data-viewmodel="submitButton">등록</button>
+                        <button class="submit-button" type="submit" data-viewmodel="submitButton">수정</button>
                       </div>
                     </form>
                   </section>

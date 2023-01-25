@@ -1,6 +1,25 @@
 import { ViewModel } from '@/core';
 import { TaskModel } from '@/models';
 
+export function onKeyupTaskData(isActive, data) {
+  return ViewModel.get({
+    properties: { value: data, innerHTML: data, disabled: !isActive },
+
+    events: {
+      keyup: (viewModel) => (e) => {
+        viewModel.properties.innerHTML = e.target.value;
+
+        const taskTitle = viewModel.parent.taskTitle?.properties.innerHTML ?? viewModel.parent.newTaskTitle.properties.innerHTML;
+        const taskContent = viewModel.parent.taskContent?.properties.innerHTML ?? viewModel.parent.newTaskContent.properties.innerHTML;
+        let submitButton = viewModel.parent?.submitButton ?? viewModel.parent.newSubmitButton;
+
+        if (!taskTitle || !taskContent) submitButton.properties.disabled = true;
+        else submitButton.properties.disabled = false;
+      },
+    },
+  });
+}
+
 export function onClickEditTaskButton() {
   return ViewModel.get({
     events: {
@@ -42,6 +61,7 @@ export function onClickCancelButton() {
 
 export function onClickSubmitButton() {
   return ViewModel.get({
+    properties: { disabled: false },
     events: {
       click: (viewModel) => (e) => {
         e.preventDefault();
@@ -55,6 +75,47 @@ export function onClickSubmitButton() {
         toggleActive(viewModelParent);
         inputTaskCard(viewModelParent, taskTitle, taskContent);
         TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
+      },
+    },
+  });
+}
+
+export function onClickNewCancelButton() {
+  return ViewModel.get({
+    events: {
+      click: (viewModel) => (e) => {
+        const viewModelParent = viewModel.parent;
+        const oldCount = viewModelParent.statusCount.properties.name;
+
+        viewModelParent.statusCount.properties.innerHTML = oldCount;
+        viewModelParent.newTaskCard.classLists.toggle = 'active';
+        viewModelParent.newTaskTitle.properties.innerHTML = '';
+        viewModelParent.newTaskContent.properties.innerHTML = '';
+        viewModelParent.newTaskTitle.properties.value = '';
+        viewModelParent.newTaskContent.properties.value = '';
+      },
+    },
+  });
+}
+
+export function onClickNewSubmitButton() {
+  return ViewModel.get({
+    properties: { disabled: true },
+    events: {
+      click: (viewModel) => (e) => {
+        e.preventDefault();
+
+        const viewModelParent = viewModel.parent;
+        const taskTitle = viewModelParent.newTaskTitle.properties.innerHTML;
+        const taskContent = viewModelParent.newTaskContent.properties.innerHTML;
+        const statusName = viewModelParent.statusTitle.properties.innerHTML;
+        console.log(viewModelParent, taskTitle, taskContent, statusName);
+
+        // const taskId = viewModelParent.taskCard.attributes['data-taskId'];
+
+        // toggleActive(viewModelParent);
+        // inputTaskCard(viewModelParent, taskTitle, taskContent);
+        // TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
       },
     },
   });

@@ -8,6 +8,10 @@
   line-height: $line-height;
 }
 
+.active {
+  display: none !important;
+}
+
 .todo-task {
   display: flex;
   background-color: $white;
@@ -84,9 +88,6 @@
       }
     }
 
-    .active {
-      display: none !important;
-    }
     textarea.active {
       display: block;
 

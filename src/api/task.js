@@ -20,6 +20,19 @@ export async function getTaskList() {
   }
 }
 
+export async function getTaskCount() {
+  const docRef = doc(db, 'user', 'jangoh');
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const countTask = docSnap.data().countTask;
+
+    return countTask;
+  } else {
+    console.log('데이터가 없습니다.');
+  }
+}
+
 export async function updateTaskCard(data) {
   const { statusName, taskId, taskTitle, taskContent } = data;
   const docRef = doc(db, 'user', 'jangoh');
