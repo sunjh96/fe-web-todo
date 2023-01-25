@@ -1,4 +1,4 @@
-import { getTaskList, updateTaskCard } from '@/api/task';
+import { getTaskList, setTaskCard, updateTaskCard } from '@/api/task';
 
 /**
  * @constructor
@@ -28,12 +28,15 @@ const TaskModel = class {
     })();
   }
 
-  addTaskCard() {}
-  deleteTaskCard() {}
+  static addTaskCard(statusName, taskId, taskTitle, taskContent) {
+    setTaskCard({ statusName, taskId, taskTitle, taskContent });
+  }
 
   static modifyTaskCard(statusName = undefined, taskId = undefined, taskTitle = undefined, taskContent = undefined) {
     updateTaskCard({ statusName, taskId, taskTitle, taskContent });
   }
+
+  static deleteTaskCard() {}
 };
 
 export default TaskModel;

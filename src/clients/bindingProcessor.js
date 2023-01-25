@@ -47,7 +47,7 @@ export default function bindProcessor(target, _0 = typeCheck(target, 'string')) 
     .next(
       new (class extends Processor {
         _process(viewModel, elem, key, val) {
-          elem.addEventListener(`${key}`, val(viewModel));
+          elem.addEventListener(`${key}`, val(viewModel, elem));
         }
       })('events'),
     )

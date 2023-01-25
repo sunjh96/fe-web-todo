@@ -19,7 +19,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _todoView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
-// export { default as taskCardView } from './taskCardView';
 
 
 /***/ }),
@@ -38383,12 +38382,15 @@ const TaskModel = class {
     })();
   }
 
-  addTaskCard() {}
-  deleteTaskCard() {}
+  static addTaskCard(statusName, taskId, taskTitle, taskContent) {
+    (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.setTaskCard)({ statusName, taskId, taskTitle, taskContent });
+  }
 
   static modifyTaskCard(statusName = undefined, taskId = undefined, taskTitle = undefined, taskContent = undefined) {
     (0,_api_task__WEBPACK_IMPORTED_MODULE_0__.updateTaskCard)({ statusName, taskId, taskTitle, taskContent });
   }
+
+  static deleteTaskCard() {}
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TaskModel);
@@ -38402,6 +38404,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getTaskCount": () => (/* binding */ getTaskCount),
 /* harmony export */   "getTaskList": () => (/* binding */ getTaskList),
+/* harmony export */   "increaseTaskCount": () => (/* binding */ increaseTaskCount),
+/* harmony export */   "setTaskCard": () => (/* binding */ setTaskCard),
 /* harmony export */   "updateTaskCard": () => (/* binding */ updateTaskCard)
 /* harmony export */ });
 /* harmony import */ var _store_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
@@ -38444,13 +38448,37 @@ async function getTaskCount() {
 async function updateTaskCard(data) {
   const { statusName, taskId, taskTitle, taskContent } = data;
   const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
-  const updateData = {};
+  const updateTaskData = {};
 
-  taskTitle && (updateData[`todo.${statusName}.${taskId}.title`] = taskTitle);
-  taskContent && (updateData[`todo.${statusName}.${taskId}.content`] = taskContent);
-  updateData[`todo.${statusName}.${taskId}.active`] = false;
+  taskTitle && (updateTaskData[`todo.${statusName}.${taskId}.title`] = taskTitle);
+  taskContent && (updateTaskData[`todo.${statusName}.${taskId}.content`] = taskContent);
+  updateTaskData[`todo.${statusName}.${taskId}.active`] = false;
 
-  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)(docRef, updateData);
+  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)(docRef, updateTaskData);
+}
+
+async function setTaskCard(data) {
+  const { statusName, taskId, taskTitle, taskContent } = data;
+
+  const newTask = {};
+  newTask[`todo.${statusName}.${taskId}.title`] = taskTitle;
+  newTask[`todo.${statusName}.${taskId}.content`] = taskContent;
+  newTask[`todo.${statusName}.${taskId}.id`] = taskId;
+  newTask[`todo.${statusName}.${taskId}.active`] = false;
+
+  await increaseTaskCount();
+  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh'), newTask);
+
+  window.location.reload();
+}
+
+async function increaseTaskCount() {
+  const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.doc)(_store_firebase__WEBPACK_IMPORTED_MODULE_0__["default"], 'user', 'jangoh');
+  const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getDoc)(docRef);
+
+  const countTask = docSnap.data().countTask;
+
+  await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.updateDoc)(docRef, { countTask: countTask + 1 });
 }
 
 
@@ -38532,7 +38560,7 @@ function bindProcessor(target, _0 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.typeC
     .next(
       new (class extends _core_Processor_js__WEBPACK_IMPORTED_MODULE_4__["default"] {
         _process(viewModel, elem, key, val) {
-          elem.addEventListener(`${key}`, val(viewModel));
+          elem.addEventListener(`${key}`, val(viewModel, elem));
         }
       })('events'),
     )
@@ -39711,20 +39739,16 @@ function onClickNewSubmitButton() {
   return _core__WEBPACK_IMPORTED_MODULE_0__.ViewModel.get({
     properties: { disabled: true },
     events: {
-      click: (viewModel) => (e) => {
+      click: (viewModel, elem) => (e) => {
         e.preventDefault();
 
         const viewModelParent = viewModel.parent;
         const taskTitle = viewModelParent.newTaskTitle.properties.innerHTML;
         const taskContent = viewModelParent.newTaskContent.properties.innerHTML;
         const statusName = viewModelParent.statusTitle.properties.innerHTML;
-        console.log(viewModelParent, taskTitle, taskContent, statusName);
+        const taskId = elem.closest('.todo-task').dataset.taskid;
 
-        // const taskId = viewModelParent.taskCard.attributes['data-taskId'];
-
-        // toggleActive(viewModelParent);
-        // inputTaskCard(viewModelParent, taskTitle, taskContent);
-        // TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
+        _models__WEBPACK_IMPORTED_MODULE_1__.TaskModel.addTaskCard(statusName, taskId, taskTitle, taskContent);
       },
     },
   });
@@ -39836,7 +39860,7 @@ async function init() {
   const statusList = await new _models__WEBPACK_IMPORTED_MODULE_2__.StatusModel().statusData;
   const taskList = await new _models__WEBPACK_IMPORTED_MODULE_2__.TaskModel().taskData;
   const taskCount = await (0,_api_task__WEBPACK_IMPORTED_MODULE_4__.getTaskCount)();
-  console.log(taskCount);
+
   (0,_views__WEBPACK_IMPORTED_MODULE_1__.todoView)(taskCount);
 
   const binder = (0,_clients__WEBPACK_IMPORTED_MODULE_3__.bindProcessor)('.todo-main');

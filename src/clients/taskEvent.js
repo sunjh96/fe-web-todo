@@ -102,20 +102,16 @@ export function onClickNewSubmitButton() {
   return ViewModel.get({
     properties: { disabled: true },
     events: {
-      click: (viewModel) => (e) => {
+      click: (viewModel, elem) => (e) => {
         e.preventDefault();
 
         const viewModelParent = viewModel.parent;
         const taskTitle = viewModelParent.newTaskTitle.properties.innerHTML;
         const taskContent = viewModelParent.newTaskContent.properties.innerHTML;
         const statusName = viewModelParent.statusTitle.properties.innerHTML;
-        console.log(viewModelParent, taskTitle, taskContent, statusName);
+        const taskId = elem.closest('.todo-task').dataset.taskid;
 
-        // const taskId = viewModelParent.taskCard.attributes['data-taskId'];
-
-        // toggleActive(viewModelParent);
-        // inputTaskCard(viewModelParent, taskTitle, taskContent);
-        // TaskModel.modifyTaskCard(statusName, taskId, taskTitle, taskContent);
+        TaskModel.addTaskCard(statusName, taskId, taskTitle, taskContent);
       },
     },
   });

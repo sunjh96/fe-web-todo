@@ -8,7 +8,7 @@ async function init() {
   const statusList = await new StatusModel().statusData;
   const taskList = await new TaskModel().taskData;
   const taskCount = await getTaskCount();
-  console.log(taskCount);
+
   todoView(taskCount);
 
   const binder = bindProcessor('.todo-main');
