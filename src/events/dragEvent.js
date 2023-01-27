@@ -1,6 +1,6 @@
-import { patchListData } from './dataUtil.js';
-import { addLogItem } from './logItem.js';
-import { itemCounter } from './util/itemCounter.js';
+import { patchListData } from '../api/dataUtil.js';
+import { addLogItem } from '../logItem.js';
+import { itemCounter } from '../../src/util/itemCounter.js';
 
 let currentItem = null;
 let currentColumnArr = null;
@@ -14,9 +14,8 @@ let nearItemIndex = null;
 let nearItem = null;
 
 function mousedown(e) {
-  if (e.target.classList.contains('item-delete-btn') || e.target.classList.contains('item-edit-btn')) {
-    return;
-  }
+  if (e.target.classList.contains('item-delete-btn') || e.target.classList.contains('item-edit-btn')) return;
+
   currentItem = e.target.closest('li');
   if (currentItem === null || currentItem.classList.contains('edit-focus')) {
     return;

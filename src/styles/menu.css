@@ -2,8 +2,9 @@
   float: right;
   cursor: pointer;
 }
+
 .menu-wrapper {
-  background: #fff;
+  background: #ffffff;
   width: 28%;
   position: fixed;
   top: 0;
@@ -13,13 +14,16 @@
   overflow-y: scroll;
   z-index: 3;
 }
+
 .menu-wrapper::-webkit-scrollbar {
   visibility: hidden;
 }
+
 .menu-box {
   display: flex;
   flex-direction: column;
 }
+
 .menu-log-wrapper {
   margin-top: 40px;
   margin-left: 35px;
@@ -30,23 +34,29 @@
   margin-top: 7px;
   margin-bottom: 7px;
 }
+
 .log-profile-name {
   font-size: 14px;
 }
+
 .menu-log-box {
   display: flex;
   margin-bottom: 40px;
 }
+
 .log-content-text {
   font-size: 14px;
 }
+
 .log-content-time {
   color: #828282;
   font-size: 12px;
 }
+
 .log-profile {
   margin-right: 10px;
 }
+
 #menu-close-btn {
   margin-top: 50px;
   margin-right: 20%;
@@ -55,6 +65,7 @@
   color: #010101;
   cursor: pointer;
 }
+
 .sidebar-show {
   right: 0;
 }

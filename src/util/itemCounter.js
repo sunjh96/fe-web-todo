@@ -1,4 +1,4 @@
-import { getListData } from '../dataUtil.js';
+import { getListData } from '../../src/api/dataUtil.js';
 import { columnNames } from '../column.js';
 
 const countItemNum = document.querySelectorAll('.count-num');

@@ -1,4 +1,4 @@
-const makeListCard = ({ title, details, id }) => {
+const cardTemplate = ({ title, details, id }) => {
   return `
     <li class="item-wrapper" id="${id}" data-title="${title}">
       <div class="item-content-wrapper">
@@ -35,4 +35,4 @@ const makeListCard = ({ title, details, id }) => {
     </li>`;
 };
 
-export { makeListCard };
+export { cardTemplate };

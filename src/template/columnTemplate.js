@@ -1,4 +1,4 @@
-const makeColumn = ({ title = "제목" }) => {
+const columnTemplate = ({ title = '제목' }) => {
   return `
   <div class='Box'>
         <div class="listTitleBox">
@@ -24,4 +24,4 @@ const makeColumn = ({ title = "제목" }) => {
   `;
 };
 
-export { makeColumn };
+export { columnTemplate };

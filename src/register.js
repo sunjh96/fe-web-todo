@@ -1,8 +1,9 @@
-import { makeListCard } from './template/list.js';
+import { cardTemplate } from './template/cardTemplate.js';
 import { itemCounter } from './util/itemCounter.js';
-import { postListData } from './dataUtil.js';
+import { postListData } from './api/dataUtil.js';
 import { addLogItem } from './logItem.js';
 import { columnNames } from './column.js';
+import { client } from './api/client.js';
 
 const titleInputBox = document.getElementsByClassName('title-input');
 const detailInputBox = document.getElementsByClassName('detail-input');
@@ -15,12 +16,13 @@ const makeId = () => {
 };
 
 const makeItemIndex = async (status) => {
-  const res = await axios.get('http://localhost:3011/lists?status=' + `${status}`);
+  const res = await client.get(`/lists?status=${status}`);
   return res.data.length;
 };
 
-const registerItem = async (index) => {
-  event.preventDefault();
+const registerItem = async (e, index) => {
+  e.preventDefault();
+
   if (!titleInputBox[index].value || !detailInputBox[index].value) alert('내용을 입력해 주세요!');
   else {
     const putHere = document.querySelectorAll('.item-list')[index];
@@ -44,7 +46,7 @@ const registerItem = async (index) => {
       from: '',
     };
 
-    const newItemBox = makeListCard(newItemObj);
+    const newItemBox = cardTemplate(newItemObj);
     putHere.insertAdjacentHTML('afterbegin', newItemBox);
 
     postListData(newItemObj);
@@ -57,9 +59,9 @@ const registerItem = async (index) => {
 };
 
 const addNewCardItem = () => {
-  registerBtn.forEach((el, index) => {
-    el.onclick = () => {
-      registerItem(index);
+  registerBtn.forEach((elem, index) => {
+    elem.onclick = (e) => {
+      registerItem(e, index);
     };
   });
 };
