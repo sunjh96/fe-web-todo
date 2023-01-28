@@ -13,6 +13,14 @@ let hoverItem = null;
 let nearItemIndex = null;
 let nearItem = null;
 
+function dragEvent() {
+  const container = document.querySelector('.container');
+
+  container.addEventListener('mousedown', mousedown);
+  container.addEventListener('mousemove', mousemove);
+  container.addEventListener('mouseup', mouseup);
+}
+
 function mousedown(e) {
   if (e.target.classList.contains('item-delete-btn') || e.target.classList.contains('item-edit-btn')) return;
 
@@ -103,4 +111,4 @@ function moveItem(X, Y) {
   hoverItem.style.top = Y - hoverItem.offsetHeight / 2 + 'px';
 }
 
-export { mousedown, mouseup, mousemove };
+export default dragEvent;

@@ -15,14 +15,13 @@ const closeColumnModal = ({ target }) => {
   document.querySelector('.modal-column').classList.toggle('hidden');
 };
 
-const closeCardModal = () => {
+export const closeCardModal = () => {
   document.querySelector('.modal').classList.add('hidden');
   document.querySelector('.focus').classList.remove('focus');
 };
 
-const openCardModal = () => {
+export const openCardModal = (targetCard) => {
   document.querySelector('.modal').classList.remove('hidden');
-  targetCard.classList.add('focus');
 };
 
-export { modalEvent, openCardModal, closeCardModal };
+export default modalEvent;

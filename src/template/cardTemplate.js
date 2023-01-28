@@ -15,7 +15,7 @@ const cardTemplate = ({ title, details, id }) => {
         </div>
         <div class="item-btn-wrapper">
           <div class="material-symbols-outlined item-delete-btn" id="item-delete-btn">close</div>
-          <div class="material-symbols-outlined item-edit-btn">edit</div>
+          <div class="material-symbols-outlined item-edit-btn" id="item-edit-btn">edit</div>
         </div>
       </div>
       <div class="item-edit-content-wrapper hidden">

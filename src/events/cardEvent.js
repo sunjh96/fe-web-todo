@@ -1,18 +1,17 @@
-import { openCardModal, closeCardModal } from './delete.js';
+import { openCardModal, closeCardModal } from './modalEvent.js';
 import { itemCounter } from '../../src/util/itemCounter.js';
 import { addLogItem } from '../logItem.js';
 import { deleteListData } from '../api/dataUtil.js';
-import { updateColumnList } from '../column.js';
 import { patchListData } from '../api/dataUtil.js';
+import { updateColumnList } from '../column.js';
 
+let editActiveButtonTarget = document.querySelector('.item-edit-active-btn');
 const deleteButtonTarget = document.querySelector('.modal-delete-btn');
-const editActiveButtonTarget = document.querySelector('.item-edit-active-btn');
 
 const cardEvent = () => {
   document.addEventListener('click', deleteCard);
   document.addEventListener('click', onClickCardAddButton);
   document.addEventListener('click', onClickCardAddFormCloseButton);
-  document.addEventListener('click', onClickCardEditCancelButton);
   document.addEventListener('click', onClickCardEditButton);
 };
 
@@ -23,9 +22,16 @@ const deleteCard = ({ target }) => {
 
   openCardModal();
   targetCard.classList.add('focus');
+
+  document.addEventListener('click', onClickCancelDeleteMoaalButton);
   deleteButtonTarget.addEventListener('click', onSubmitDeleteCard(targetCard));
 };
+const onClickCancelDeleteMoaalButton = ({ target }) => {
+  if (target.id !== 'modal-cancel-btn') return;
 
+  closeCardModal();
+  document.removeEventListener('click', onClickCancelDeleteMoaalButton);
+};
 const onSubmitDeleteCard =
   (targetCard) =>
   async ({ target }) => {
@@ -57,7 +63,7 @@ const onClickCardAddButton = ({ target }) => {
 };
 
 const onClickCardAddFormCloseButton = ({ target }) => {
-  if (!target.className.includes('cancel-btn')) return;
+  if (!target.closest('.btn-wrapper')) return;
 
   const columnTarget = target.closest('.Box');
   columnTarget && columnTarget.querySelector('.item-add-box').classList.toggle('hidden');
@@ -69,11 +75,13 @@ const onClickCardEditButton = ({ target }) => {
   const cardWrapper = target.closest('li');
   const contentBox = cardWrapper.childNodes[1];
   const authorBox = cardWrapper.childNodes[3];
+  editActiveButtonTarget = document.querySelector('.item-edit-active-btn');
 
   cardWrapper.classList.add('edit-focus');
   contentBox.classList.add('hidden');
   authorBox.classList.remove('hidden');
 
+  document.addEventListener('click', onClickCardEditCancelButton(contentBox, cardWrapper, authorBox));
   editActiveButtonTarget.addEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
 };
 
@@ -81,14 +89,16 @@ const closeCardEditForm = (contentBox, cardWrapper, authorBox) => {
   contentBox.classList.remove('hidden');
   cardWrapper.classList.remove('edit-focus');
   authorBox.classList.add('hidden');
+
+  editActiveButtonTarget.removeEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
 };
 
 const onClickCardEditCancelButton =
   (contentBox, cardWrapper, authorBox) =>
   ({ target }) => {
     if (target.className !== 'item-edit-cancel-btn') return;
-
-    closeCardEditForm();
+    console.log(1);
+    closeCardEditForm(contentBox, cardWrapper, authorBox);
   };
 
 const onSubmitEditCardData =
@@ -96,7 +106,7 @@ const onSubmitEditCardData =
   async ({ target }) => {
     if (target.className !== 'item-edit-active-btn') return;
 
-    const editContent = e.target.parentNode.parentNode;
+    const editContent = target.parentNode.parentNode;
     const revisedTitle = editContent.querySelector('.item-edit-title-input').value;
     const revisedDetail = editContent.querySelector('.item-edit-detail-input').value;
 
@@ -119,8 +129,6 @@ const onSubmitEditCardData =
 
     addLogItem(logData);
     closeCardEditForm(contentBox, cardWrapper, authorBox);
-
-    editActiveButtonTarget.removeEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
   };
 
-export { cardEvent };
+export default cardEvent;

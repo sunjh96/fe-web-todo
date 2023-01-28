@@ -2,7 +2,7 @@ import { columnTemplate } from '../template/columnTemplate.js';
 import { columnNames } from '../column.js';
 
 const columnEvent = () => {
-  document.addEventListener('click', onClickColumnAddButton); //
+  document.addEventListener('click', onClickColumnAddButton);
 };
 
 const onClickColumnAddButton = (e) => {
@@ -23,4 +23,4 @@ const onClickColumnAddButton = (e) => {
   document.querySelector('.modal-column').classList.add('hidden');
 };
 
-export { columnEvent };
+export default columnEvent;
