@@ -1,5 +1,5 @@
 import { patchListData } from '../api/dataUtil.js';
-import { addLogItem } from '../logItem.js';
+import { addLogItem } from '../log.js';
 import { itemCounter } from '../../src/util/itemCounter.js';
 
 let currentItem = null;

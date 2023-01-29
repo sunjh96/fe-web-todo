@@ -1,12 +1,16 @@
 import { openCardModal, closeCardModal } from './modalEvent.js';
 import { itemCounter } from '../../src/util/itemCounter.js';
-import { addLogItem } from '../logItem.js';
+import { addLogItem } from '../log.js';
 import { deleteListData } from '../api/dataUtil.js';
-import { patchListData } from '../api/dataUtil.js';
+import { patchListData, postListData } from '../api/dataUtil.js';
 import { updateColumnList } from '../column.js';
+import { cardTemplate } from '../template/cardTemplate.js';
+import { columnNames } from '../column.js';
+import { makeId, makeItemIndex } from '../card.js';
 
-let editActiveButtonTarget = document.querySelector('.item-edit-active-btn');
 const deleteButtonTarget = document.querySelector('.modal-delete-btn');
+const titleInputBox = document.getElementsByClassName('title-input');
+const detailInputBox = document.getElementsByClassName('detail-input');
 
 const cardEvent = () => {
   document.addEventListener('click', deleteCard);
@@ -75,14 +79,13 @@ const onClickCardEditButton = ({ target }) => {
   const cardWrapper = target.closest('li');
   const contentBox = cardWrapper.childNodes[1];
   const authorBox = cardWrapper.childNodes[3];
-  editActiveButtonTarget = document.querySelector('.item-edit-active-btn');
 
   cardWrapper.classList.add('edit-focus');
   contentBox.classList.add('hidden');
   authorBox.classList.remove('hidden');
 
   document.addEventListener('click', onClickCardEditCancelButton(contentBox, cardWrapper, authorBox));
-  editActiveButtonTarget.addEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
+  document.addEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
 };
 
 const closeCardEditForm = (contentBox, cardWrapper, authorBox) => {
@@ -90,14 +93,14 @@ const closeCardEditForm = (contentBox, cardWrapper, authorBox) => {
   cardWrapper.classList.remove('edit-focus');
   authorBox.classList.add('hidden');
 
-  editActiveButtonTarget.removeEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
+  document.removeEventListener('click', onSubmitEditCardData(contentBox, cardWrapper, authorBox));
 };
 
 const onClickCardEditCancelButton =
   (contentBox, cardWrapper, authorBox) =>
   ({ target }) => {
     if (target.className !== 'item-edit-cancel-btn') return;
-    console.log(1);
+
     closeCardEditForm(contentBox, cardWrapper, authorBox);
   };
 
@@ -130,5 +133,43 @@ const onSubmitEditCardData =
     addLogItem(logData);
     closeCardEditForm(contentBox, cardWrapper, authorBox);
   };
+
+export const registerCard = async (e, index) => {
+  e.preventDefault();
+
+  if (!titleInputBox[index].value || !detailInputBox[index].value) alert('내용을 입력해 주세요!');
+  else {
+    const putHere = document.querySelectorAll('.item-list')[index];
+    const newTitle = titleInputBox[index].value;
+    const newDetail = detailInputBox[index].value;
+    const newStatus = columnNames[index];
+    const itemId = makeId();
+    const newIndex = await makeItemIndex(newStatus);
+    const newItemObj = {
+      title: newTitle,
+      details: newDetail,
+      status: newStatus,
+      id: itemId,
+      index: newIndex,
+    };
+
+    const newLogItem = {
+      action: 'Add',
+      title: newTitle,
+      to: columnNames[index],
+      from: '',
+    };
+
+    const newItemBox = cardTemplate(newItemObj);
+    putHere.insertAdjacentHTML('afterbegin', newItemBox);
+
+    postListData(newItemObj);
+    addLogItem(newLogItem);
+    itemCounter(newStatus);
+    titleInputBox[index].value = '';
+    detailInputBox[index].value = '';
+    document.querySelectorAll('.item-add-box')[index].classList.add('hidden');
+  }
+};
 
 export default cardEvent;
